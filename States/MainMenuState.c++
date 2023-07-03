@@ -19,7 +19,7 @@ void MainMenuState::initBackground()
 		)
 	);
 
-	if (!this->backgroundTexture.loadFromFile("Resources/Images/Backgrounds/bg1.png"))
+	if (!this->backgroundTexture.loadFromFile("Resources/Images/Backgrounds/bg2.png"))
 	{
 		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
@@ -77,7 +77,7 @@ MainMenuState::~MainMenuState(){
 }
 
 
-void MainMenuState::updateInput(const float & dt){
+void MainMenuState::updateInput(float & dt){
 
 }
 
@@ -97,7 +97,7 @@ void MainMenuState::updateButtons(){
     }
 }
 
-void MainMenuState::update(const float& dt){
+void MainMenuState::update(float& dt){
     this->updateMousePositions();
     this->updateInput(dt);
     this->updateButtons();

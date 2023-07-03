@@ -16,8 +16,8 @@ class GameState : public State{
 	    virtual ~GameState();
 
         //Functions
-        void updateInput(const float& dt);
-        void update(const float& dt);
+        void updateInput(float& dt);
+        void update(float& dt);
         void render(RenderTarget* target = NULL);
 };
 

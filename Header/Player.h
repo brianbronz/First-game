@@ -14,10 +14,11 @@ private:
 	void initComponents();
 
 public:
-	Player(float x, float y, Texture& texture);
+	Player(float x, float y, Texture& textureSheet);
 	virtual ~Player();
 
 	//Functions
+	virtual void update(float& dt);
 };
 
 #endif

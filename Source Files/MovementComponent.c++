@@ -1,11 +1,11 @@
 #include "../Header/MovementComponent.h"
 
-MovementComponent::MovementComponent(Sprite& sprite, 
-	float maxVelocity, float acceleration, float deceleration)
-	: sprite(sprite),
-	maxVelocity(maxVelocity), acceleration(acceleration), deceleration(deceleration)
+MovementComponent::MovementComponent(Sprite& sprite, float maxVelocity, float acceleration, float deceleration)
+: sprite(sprite)
 {
-
+	this->maxVelocity = maxVelocity;
+	this->acceleration = acceleration;
+	this->deceleration = deceleration;
 }
 
 MovementComponent::~MovementComponent()

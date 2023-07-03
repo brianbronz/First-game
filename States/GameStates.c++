@@ -16,7 +16,7 @@ void GameState::initKeybinds(){
     ifs.close();}
 
 void GameState::initTextures(){
-	if (!this->textures["PLAYER_IDLE"].loadFromFile("Resources/Images/Sprites/Player/test.png")){
+	if (!this->textures["PLAYER_IDLE"].loadFromFile("Resources/Images/Sprites/Player/PLAYER_SHEET.png")){//change test with name file for animation
 		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_IDLE_TEXTURE";
 	}
 }
@@ -37,8 +37,8 @@ GameState::~GameState(){
     delete this->player;
 }
 
-void GameState::updateInput(const float& dt){
-    //update player input
+void GameState::updateInput(float& dt){
+    //update player input 
     if(Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("MOVE_LEFT")))){
         this->player->move(-1.f, 0.f, dt);
     }
@@ -58,7 +58,7 @@ void GameState::updateInput(const float& dt){
 }
 
 
-void GameState::update(const float& dt){
+void GameState::update(float& dt){
     this->updateMousePositions();
     this->updateInput(dt);
     this->player->update(dt);

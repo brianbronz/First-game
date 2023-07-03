@@ -1,3 +1,4 @@
 /Source Files/SFML-2.6.0/
-.DS_Store
 /Source Files/Resources/Images
+.DS_Store
+.vscode

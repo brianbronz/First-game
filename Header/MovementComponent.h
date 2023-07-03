@@ -31,8 +31,7 @@ private:
 	//Initializer functions
 
 public:
-	MovementComponent(Sprite& sprite, 
-		float maxVelocity, float acceleration, float deceleration);
+	MovementComponent(Sprite& sprite, float maxVelocity, float acceleration, float deceleration);
 	virtual ~MovementComponent();
 
 	//Accessors
