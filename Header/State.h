@@ -26,8 +26,8 @@ class State{
         void endState();
         
         void updateMousePositions();
-        virtual void updateInput(float& dt) = 0;
-        virtual void update(float& dt) = 0;//implement in the subclass for the inherit
+        virtual void updateInput(const float& dt) = 0;
+        virtual void update(const float& dt) = 0;//implement in the subclass for the inherit
         virtual void render(RenderTarget* target = NULL) = 0;
 };
 

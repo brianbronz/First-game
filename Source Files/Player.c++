@@ -30,7 +30,7 @@ Player::~Player()
 }
 
 //Functions
-void Player::update(float &dt){
+void Player::update(const float& dt){
 	this->movementComponent->update(dt);	
 	this->animationComponent->play("IDLE_LEFT", dt); //name file, dt
 }

@@ -2,7 +2,6 @@
 #include "State.c++"
 #include "../Source Files/Player.c++"
 #include <SFML/Window/Keyboard.hpp>
-#include <SDL2/SDL.h>
 
 void GameState::initKeybinds(){
     ifstream ifs("../Config/gameStateKeybinds.ini");
@@ -37,8 +36,8 @@ GameState::~GameState(){
     delete this->player;
 }
 
-void GameState::updateInput(float& dt){
-    //update player input 
+void GameState::updateInput(const float& dt){
+    //update player input
     if(Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("MOVE_LEFT")))){
         this->player->move(-1.f, 0.f, dt);
     }
@@ -58,7 +57,7 @@ void GameState::updateInput(float& dt){
 }
 
 
-void GameState::update(float& dt){
+void GameState::update(const float& dt){
     this->updateMousePositions();
     this->updateInput(dt);
     this->player->update(dt);

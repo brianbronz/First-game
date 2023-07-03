@@ -30,6 +30,6 @@ void AnimationComponent::reseAnimation(string animation){
 
 }
 
-void AnimationComponent::play(string key, float& dt){
+void AnimationComponent::play(string key, const float& dt){
     this->animations[key]->play(dt);
 }

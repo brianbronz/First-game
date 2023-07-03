@@ -77,7 +77,7 @@ MainMenuState::~MainMenuState(){
 }
 
 
-void MainMenuState::updateInput(float & dt){
+void MainMenuState::updateInput(const float & dt){
 
 }
 
@@ -97,7 +97,7 @@ void MainMenuState::updateButtons(){
     }
 }
 
-void MainMenuState::update(float& dt){
+void MainMenuState::update(const float& dt){
     this->updateMousePositions();
     this->updateInput(dt);
     this->updateButtons();

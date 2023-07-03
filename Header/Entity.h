@@ -24,8 +24,8 @@ class Entity{
         void createAnimationComponent(Texture& textureSheet);
         //Functions
         virtual void setPosition(const float x, const float y);
-	    virtual void move(const float x, const float y, const float& dt);
-        virtual void update(const float& dt);
+	    virtual void move(const float x, const float y, const float & dt);
+        virtual void update(const float & dt);
         virtual void render(RenderTarget* target);
 
 };

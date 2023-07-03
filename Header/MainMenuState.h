@@ -23,9 +23,9 @@ class MainMenuState:public State{
 	    virtual ~MainMenuState();
 
         //Functions
-        void updateInput(float& dt);
+        void updateInput(const float& dt);
         void updateButtons();
-        void update(float& dt);
+        void update(const float& dt);
         void renderButtons(RenderTarget* target = NULL);
         void render(RenderTarget* target = NULL);
 };

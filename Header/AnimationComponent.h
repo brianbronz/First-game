@@ -35,7 +35,7 @@ class AnimationComponent{
                 }
                 
             //function
-            void play(float& dt){
+            void play(const float& dt){
                 //update timer
                 this->timer += 100.f * dt; 
                 if (this->timer >= this->speedAnimation){
@@ -72,6 +72,6 @@ class AnimationComponent{
         void startAnimation(string animation);
         void pauseAnimation(string animation);
         void reseAnimation(string animation);
-        void play(string key, float& dt);
+        void play(string key, const float& dt);
 };
 #endif

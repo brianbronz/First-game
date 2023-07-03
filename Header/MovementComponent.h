@@ -9,11 +9,11 @@
 #include <stack>
 #include <map>
 #include <vector>
-#include "../Source Files/SFML-2.6.0/include/SFML/Audio.hpp"
-#include "../Source Files/SFML-2.6.0/include/SFML/Graphics.hpp"
-#include "../Source Files/SFML-2.6.0/include/SFML/System.hpp"
-#include "../Source Files/SFML-2.6.0/include/SFML/Window.hpp"
-#include "../Source Files/SFML-2.6.0/include/SFML/Network.hpp"
+#include "SFML/Audio.hpp"
+#include "SFML/Graphics.hpp"
+#include "SFML/System.hpp"
+#include "SFML/Window.hpp"
+#include "SFML/Network.hpp"
 using namespace std;
 using namespace sf;
 
@@ -38,8 +38,8 @@ public:
 	const Vector2f& getVelocity() const;
 
 	//Functions
-	void move(const float x, const float y, const float& dt);
-	void update(const float& dt);
+	void move(const float x, const float y, const float & dt);
+	void update(const float & dt);
 };
 
 #endif

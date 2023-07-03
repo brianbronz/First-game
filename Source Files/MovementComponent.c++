@@ -19,7 +19,7 @@ const Vector2f & MovementComponent::getVelocity() const
 }
 
 //Functions
-void MovementComponent::move(const float dir_x, const float dir_y, const float& dt)
+void MovementComponent::move(const float dir_x, const float dir_y, const float & dt)
 {
 	/* Accelerating a sprite until it reaches the max velocity. */
 
