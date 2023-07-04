@@ -1,6 +1,6 @@
 #include "../Header/AnimationComponent.h"
 
-AnimationComponent::AnimationComponent(Sprite& sprite, Texture& textureSheet):sprite(sprite), textureSheet(textureSheet){
+AnimationComponent::AnimationComponent(Sprite& sprite, Texture& textureSheet):sprite(sprite), textureSheet(textureSheet), lastAnimation(NULL){
 }
 
 AnimationComponent::~AnimationComponent(){
@@ -26,10 +26,16 @@ void AnimationComponent::pauseAnimation(string animation){
 
 }
 
-void AnimationComponent::reseAnimation(string animation){
+void AnimationComponent::resetAnimation(string animation){
 
 }
 
-void AnimationComponent::play(string key, const float& dt){
+void AnimationComponent::play(string key, const float& dt){\
+    if(this->lastAnimation != this->animations[key] ){
+        if (this->lastAnimation != NULL){
+            this->lastAnimation->reset();
+        }
+        this->lastAnimation = this->animations[key];
+    }
     this->animations[key]->play(dt);
 }

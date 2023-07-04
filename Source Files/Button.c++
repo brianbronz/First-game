@@ -69,7 +69,7 @@ void Button::update(Vector2f mousePos){
     }
 }
 
-void Button::render(RenderTarget* target){
-    target->draw(this->shape);
-    target->draw(this->text);
+void Button::render(RenderTarget& target){
+    target.draw(this->shape);
+    target.draw(this->text);
 }

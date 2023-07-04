@@ -5,11 +5,11 @@
 #include <cstdlib>
 #include <sstream>
 
-#include "../Source Files/SFML-2.6.0/include/SFML/Audio.hpp"
-#include "../Source Files/SFML-2.6.0/include/SFML/Graphics.hpp"
-#include "../Source Files/SFML-2.6.0/include/SFML/System.hpp"
-#include "../Source Files/SFML-2.6.0/include/SFML/Window.hpp"
-#include "../Source Files/SFML-2.6.0/include/SFML/Network.hpp"
+#include "../Source Files/SFML/include/SFML/Audio.hpp"
+#include "../Source Files/SFML/include/SFML/Graphics.hpp"
+#include "../Source Files/SFML/include/SFML/System.hpp"
+#include "../Source Files/SFML/include/SFML/Window.hpp"
+#include "../Source Files/SFML/include/SFML/Network.hpp"
 using namespace sf;
 using namespace std;
 
@@ -49,7 +49,7 @@ class Button{
 
         //Function
         void update(const Vector2f mousePos);
-        void render(RenderTarget* target);
+        void render(RenderTarget& target);
 };
 
 #endif

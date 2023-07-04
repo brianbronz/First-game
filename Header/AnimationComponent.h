@@ -2,11 +2,11 @@
 #define ANIMATIONCOMPONENT_H
 #include <iostream>
 #include <map>
-#include "../Source Files/SFML-2.6.0/include/SFML/Audio.hpp"
-#include "../Source Files/SFML-2.6.0/include/SFML/Graphics.hpp"
-#include "../Source Files/SFML-2.6.0/include/SFML/System.hpp"
-#include "../Source Files/SFML-2.6.0/include/SFML/Window.hpp"
-#include "../Source Files/SFML-2.6.0/include/SFML/Network.hpp"
+#include "../Source Files/SFML/include/SFML/Audio.hpp"
+#include "../Source Files/SFML/include/SFML/Graphics.hpp"
+#include "../Source Files/SFML/include/SFML/System.hpp"
+#include "../Source Files/SFML/include/SFML/Window.hpp"
+#include "../Source Files/SFML/include/SFML/Network.hpp"
 using namespace std;
 using namespace sf;
 class AnimationComponent{
@@ -61,6 +61,7 @@ class AnimationComponent{
         Sprite& sprite;
         Texture& textureSheet;
         map<string, Animation*> animations;
+        Animation* lastAnimation;
 
     public:
         AnimationComponent(Sprite& sprite, Texture& textureSheet);
@@ -71,7 +72,7 @@ class AnimationComponent{
             int start_frames_y, int frames_x, int frames_y, int width, int height);
         void startAnimation(string animation);
         void pauseAnimation(string animation);
-        void reseAnimation(string animation);
+        void resetAnimation(string animation);
         void play(string key, const float& dt);
 };
 #endif
