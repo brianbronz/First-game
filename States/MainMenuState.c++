@@ -1,8 +1,6 @@
 #include "../Header/MainMenuState.h"
 #include "../Source Files/Button.c++"
 #include "GameStates.c++"
-//#include "State.c++"
-
 //Initializer functions
 void MainMenuState::initVariables()
 {
@@ -103,7 +101,7 @@ void MainMenuState::update(const float& dt){
     this->updateButtons();
 }
 
-void MainMenuState::renderButtons(RenderTarget* target){
+void MainMenuState::renderButtons(RenderTarget& target){
     for (map<std::string, Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it) {
         it->second->render(target);
     }
@@ -115,7 +113,7 @@ void MainMenuState::render(RenderTarget* target){
     }
     target->draw(this->background);
 
-   this->renderButtons(target);
+   this->renderButtons(*target);
    	//REMOVE LATER!!! for debugging positions
 /* 	sf::Text mouseText;
 	mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 50);

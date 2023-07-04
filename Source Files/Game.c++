@@ -1,7 +1,6 @@
 #include "../Header/Game.h"
 #include "../Header/MainMenuState.h"
 #include "../States/MainMenuState.c++"
-using namespace std;
 
 //static functions
 void Game::initVariables(){

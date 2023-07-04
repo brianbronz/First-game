@@ -1,8 +1,11 @@
 #include "../Header/Entity.h"
 #include "../Source Files/MovementComponent.c++"
+#include "../Source Files/HitBoxComponent.c++"
 
 void Entity:: initVariables(){
+	this->hitboxComponent = NULL;
     this->movementComponent = NULL;
+	this->animationComponent = NULL;
 }
 
 Entity::Entity(){
@@ -10,6 +13,7 @@ Entity::Entity(){
 }
 
 Entity::~Entity(){
+	delete this->hitboxComponent;
     delete this->movementComponent;
 	delete this->animationComponent;
 }
@@ -17,6 +21,10 @@ Entity::~Entity(){
 //Component functions
 void Entity::setTexture(Texture& texture){
 	this->sprite.setTexture(texture);
+}
+
+void Entity::createHitboxComponent(Sprite & sprite, float offset_x, float offset_y, float width, float height){
+	this->hitboxComponent = new HitboxComponent(sprite, offset_x, offset_y, width, height);
 }
 
 void Entity::createMovementComponent(const float maxVelocity, const float acceleration, const float deceleration)
@@ -48,6 +56,8 @@ void Entity::update(const float & dt){
 
 }
 
-void Entity::render(RenderTarget* target){
-    target->draw(this->sprite);
+void Entity::render(RenderTarget& target){
+    target.draw(this->sprite);
+	if (this->hitboxComponent)
+		this->hitboxComponent->render(target);
 }

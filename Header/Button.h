@@ -1,17 +1,7 @@
 #ifndef BUTTON_H
 #define BUTTON_H
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <sstream>
 
-#include "../Source Files/SFML/include/SFML/Audio.hpp"
-#include "../Source Files/SFML/include/SFML/Graphics.hpp"
-#include "../Source Files/SFML/include/SFML/System.hpp"
-#include "../Source Files/SFML/include/SFML/Window.hpp"
-#include "../Source Files/SFML/include/SFML/Network.hpp"
-using namespace sf;
-using namespace std;
+#include "AllReference.h"
 
 enum button_states{ 
                 BTN_IDLE = 0,

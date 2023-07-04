@@ -1,14 +1,7 @@
 #ifndef ANIMATIONCOMPONENT_H
 #define ANIMATIONCOMPONENT_H
-#include <iostream>
-#include <map>
-#include "../Source Files/SFML/include/SFML/Audio.hpp"
-#include "../Source Files/SFML/include/SFML/Graphics.hpp"
-#include "../Source Files/SFML/include/SFML/System.hpp"
-#include "../Source Files/SFML/include/SFML/Window.hpp"
-#include "../Source Files/SFML/include/SFML/Network.hpp"
-using namespace std;
-using namespace sf;
+#include "AllReference.h"
+
 class AnimationComponent{
     private:
         class Animation{

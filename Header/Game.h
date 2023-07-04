@@ -2,8 +2,6 @@
 #define GAME_H
 
 #include "MainMenuState.h"
-using namespace sf;
-using namespace std;
 
 class Game{
     private:

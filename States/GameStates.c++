@@ -1,7 +1,6 @@
 #include "../Header/GameState.h"
-#include "State.c++"
 #include "../Source Files/Player.c++"
-#include <SFML/Window/Keyboard.hpp>
+#include "State.c++"
 
 void GameState::initKeybinds(){
     ifstream ifs("../Config/gameStateKeybinds.ini");
@@ -67,5 +66,5 @@ void GameState::render(RenderTarget* target){
     if (!target){
         target = this->window;
     }
-    this->player->render(target);
+    this->player->render(*target);
 }
