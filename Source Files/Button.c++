@@ -35,7 +35,7 @@ bool Button::isPressed(){
     return this->buttonState == BTN_ACTIVE;
 }
 
-void Button::update(Vector2f mousePos){
+void Button::update(Vector2f& mousePos){
     //update the booleans for hover and pressed
     //Idle
     this->buttonState = BTN_IDLE;

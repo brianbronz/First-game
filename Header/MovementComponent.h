@@ -23,7 +23,8 @@ public:
 	virtual ~MovementComponent();
 
 	//Accessors
-	const Vector2f& getVelocity() const;
+	float& getMaxVelocity();
+	Vector2f& getVelocity();
 
 	//Functions
 	bool getState(short unsigned state);

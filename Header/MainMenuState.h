@@ -3,6 +3,7 @@
 
 #include "GameState.h"
 #include "Button.h"
+#include "SettingsState.h"
 class MainMenuState:public State{
     private: 
         //Field variables

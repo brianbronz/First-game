@@ -1,6 +1,7 @@
 #include "../Header/MainMenuState.h"
 #include "../Source Files/Button.c++"
 #include "GameStates.c++"
+#include "SettingsStates.c++"
 //Initializer functions
 void MainMenuState::initVariables()
 {
@@ -92,6 +93,11 @@ void MainMenuState::updateButtons(){
     //Quit the game
     if(this->buttons["EXIT_STATE"]->isPressed()){
         this->endState();
+    }
+
+    //Quit the game
+    if(this->buttons["SETTINGS_STATE"]->isPressed()){
+         this->states->push(new SettingsState(this->window, this->supportedKeys, this->states));
     }
 }
 

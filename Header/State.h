@@ -9,6 +9,7 @@ class State{
         map<string, int>* supportedKeys;
         map<string, int> keybinds;
         bool quit;
+        bool paused;
 
         Vector2i mousePosScreen;
         Vector2i mousePosWindow;
@@ -24,6 +25,8 @@ class State{
 
         const bool& getQuit();
         void endState();
+        void pauseState();
+        void unpauseState();
         
         void updateMousePositions();
         virtual void updateInput(const float& dt) = 0;

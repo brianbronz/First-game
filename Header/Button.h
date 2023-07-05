@@ -38,7 +38,7 @@ class Button{
         bool isPressed();
 
         //Function
-        void update(const Vector2f mousePos);
+        void update(const Vector2f& mousePos);
         void render(RenderTarget& target);
 };
 
