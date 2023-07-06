@@ -1,7 +1,7 @@
 #ifndef PAUSEMENU_H 
 #define PAUSEMENU_H
 #include "AllReference.h"
-#include "Button.h"
+#include "Gui.h"
 
 class PauseMenu{
     private:
@@ -9,14 +9,14 @@ class PauseMenu{
         Text menuText;
         RectangleShape background;
         RectangleShape container;
-        map<string, Button*> buttons;
+        map<string, gui::Button*> buttons;
 
     public:
         PauseMenu(RenderWindow& window, Font& font);
         virtual ~PauseMenu();
 
         //Accessors
-        map<string, Button*>& getButtons();
+        map<string, gui::Button*>& getButtons();
         //Functions
         bool isButtonPressed(string key);
         void addButton(string key, float y, string text);

@@ -2,7 +2,7 @@
 #define MAINMENUSTATE_H
 
 #include "GameState.h"
-#include "Button.h"
+#include "Gui.h"
 #include "SettingsState.h"
 class MainMenuState:public State{
     private: 
@@ -11,7 +11,7 @@ class MainMenuState:public State{
         RectangleShape background;
         Font font;
 
-        map<string, Button*> buttons;
+        map<string, gui::Button*> buttons;
 
         //functions
         void initVariables();

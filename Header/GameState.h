@@ -23,7 +23,7 @@ class GameState : public State{
 
         //Functions
         void updateInput(const float& dt);
-        void uodatePlayerInput(float& dt);
+        void updatePlayerInput(float& dt);
         void updatePauseMenuButtons();
         void update(const float& dt);
         void render(RenderTarget* target = NULL);

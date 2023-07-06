@@ -27,9 +27,13 @@ PauseMenu::PauseMenu(RenderWindow& window, Font& font): font(font){
 }
 
 PauseMenu::~PauseMenu(){
-    for (map<std::string, Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
+    for (map<std::string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
         delete it->second;
     }
+}
+
+map<string, gui::Button*>& PauseMenu::getButtons(){
+    return this->buttons;
 }
 
 bool PauseMenu::isButtonPressed(string key){
@@ -40,19 +44,21 @@ void PauseMenu::addButton(string key, float y, string text){
     float width = 250.f;
     float height = 50.f;
     float x = this->container.getPosition().x + this->container.getSize().x / 2.f - width / 2.f;
-    this->buttons[key] = new Button(x, y, width, height, &this->font, text, 50, Color::Blue, Color::Green, Color::Red);
+    this->buttons[key] = new gui::Button(x, y, width, height, &this->font, text, 50, 
+    Color::Black, Color::Black, Color::Black,
+    Color::Blue, Color::Green, Color::Red);
 }
 
-void PauseMenu::update(){
-    for (auto &i : this->buttons){
-        i.second->update(mousePos);    
+void PauseMenu::update(Vector2f& mousePos){
+    for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
+        it->second->update(mousePos);    
     }
 }
 
 void PauseMenu::render(RenderTarget& target){
     target.draw(this->background);
     target.draw(this->container);
-    for (map<std::string, Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
+    for (map<std::string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
         it->second->render(target);
     }
     target.draw(this->menuText);

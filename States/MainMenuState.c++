@@ -1,7 +1,7 @@
 #include "../Header/MainMenuState.h"
-#include "../Source Files/Button.c++"
+#include "../Source Files/Gui.c++"
 #include "GameStates.c++"
-#include "SettingsStates.c++"
+#include "../Source Files/SettingsState.c++"
 //Initializer functions
 void MainMenuState::initVariables()
 {
@@ -46,16 +46,16 @@ void MainMenuState::initKeybinds(){
 }
 
 void MainMenuState::initButtons(){
-    this->buttons["GAME_STATE"] = new Button(771.f, 826.f, 250.f, 70.f, 
+    this->buttons["GAME_STATE"] = new gui::Button(771.f, 826.f, 250.f, 70.f, 
         &this->font, "New Game", 50,
         Color::Black, Color::Black, Color::Black,
         Color::Red, Color::Green, Color::Blue);
 
-    this->buttons["SETTINGS"] = new Button(771, 1012, 250, 70, &this->font, "Settings", 50,
+    this->buttons["SETTINGS_STATE"] = new gui::Button(771, 1012, 250, 70, &this->font, "Settings", 50,
         Color::Black, Color::Black, Color::Black,
         Color::Red, Color::Green, Color::Blue);
 
-    this->buttons["EXIT_STATE"] = new Button(771, 1198, 250, 70, &this->font, "QUIT", 50,
+    this->buttons["EXIT_STATE"] = new gui::Button(771, 1198, 250, 70, &this->font, "QUIT", 50,
         Color::Black, Color::Black, Color::Black,
         Color::Red, Color::Green, Color::Blue);
 }
@@ -70,7 +70,7 @@ MainMenuState::MainMenuState(RenderWindow* window, map<string, int>* supportedKe
 }
 
 MainMenuState::~MainMenuState(){
-    for (map<std::string, Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
+    for (map<std::string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
         delete it->second;
     }
 }
@@ -82,7 +82,7 @@ void MainMenuState::updateInput(const float & dt){
 
 void MainMenuState::updateButtons(){
     //Update all the buttons in the state and handles their functionality
-    for (map<std::string, Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it) {
+    for (map<std::string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it) {
         it->second->update(this->mousePosView);
     }
 
@@ -98,7 +98,7 @@ void MainMenuState::updateButtons(){
     //Quit the game
     if(this->buttons["SETTINGS_STATE"]->isPressed()){
          this->states->push(new SettingsState(this->window, this->supportedKeys, this->states));
-    }
+    } 
 }
 
 void MainMenuState::update(const float& dt){
@@ -108,7 +108,7 @@ void MainMenuState::update(const float& dt){
 }
 
 void MainMenuState::renderButtons(RenderTarget& target){
-    for (map<std::string, Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it) {
+    for (map<std::string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it) {
         it->second->render(target);
     }
 }

@@ -50,7 +50,7 @@ GameState::~GameState(){
     delete this->player;
 }
 
-void GameState::updateInput(float& dt){
+void GameState::updateInput(const float& dt){
     if(Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeytime()){
         (this->paused)?
             this->unpauseState():
@@ -58,7 +58,7 @@ void GameState::updateInput(float& dt){
     }
 }
 
-void GameState::updatePlayerInput(const float& dt){
+void GameState::updatePlayerInput(float& dt){
     //update player input
     if(Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("MOVE_LEFT")))){
         this->player->move(-1.f, 0.f, dt);
@@ -87,7 +87,7 @@ void GameState::update(const float& dt){
     if(!this->paused){
         this->player->update(dt);
     } else {
-        this->pMenu.update(this->mousePosView);
+        this->pMenu->update(this->mousePosView);
         this->updatePauseMenuButtons();
     }
 }

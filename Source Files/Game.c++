@@ -60,7 +60,7 @@ void Game::initStates(){
     this->states.push(new MainMenuState(this->window, &this->supportedKeys, &this->states));
 }
 
-//constructors/destructors
+//ructors/destructors
 Game::Game(){
     this->initWindow();
     this->initKeys();

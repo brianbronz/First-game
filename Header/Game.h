@@ -23,7 +23,7 @@ class Game{
         void initKeys();
         void initStates();
     public:
-        //constructor and destructor
+        //ructor and destructor
         Game();
         virtual ~Game();
 
