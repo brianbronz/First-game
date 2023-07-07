@@ -11,7 +11,7 @@ void MainMenuState::initVariables()
 void MainMenuState::initBackground()
 {
 	this->background.setSize(
-		sf::Vector2f
+		Vector2f
 		(
 			static_cast<float>(this->window->getSize().x), 
 			static_cast<float>(this->window->getSize().y)
@@ -70,19 +70,19 @@ MainMenuState::MainMenuState(RenderWindow* window, GraphicsSettings& gfxSettings
 }
 
 MainMenuState::~MainMenuState(){
-    for (map<std::string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
+    for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
         delete it->second;
     }
 }
 
 
-void MainMenuState::updateInput(const float & dt){
+void MainMenuState::updateInput( float & dt){
 
 }
 
 void MainMenuState::updateButtons(){
     //Update all the buttons in the state and handles their functionality
-    for (map<std::string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it) {
+    for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it) {
         it->second->update(this->mousePosView);
     }
 
@@ -101,14 +101,14 @@ void MainMenuState::updateButtons(){
     } 
 }
 
-void MainMenuState::update(const float& dt){
+void MainMenuState::update( float& dt){
     this->updateMousePositions();
     this->updateInput(dt);
     this->updateButtons();
 }
 
 void MainMenuState::renderButtons(RenderTarget& target){
-    for (map<std::string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it) {
+    for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it) {
         it->second->render(target);
     }
 }
@@ -121,7 +121,7 @@ void MainMenuState::render(RenderTarget* target){
 
    this->renderButtons(*target);
    	//REMOVE LATER!!! for debugging positions
-/* 	sf::Text mouseText;
+/* 	Text mouseText;
 	mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 50);
 	mouseText.setFont(this->font);
 	mouseText.setCharacterSize(12);

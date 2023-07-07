@@ -18,7 +18,7 @@ class TileMap{
 		void update();
 		void render(RenderTarget& target);
 
-		void addTile(const unsigned x, const unsigned y, const unsigned z);
-		void removeTile(const unsigned x, const unsigned y, const unsigned z);
+		void addTile( unsigned x,  unsigned y,  unsigned z);
+		void removeTile( unsigned x,  unsigned y,  unsigned z);
 };
 #endif

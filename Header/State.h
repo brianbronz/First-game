@@ -33,9 +33,9 @@ class State{
         void unpauseState();
         
         void updateMousePositions();
-        virtual void updateKeytime(const float& dt);
-        virtual void updateInput(const float& dt) = 0;
-        virtual void update(const float& dt) = 0;//implement in the subclass for the inherit
+        virtual void updateKeytime( float& dt);
+        virtual void updateInput( float& dt) = 0;
+        virtual void update( float& dt) = 0;//implement in the subclass for the inherit
         virtual void render(RenderTarget* target = NULL) = 0;
 };
 

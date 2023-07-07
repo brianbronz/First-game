@@ -2,7 +2,7 @@
 #include "Tile.c++"
 
 TileMap::TileMap(){
-	
+
 }
 
 TileMap::TileMap(float gridSize, unsigned width, unsigned height){
@@ -12,7 +12,7 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height){
 	this->maxSize.y = height;
 	this->layers = 1;
 
-	this->map.resize(this->maxSize.x, vector< std::vector<Tile*> >());
+	this->map.resize(this->maxSize.x, vector< vector<Tile*> >());
 	for (int x = 0; x < this->maxSize.x; x++){
 		for (int y = 0; y < this->maxSize.y; y++){
 			this->map[x].resize(this->maxSize.y, vector<Tile*>());
@@ -22,7 +22,7 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height){
 		}
 	}
     if (!this->tileTextureSheet.loadFromFile("Resources/Images/Tiles/grass1.png"))
-		std::cout << "ERROR::TILEMAP::FAILED TO LOAD TILETEXTURESHEET." << "\n";
+		cout << "ERROR::TILEMAP::FAILED TO LOAD TILETEXTURESHEET." << "\n";
 }
 
 TileMap::~TileMap(){
@@ -37,7 +37,7 @@ TileMap::~TileMap(){
 		}
 	}
 }
-void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z)
+void TileMap::addTile( unsigned x,  unsigned y,  unsigned z)
 {
 	/* Take two indicies from the mouse position in the grid and add a tile to that position if the internal tilemap array allows it. */
 
@@ -49,12 +49,12 @@ void TileMap::addTile(const unsigned x, const unsigned y, const unsigned z)
 		{
 			/* OK To add tile. */
 			this->map[x][y][z] = new Tile(x * this->gridSizeF, y * this->gridSizeF, this->gridSizeF, this->tileTextureSheet);
-			std::cout << "DEGBUG: ADDED TILE!" << "\n";
+			cout << "DEGBUG: ADDED TILE!" << "\n";
 		}	
 	}
 }
 
-void TileMap::removeTile(const unsigned x, const unsigned y, const unsigned z)
+void TileMap::removeTile( unsigned x,  unsigned y,  unsigned z)
 {
 	/* Take three indicies from the mouse position in the grid and remove a tile at that position if the internal tilemap array allows it. */
 
@@ -76,7 +76,7 @@ void TileMap::update()
 
 }
 
-void TileMap::render(sf::RenderTarget & target)
+void TileMap::render(RenderTarget & target)
 {	
 	for (int i = 0; i < this->map.size(); i++){
 		for (int j = 0; j <this->map[i].size(); j++){

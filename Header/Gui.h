@@ -38,10 +38,10 @@ namespace gui{
             const string& getText();
             short unsigned& getId();
             //Modifiers
-            void setText(const string text);
-            void setId(const short unsigned id);
+            void setText( string text);
+            void setId( short unsigned id);
             //Function
-            void update(const Vector2f& mousePos);
+            void update( Vector2f& mousePos);
             void render(RenderTarget& target);
     };
     class DropDownList{
@@ -59,9 +59,30 @@ namespace gui{
             unsigned short& getActiveElementId();
             //Functions
             bool getKeytime();
-            void updateKeytime(const float& dt);
-            void update(Vector2f& mousePos, const float& dt);
+            void updateKeytime( float& dt);
+            void update(Vector2f& mousePos,  float& dt);
             void render(RenderTarget& target);
     };
+
+    class TextureSelector
+	{
+	private:
+		float gridSize;
+		bool active;
+		RectangleShape bounds;
+		Sprite sheet;
+		RectangleShape selector;
+		Vector2u mousePosGrid;
+		IntRect textureRect;
+
+	public:
+		TextureSelector(float x, float y, float width, float height, float gridSize,  Texture* texture_sheet);
+        ~TextureSelector();
+        //Accessors
+         bool& getActive() ;
+		//Functions
+		void update( Vector2i& mousePosWindow);
+		void render(RenderTarget& target);
+	};
 }
 #endif

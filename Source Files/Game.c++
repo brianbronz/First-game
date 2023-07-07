@@ -15,16 +15,16 @@ void Game::initGraphicsSettings(){
 void Game::initWindow(){
     //initialize the window from the window configuration
     if(this->gfxSettings.fullscreen){
-        this->window = new sf::RenderWindow(
+        this->window = new RenderWindow(
         this->gfxSettings.resolution, 
         this->gfxSettings.title, 
-        sf::Style::Fullscreen, 
+        Style::Fullscreen, 
         this->gfxSettings.contextSettings);
     } else {
-        this->window = new sf::RenderWindow(
+        this->window = new RenderWindow(
         this->gfxSettings.resolution,
         this->gfxSettings.title,
-        sf::Style::Titlebar | sf::Style::Close, 
+        Style::Titlebar | Style::Close, 
         this->gfxSettings.contextSettings);
     }
     this->window->setFramerateLimit(this->gfxSettings.frameRateLimit);

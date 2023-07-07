@@ -23,9 +23,9 @@ class SettingsState: public State{
         SettingsState(RenderWindow* window, GraphicsSettings& gfxSettings, map<string, int>* supportedKeys, stack<State*>* states);
         virtual ~SettingsState();
 
-        void updateInput(const float& dt);
-        void updateButtons(const float& dt);
-        void update(const float& dt);
+        void updateInput( float& dt);
+        void updateButtons( float& dt);
+        void update( float& dt);
         void renderButtons(RenderTarget& target);
         void render(RenderTarget* target = NULL);
 };

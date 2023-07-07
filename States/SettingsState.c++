@@ -78,11 +78,11 @@ SettingsState::~SettingsState(){
     }
 }
 
-void SettingsState::updateInput(const float & dt){
+void SettingsState::updateInput( float & dt){
 
 }
 
-void SettingsState::updateButtons(const float& dt){
+void SettingsState::updateButtons( float& dt){
     for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
         it->second->update(this->mousePosView);
     }
@@ -93,7 +93,7 @@ void SettingsState::updateButtons(const float& dt){
 
     if (this->buttons["APPLY"]->isPressed()){
         this->gfxSettings.resolution = this->modes[this->ddl["RESOLUTION"]->getActiveElementId()];
-		this->window->create(this->gfxSettings.resolution, this->gfxSettings.title, sf::Style::Default);
+		this->window->create(this->gfxSettings.resolution, this->gfxSettings.title, Style::Default);
 	}
 
     for(map<string, gui::DropDownList*>::iterator it= this->ddl.begin(); it != this->ddl.end(); ++it){
@@ -101,7 +101,7 @@ void SettingsState::updateButtons(const float& dt){
     }
 }
 
-void SettingsState::update(const float& dt){
+void SettingsState::update( float& dt){
     this->updateMousePositions();
     this->updateInput(dt);
     this->updateButtons(dt);

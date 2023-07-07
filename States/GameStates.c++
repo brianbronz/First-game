@@ -35,7 +35,7 @@ void GameState::initPlayers(){
 	this->player = new Player(100, 100, this->textures["PLAYER_IDLE"]);
 }
 
-//Constructors / Destructors
+//ructors / Destructors
 GameState::GameState(RenderWindow* window, ::map<string, int>* supportedKeys, stack<State*>* states)
 	: State(window, supportedKeys, states){
 	this->initKeybinds();
@@ -50,7 +50,7 @@ GameState::~GameState(){
     delete this->player;
 }
 
-void GameState::updateInput(const float& dt){
+void GameState::updateInput( float& dt){
     if(Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeytime()){
         (this->paused)?
             this->unpauseState():
@@ -80,7 +80,7 @@ void GameState::updatePauseMenuButtons(){
     }
 }
 
-void GameState::update(const float& dt){
+void GameState::update( float& dt){
     this->updateMousePositions();
     this->updateKeytime(dt);
     this->updateInput(dt);

@@ -11,9 +11,9 @@ GraphicsSettings::GraphicsSettings()
 	this->videoModes = VideoMode::getFullscreenModes();
 }
 
-void GraphicsSettings::saveToFile(const std::string path)
+void GraphicsSettings::saveToFile( string path)
 {
-	std::ofstream ofs(path);
+	ofstream ofs(path);
 
 	if (ofs.is_open())
 	{
@@ -28,7 +28,7 @@ void GraphicsSettings::saveToFile(const std::string path)
 	ofs.close();
 }
 
-void GraphicsSettings::loadFromFile(const string path)
+void GraphicsSettings::loadFromFile( string path)
 {
 	ifstream ifs(path);
 

@@ -2,19 +2,16 @@
 #include "../Entities/Entity.c++"
 #include "../Animation code/AnimationComponent.c++"
 //Initializer functions
-void Player::initVariables()
-{
+void Player::initVariables(){
 	this->attacking = false;
 }
 
-void Player::initComponents()
-{
+void Player::initComponents(){
 
 }
 
-//Constructors / Destructors
-Player::Player(float x, float y, Texture& textureSheet)
-{
+//ructors / Destructors
+Player::Player(float x, float y, Texture& textureSheet){
 	this->initVariables();
 	this->setPosition(x, y);
 	this->createHitboxComponent(this->sprite, 86.f, 74.f, 86.f, 111.f);
@@ -42,7 +39,7 @@ void Player::updateAttack(){
 	}
 }
 
-void Player::updateAnimation(const float& dt){
+void Player::updateAnimation( float& dt){
 	if(this->attacking){
 		//Set origin depending on direction
 		(this->sprite.getScale().x > 0.f)?
@@ -78,7 +75,7 @@ void Player::updateAnimation(const float& dt){
 
 }
 
-void Player::update(const float& dt){
+void Player::update( float& dt){
 	this->movementComponent->update(dt);
 	this->updateAttack();
 	this->updateAnimation(dt);

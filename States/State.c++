@@ -43,7 +43,7 @@ void State::updateMousePositions(){
     this->mousePosView = this->window->mapPixelToCoords(Mouse::getPosition(*this->window));
 }
 
-void State::updateKeytime(const float& dt){
+void State::updateKeytime( float& dt){
     if(this->keytime < this->keytimeMax){
         this->keytime += 100.f * dt;
     }

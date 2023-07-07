@@ -19,6 +19,6 @@ void Tile::update(){
 
 }
 
-void Tile::render(sf::RenderTarget & target){
+void Tile::render(RenderTarget & target){
 	target.draw(this->shape);
 }

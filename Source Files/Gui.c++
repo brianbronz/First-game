@@ -36,7 +36,7 @@ bool gui::Button::isPressed(){
     return this->buttonState == BTN_ACTIVE;
 }
 
-const string& gui::Button::getText(){
+ const string& gui::Button::getText(){
     return this->text.getString();
 }
 
@@ -48,11 +48,11 @@ void gui::Button::setText(string text){
     this->text.setString(text);
 }
 
-void gui::Button::setId(const short unsigned id){
+void gui::Button::setId( short unsigned id){
     this->id = id;
 }
 
-void gui::Button::update(const Vector2f& mousePos){
+void gui::Button::update( Vector2f& mousePos){
     //update the booleans for hover and pressed
     //Idle
     this->buttonState = BTN_IDLE;
@@ -98,7 +98,7 @@ gui::DropDownList::DropDownList(float x, float y, float width, float height, Fon
     this->showList = false;
     this->keytimeMax = 1.f;
     this->keytime = 0.f;
-    for (size_t i = 0; i < nrOfElements; i++){
+    for (int i = 0; i < nrOfElements; i++){
         this->list.push_back(new gui::Button(x, y + ( i * height), width, height, &this->font,
             list[i], 12, Color::Black, Color::Black, Color::Black, Color::Blue, Color::Green, Color::Red));
     }
@@ -107,7 +107,7 @@ gui::DropDownList::DropDownList(float x, float y, float width, float height, Fon
 
 gui::DropDownList::~DropDownList(){
     delete this->activeElement;
-    for (size_t i = 0; i < this->list.size(); i++){
+    for (int i = 0; i < this->list.size(); i++){
         delete this->list[i];
     }
 }
@@ -120,21 +120,21 @@ bool gui::DropDownList::getKeytime(){
     return false;
 }
 
-void gui::DropDownList::updateKeytime(const float& dt){
+void gui::DropDownList::updateKeytime(float& dt){
     if (this->keytime < this->keytimeMax){
         this->keytime += 10.f * dt;
     }
 }
 
-void gui::DropDownList::update(Vector2f & mousePos, const float& dt){
+void gui::DropDownList::update(Vector2f & mousePos, float& dt){
     this->updateKeytime(dt);
     this->activeElement->update(mousePos);
 
     //Show and hide the list
     if(this->activeElement->isPressed() && this->getKeytime()){
-        if(this->showList){
-            this->showList = false;
-        } else {this->showList = true;}
+        (this->showList)?
+            this->showList = false:
+            this->showList = true;
     }
     if(this->showList){
         for (int i = 0; i < this->list.size(); i++){
@@ -154,4 +154,61 @@ void gui::DropDownList::render(RenderTarget & target){
             this->list[i]->render(target);
         }
     }
+}
+
+gui::TextureSelector::TextureSelector(float x, float y, float width, float height, float gridSize,  Texture* texture_sheet){
+    this->gridSize = gridSize;
+	this->active = false;
+	this->bounds.setSize(Vector2f(width, height));
+	this->bounds.setPosition(x, y);
+	this->bounds.setFillColor(Color(50, 50, 50, 100));
+	this->bounds.setOutlineThickness(1.f);
+	this->bounds.setOutlineColor(Color(255, 255, 255, 200));
+
+	this->sheet.setTexture(*texture_sheet);
+	this->sheet.setPosition(x, y);
+
+	if (this->sheet.getGlobalBounds().width > this->bounds.getGlobalBounds().width){
+		this->sheet.setTextureRect(IntRect(0, 0, this->bounds.getGlobalBounds().width, this->sheet.getGlobalBounds().height));
+	}
+
+	if (this->sheet.getGlobalBounds().height > this->bounds.getGlobalBounds().height){
+		this->sheet.setTextureRect(IntRect(0, 0, this->sheet.getGlobalBounds().width, this->bounds.getGlobalBounds().height));
+	}
+
+    this->selector.setPosition(x, y);
+	this->selector.setSize(Vector2f(gridSize, gridSize));
+	this->selector.setFillColor(Color::Transparent);
+	this->selector.setOutlineThickness(1.f);
+	this->selector.setOutlineColor(Color::Red);
+}
+
+ bool& gui::TextureSelector::getActive() {
+	return this->active;
+}
+
+gui::TextureSelector::~TextureSelector(){
+
+}
+
+//Functions
+void gui::TextureSelector::update( Vector2i& mousePosWindow){
+	(this->bounds.getGlobalBounds().contains(static_cast<Vector2f>(mousePosWindow)))?
+		this->active = true:
+		this->active = false;
+
+	if (this->active){
+		this->mousePosGrid.x = (mousePosWindow.x - static_cast<int>(this->bounds.getPosition().x)) / static_cast<unsigned>(this->gridSize);
+		this->mousePosGrid.y = (mousePosWindow.y - static_cast<int>(this->bounds.getPosition().y)) / static_cast<unsigned>(this->gridSize);
+		this->selector.setPosition(
+			this->bounds.getPosition().x + this->mousePosGrid.x * this->gridSize,
+			this->bounds.getPosition().y + this->mousePosGrid.y * this->gridSize
+		);
+	}
+}
+
+void gui::TextureSelector::render(RenderTarget& target){
+	target.draw(this->bounds);
+	target.draw(this->sheet);
+    target.draw(this->selector);
 }

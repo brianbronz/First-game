@@ -22,12 +22,12 @@ class Entity{
         //Component functions
         void setTexture(Texture& texture);
         void createHitboxComponent(Sprite& sprite, float offset_x, float offset_y,float width, float height);
-        void createMovementComponent(const float maxVelocity, const float acceleration, const float deceleration);
+        void createMovementComponent( float maxVelocity,  float acceleration,  float deceleration);
         void createAnimationComponent(Texture& textureSheet);
         //Functions
-        virtual void setPosition(const float x, const float y);
-	    virtual void move(const float x, const float y, const float & dt);
-        virtual void update(const float & dt);
+        virtual void setPosition( float x,  float y);
+	    virtual void move( float x,  float y,  float & dt);
+        virtual void update( float & dt);
         virtual void render(RenderTarget& target);
 
 };

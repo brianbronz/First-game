@@ -19,14 +19,14 @@ class GameState : public State{
         void initPauseMenu();
 	    void initPlayers();
     public:
-        GameState(RenderWindow* window, std::map<string, int>* supportedKeys, stack<State*>* states);
+        GameState(RenderWindow* window, ::map<string, int>* supportedKeys, stack<State*>* states);
 	    virtual ~GameState();
 
         //Functions
-        void updateInput(const float& dt);
+        void updateInput( float& dt);
         void updatePlayerInput(float& dt);
         void updatePauseMenuButtons();
-        void update(const float& dt);
+        void update( float& dt);
         void render(RenderTarget* target = NULL);
 };
 

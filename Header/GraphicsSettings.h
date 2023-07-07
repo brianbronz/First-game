@@ -12,7 +12,7 @@ class GraphicsSettings{
         vector<VideoMode> videoModes;
 
         GraphicsSettings();
-        void saveToFile(const string path);
-        void loadFromFile(const string path);
+        void saveToFile( string path);
+        void loadFromFile( string path);
 };
 #endif

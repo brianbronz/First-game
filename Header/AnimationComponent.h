@@ -36,7 +36,7 @@ class AnimationComponent{
                 return this->done;
             }
             //function
-            bool& play(const float& dt){
+            bool& play( float& dt){
                 //update timer
                 this->done = false;
                 this->timer += 100.f * dt; 
@@ -55,7 +55,7 @@ class AnimationComponent{
                 }
                 return this->done;
             };
-            bool& play(const float& dt, float mod_percent){
+            bool& play( float& dt, float mod_percent){
                 //update timer
                 if (mod_percent < 0.5f){
                     mod_percent = 0.5f;
@@ -102,8 +102,8 @@ class AnimationComponent{
         void startAnimation(string animation);
         void pauseAnimation(string animation);
         void resetAnimation(string animation);
-        bool& play(string key, const float& dt, bool priority = false);
-        bool& play(string key, const float& dt, float& modifier, float& modifier_max, bool priority = false);
+        bool& play(string key,  float& dt, bool priority = false);
+        bool& play(string key,  float& dt, float& modifier, float& modifier_max, bool priority = false);
         
 };
 #endif

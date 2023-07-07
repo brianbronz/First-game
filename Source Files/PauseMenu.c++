@@ -27,7 +27,7 @@ PauseMenu::PauseMenu(RenderWindow& window, Font& font): font(font){
 }
 
 PauseMenu::~PauseMenu(){
-    for (map<std::string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
+    for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
         delete it->second;
     }
 }
@@ -58,7 +58,7 @@ void PauseMenu::update(Vector2f& mousePos){
 void PauseMenu::render(RenderTarget& target){
     target.draw(this->background);
     target.draw(this->container);
-    for (map<std::string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
+    for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
         it->second->render(target);
     }
     target.draw(this->menuText);

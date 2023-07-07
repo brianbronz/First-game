@@ -27,7 +27,7 @@ void Entity::createHitboxComponent(Sprite & sprite, float offset_x, float offset
 	this->hitboxComponent = new HitboxComponent(sprite, offset_x, offset_y, width, height);
 }
 
-void Entity::createMovementComponent(const float maxVelocity, const float acceleration, const float deceleration)
+void Entity::createMovementComponent( float maxVelocity,  float acceleration,  float deceleration)
 {
     this->movementComponent = new MovementComponent(this->sprite, maxVelocity, acceleration, deceleration);
 }
@@ -37,12 +37,12 @@ void Entity::createAnimationComponent(Texture& textureSheet){
 }
 
 //Functions
-void Entity::setPosition(const float x, const float y)
+void Entity::setPosition( float x,  float y)
 {
 	this->sprite.setPosition(x, y);
 }
 
-void Entity::move(const float dir_x, const float dir_y, const float & dt)
+void Entity::move( float dir_x,  float dir_y,  float & dt)
 {
 	if (this->movementComponent)
 	{
@@ -52,7 +52,7 @@ void Entity::move(const float dir_x, const float dir_y, const float & dt)
 
 //Component functions
 
-void Entity::update(const float & dt){
+void Entity::update( float & dt){
 
 }
 

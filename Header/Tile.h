@@ -12,7 +12,7 @@ class Tile{
         virtual ~Tile();
 
         void update();
-	    void render(sf::RenderTarget& target);
+	    void render(RenderTarget& target);
 };
 
 #endif

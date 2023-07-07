@@ -6,7 +6,7 @@ AnimationComponent::AnimationComponent(Sprite& sprite, Texture& textureSheet): s
 }
 
 AnimationComponent::~AnimationComponent(){
-    for (map<std::string, Animation*>::iterator it = this->animations.begin(); it != this->animations.end(); ++it){
+    for (map<string, Animation*>::iterator it = this->animations.begin(); it != this->animations.end(); ++it){
         delete it->second;
     }
 }
@@ -36,7 +36,7 @@ void AnimationComponent::resetAnimation(string animation){
 
 }
 
-bool& AnimationComponent::play(string key, const float& dt, bool priority){
+bool& AnimationComponent::play(string key,  float& dt, bool priority){
     if (this->priorityAnimation){
         if(this->priorityAnimation == this->animations[key]){
             if(this->lastAnimation != this->animations[key] ){
@@ -66,7 +66,7 @@ bool& AnimationComponent::play(string key, const float& dt, bool priority){
     return this->animations[key]->isDone();
 }
 
-bool& AnimationComponent::play(string key, const float& dt, float& modifier, float& modifier_max, bool priority){
+bool& AnimationComponent::play(string key,  float& dt, float& modifier, float& modifier_max, bool priority){
     if (this->priorityAnimation){//check for a priority animation
         if(this->priorityAnimation == this->animations[key]){
             if(this->lastAnimation != this->animations[key] ){

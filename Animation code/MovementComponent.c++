@@ -53,7 +53,7 @@ bool MovementComponent::getState(short unsigned state){
 	}
 }
 
-void MovementComponent::move(const float dir_x, const float dir_y, const float & dt)
+void MovementComponent::move( float dir_x,  float dir_y,  float & dt)
 {
 	/* Accelerating a sprite until it reaches the max velocity. */
 
@@ -61,7 +61,7 @@ void MovementComponent::move(const float dir_x, const float dir_y, const float &
 	this->velocity.y += this->acceleration * dir_y;	
 }
 
-void MovementComponent::update(const float & dt)
+void MovementComponent::update( float & dt)
 {
 	/*
 	Decelerates the sprite and controls the maximum velocity.

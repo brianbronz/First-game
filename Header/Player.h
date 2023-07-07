@@ -19,8 +19,8 @@ public:
 
 	//Functions
 	void updateAttack();
-	void updateAnimation(const float& dt);
-	virtual void update(const float& dt);
+	void updateAnimation( float& dt);
+	virtual void update( float& dt);
 };
 
 #endif
