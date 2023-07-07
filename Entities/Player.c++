@@ -1,6 +1,6 @@
 #include "../Header/Player.h"
 #include "../Entities/Entity.c++"
-#include "AnimationComponent.c++"
+#include "../Animation code/AnimationComponent.c++"
 //Initializer functions
 void Player::initVariables()
 {

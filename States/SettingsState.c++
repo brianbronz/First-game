@@ -45,8 +45,8 @@ void SettingsState::initButtons(){
                                             Color::Blue, Color::Green, Color::Red);
     
     vector<string> modes_str;
-    for(auto &i :this->modes){
-        modes_str.push_back(to_string(i.width) + 'x' + to_string(i.height));
+    for (int i = 0; i < this->modes.size(); i++){
+        modes_str.push_back(to_string(this->modes[i].width)+ 'x' + to_string(this->modes[i].height));
     }
     this->ddl["RESOLUTION"] = new gui::DropDownList(800, 450, 200, 50, font, modes_str.data(), modes_str.size());
 }
@@ -59,7 +59,7 @@ void SettingsState::initText(){
     this->optionsText.setString("Resolution \n\nFullscreen \n\nVsync \n\nAntialiasing\n\n");
 }
 
-SettingsState::SettingsState(RenderWindow* window, map<string, int>* supportedKeys, stack<State*>* states):State(window, supportedKeys, states){
+SettingsState::SettingsState(RenderWindow* window, GraphicsSettings& gfxSettings, map<string, int>* supportedKeys, stack<State*>* states):State(window, supportedKeys, states), gfxSettings(gfxSettings) {
     this->initVariables();
     this->initBackground();
     this->initFonts();
@@ -87,12 +87,17 @@ void SettingsState::updateButtons(const float& dt){
         it->second->update(this->mousePosView);
     }
     //Quit the game
-    if (this->buttons["EXIT_STATE"]->isPressed()){
+    if (this->buttons["BACK"]->isPressed()){
         this->endState();
     }
 
-    for (auto &it : this->ddl){
-        it.second->update(this->mousePosView, dt);
+    if (this->buttons["APPLY"]->isPressed()){
+        this->gfxSettings.resolution = this->modes[this->ddl["RESOLUTION"]->getActiveElementId()];
+		this->window->create(this->gfxSettings.resolution, this->gfxSettings.title, sf::Style::Default);
+	}
+
+    for(map<string, gui::DropDownList*>::iterator it= this->ddl.begin(); it != this->ddl.end(); ++it){
+        it->second->update(this->mousePosView, dt);
     }
 }
 

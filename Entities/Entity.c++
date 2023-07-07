@@ -1,5 +1,5 @@
 #include "../Header/Entity.h"
-#include "../Source Files/MovementComponent.c++"
+#include "../Animation code/MovementComponent.c++"
 #include "../Source Files/HitBoxComponent.c++"
 
 void Entity:: initVariables(){

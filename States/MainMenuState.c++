@@ -1,7 +1,7 @@
 #include "../Header/MainMenuState.h"
 #include "../Source Files/Gui.c++"
 #include "GameStates.c++"
-#include "../Source Files/SettingsState.c++"
+#include "../States/SettingsState.c++"
 //Initializer functions
 void MainMenuState::initVariables()
 {
@@ -60,8 +60,8 @@ void MainMenuState::initButtons(){
         Color::Red, Color::Green, Color::Blue);
 }
 
-MainMenuState::MainMenuState(RenderWindow* window, map<string, int>* supportedKeys, stack<State*>* states)
-	: State(window, supportedKeys, states){
+MainMenuState::MainMenuState(RenderWindow* window, GraphicsSettings& gfxSettings, map<string, int>* supportedKeys, stack<State*>* states)
+	: State(window, supportedKeys, states), gfxSettings(gfxSettings){
     this->initVariables();
 	this->initBackground();
     this->initFonts();
@@ -97,7 +97,7 @@ void MainMenuState::updateButtons(){
 
     //Quit the game
     if(this->buttons["SETTINGS_STATE"]->isPressed()){
-         this->states->push(new SettingsState(this->window, this->supportedKeys, this->states));
+         this->states->push(new SettingsState(this->window, this->gfxSettings, this->supportedKeys, this->states));
     } 
 }
 

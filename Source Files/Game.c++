@@ -1,18 +1,35 @@
 #include "../Header/Game.h"
 #include "../Header/MainMenuState.h"
 #include "../States/MainMenuState.c++"
-
+#include "../Graphics Setting/GraphicsSettings.c++"
 //static functions
 void Game::initVariables(){
 	this->window = NULL;
-	this->fullscreen = false;
 	this->dt = 0.f;
 }
 
 //Initialize functions
+void Game::initGraphicsSettings(){
+    this->gfxSettings.loadFromFile("../Config/Graphics.ini");
+}
 void Game::initWindow(){
     //initialize the window from the window configuration
-    ifstream ifs("../Config/window.ini");
+    if(this->gfxSettings.fullscreen){
+        this->window = new sf::RenderWindow(
+        this->gfxSettings.resolution, 
+        this->gfxSettings.title, 
+        sf::Style::Fullscreen, 
+        this->gfxSettings.contextSettings);
+    } else {
+        this->window = new sf::RenderWindow(
+        this->gfxSettings.resolution,
+        this->gfxSettings.title,
+        sf::Style::Titlebar | sf::Style::Close, 
+        this->gfxSettings.contextSettings);
+    }
+    this->window->setFramerateLimit(this->gfxSettings.frameRateLimit);
+    this->window->setVerticalSyncEnabled(this->gfxSettings.verticalSync);
+    /* ifstream ifs("../Config/window.ini");
     this->videoModes = VideoMode::getFullscreenModes();
     bool fullscreen = false;
 
@@ -40,7 +57,7 @@ void Game::initWindow(){
 
     this->window->setFramerateLimit(framerateLimit);
     this->window->setVerticalSyncEnabled(verticalSync);
-    
+     */
 }
 
 void Game::initKeys(){
@@ -57,11 +74,13 @@ void Game::initKeys(){
 }
 
 void Game::initStates(){
-    this->states.push(new MainMenuState(this->window, &this->supportedKeys, &this->states));
+    this->states.push(new MainMenuState(this->window, this->gfxSettings, &this->supportedKeys, &this->states));
 }
 
 //ructors/destructors
 Game::Game(){
+    this->initVariables();
+	this->initGraphicsSettings();
     this->initWindow();
     this->initKeys();
     this->initStates();

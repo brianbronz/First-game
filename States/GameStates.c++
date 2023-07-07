@@ -1,8 +1,8 @@
 #include "../Header/GameState.h"
-#include "../Source Files/Player.c++"
+#include "../Entities/Player.c++"
 #include "../Source Files/PauseMenu.c++"
+#include "../Maps code/TileMap.c++"
 #include "State.c++"
-
 void GameState::initFonts(){
     if(!this->font.loadFromFile("../Fonts/Dosis-Light.ttf")){
         throw("ERROR::MAINMENUSTATE:: NOT ABLE TO LOAD ANY FONTS");
@@ -36,7 +36,7 @@ void GameState::initPlayers(){
 }
 
 //Constructors / Destructors
-GameState::GameState(sf::RenderWindow* window, map<string, int>* supportedKeys, stack<State*>* states)
+GameState::GameState(RenderWindow* window, ::map<string, int>* supportedKeys, stack<State*>* states)
 	: State(window, supportedKeys, states){
 	this->initKeybinds();
     this->initFonts();
