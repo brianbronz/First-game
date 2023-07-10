@@ -83,7 +83,7 @@ void MainMenuState::updateInput( float & dt){
 void MainMenuState::updateButtons(){
     //Update all the buttons in the state and handles their functionality
     for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it) {
-        it->second->update(this->mousePosView);
+        it->second->update(this->mousePosWindow);
     }
 
     //New game

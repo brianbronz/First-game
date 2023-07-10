@@ -41,7 +41,7 @@ namespace gui{
             void setText( string text);
             void setId( short unsigned id);
             //Function
-            void update( Vector2f& mousePos);
+            void update( Vector2i& mousePosWindow);
             void render(RenderTarget& target);
     };
     class DropDownList{
@@ -60,15 +60,19 @@ namespace gui{
             //Functions
             bool getKeytime();
             void updateKeytime( float& dt);
-            void update(Vector2f& mousePos,  float& dt);
+            void update(Vector2i& mousePosWindow,  float& dt);
             void render(RenderTarget& target);
     };
 
     class TextureSelector
 	{
 	private:
+        float keytime;
+        float keytimeMax;
 		float gridSize;
 		bool active;
+        bool hidden;
+        gui::Button* hide_btn;
 		RectangleShape bounds;
 		Sprite sheet;
 		RectangleShape selector;
@@ -76,12 +80,16 @@ namespace gui{
 		IntRect textureRect;
 
 	public:
-		TextureSelector(float x, float y, float width, float height, float gridSize,  Texture* texture_sheet);
+		TextureSelector(float x, float y, float width, float height, 
+            float gridSize,  Texture* texture_sheet, Font& font, string text);
         ~TextureSelector();
         //Accessors
-         bool& getActive() ;
+         bool& getActive();
+         IntRect& getTextureRect();
 		//Functions
-		void update( Vector2i& mousePosWindow);
+		const bool getKeytime();
+		void updateKeytime(float& dt);
+		void update(Vector2i& mousePosWindow, float& dt);
 		void render(RenderTarget& target);
 	};
 }

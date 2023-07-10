@@ -37,6 +37,11 @@ void Entity::createAnimationComponent(Texture& textureSheet){
 }
 
 //Functions
+Vector2f & Entity::getPosition(){
+	return this->sprite.getPosition();
+}
+
+
 void Entity::setPosition( float x,  float y)
 {
 	this->sprite.setPosition(x, y);

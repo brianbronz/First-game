@@ -5,14 +5,25 @@
 #include "PauseMenu.h"
 #include "TileMap.h"
 
+class PauseMenu;
+class Player;
+class TileMap;
+class View;
+class Font;
+class RenderTexture;
+
 class GameState : public State{
     private: 
+        View view;
+        RenderTexture renderTexture;
+        Sprite renderSprite;
         Font font;
         PauseMenu* pMenu;
         Player* player;
 	    Texture texture;
         TileMap map;
         //functions
+        void initView();
         void initKeybinds();
         void initFonts();
         void initTextures();
@@ -23,6 +34,7 @@ class GameState : public State{
 	    virtual ~GameState();
 
         //Functions
+        void updateView(const float& dt);
         void updateInput( float& dt);
         void updatePlayerInput(float& dt);
         void updatePauseMenuButtons();

@@ -25,6 +25,7 @@ class Entity{
         void createMovementComponent( float maxVelocity,  float acceleration,  float deceleration);
         void createAnimationComponent(Texture& textureSheet);
         //Functions
+        virtual Vector2f& getPosition();
         virtual void setPosition( float x,  float y);
 	    virtual void move( float x,  float y,  float & dt);
         virtual void update( float & dt);

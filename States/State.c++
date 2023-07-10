@@ -37,10 +37,18 @@ void State::pauseState(){
 void State::unpauseState(){
     this->paused = false;
 }
-void State::updateMousePositions(){
+void State::updateMousePositions(View* view){
     this->mousePosScreen = Mouse::getPosition();
     this->mousePosWindow = Mouse::getPosition(*this->window);
-    this->mousePosView = this->window->mapPixelToCoords(Mouse::getPosition(*this->window));
+    if(view){
+		this->window->setView(*view);
+    }
+    this->mousePosView = this->window->mapPixelToCoords(sf::Mouse::getPosition(*this->window));
+	this->mousePosGrid = Vector2u(
+			static_cast<unsigned>(this->mousePosView.x) / static_cast<unsigned>(this->gridSize),
+			static_cast<unsigned>(this->mousePosView.y) / static_cast<unsigned>(this->gridSize)
+		);
+	this->window->setView(this->window->getDefaultView());
 }
 
 void State::updateKeytime( float& dt){

@@ -32,7 +32,7 @@ class State{
         void pauseState();
         void unpauseState();
         
-        void updateMousePositions();
+        void updateMousePositions(View* view = NULL);
         virtual void updateKeytime( float& dt);
         virtual void updateInput( float& dt) = 0;
         virtual void update( float& dt) = 0;//implement in the subclass for the inherit

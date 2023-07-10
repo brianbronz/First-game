@@ -42,16 +42,16 @@ bool PauseMenu::isButtonPressed(string key){
 
 void PauseMenu::addButton(string key, float y, string text){
     float width = 250.f;
-    float height = 50.f;
+    float height = 65.f;
     float x = this->container.getPosition().x + this->container.getSize().x / 2.f - width / 2.f;
     this->buttons[key] = new gui::Button(x, y, width, height, &this->font, text, 50, 
     Color::Black, Color::Black, Color::Black,
     Color::Blue, Color::Green, Color::Red);
 }
 
-void PauseMenu::update(Vector2f& mousePos){
+void PauseMenu::update(Vector2i& mousePosWindow){
     for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
-        it->second->update(mousePos);    
+        it->second->update(mousePosWindow);    
     }
 }
 

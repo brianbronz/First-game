@@ -20,7 +20,7 @@ class PauseMenu{
         //Functions
         bool isButtonPressed(string key);
         void addButton(string key, float y, string text);
-        void update(Vector2f& mousePos);
+        void update(Vector2i& mousePosWindow);
         void render(RenderTarget& target);
 };
 #endif

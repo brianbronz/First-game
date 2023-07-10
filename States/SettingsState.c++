@@ -34,12 +34,12 @@ void SettingsState::initKeybinds(){
 }
 
 void SettingsState::initButtons(){
-    this->buttons["BACK"] = new gui::Button(1500.f, 880.f, 250.f, 50.f,
+    this->buttons["BACK"] = new gui::Button(1500.f, 880.f, 250.f, 65.f,
                                             &this->font, "Back", 50, 
                                             Color::Black, Color::Black, Color::Black,
                                             Color::Blue, Color::Green, Color::Red);
     
-    this->buttons["APPLY"] = new gui::Button(1300.f, 880.f, 250.f, 50.f,
+    this->buttons["APPLY"] = new gui::Button(1300.f, 880.f, 250.f, 65.f,
                                             &this->font, "Apply", 50, 
                                             Color::Black, Color::Black, Color::Black,
                                             Color::Blue, Color::Green, Color::Red);
@@ -84,7 +84,7 @@ void SettingsState::updateInput( float & dt){
 
 void SettingsState::updateButtons( float& dt){
     for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
-        it->second->update(this->mousePosView);
+        it->second->update(this->mousePosWindow);
     }
     //Quit the game
     if (this->buttons["BACK"]->isPressed()){
@@ -97,7 +97,7 @@ void SettingsState::updateButtons( float& dt){
 	}
 
     for(map<string, gui::DropDownList*>::iterator it= this->ddl.begin(); it != this->ddl.end(); ++it){
-        it->second->update(this->mousePosView, dt);
+        it->second->update(this->mousePosWindow, dt);
     }
 }
 

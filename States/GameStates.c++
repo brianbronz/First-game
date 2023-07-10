@@ -3,6 +3,21 @@
 #include "../Source Files/PauseMenu.c++"
 #include "../Maps code/TileMap.c++"
 #include "State.c++"
+
+void GameState::initView(){
+    this->view.setSize(Vector2f(
+			this->stateData->gfxSettings->resolution.width,
+			this->stateData->gfxSettings->resolution.height
+		)
+	);
+
+    this->view.setCenter(Vector2f(
+			this->stateData->gfxSettings->resolution.width / 2.f,
+			this->stateData->gfxSettings->resolution.height / 2.f
+		)
+	);
+}
+
 void GameState::initFonts(){
     if(!this->font.loadFromFile("../Fonts/Dosis-Light.ttf")){
         throw("ERROR::MAINMENUSTATE:: NOT ABLE TO LOAD ANY FONTS");
@@ -35,9 +50,14 @@ void GameState::initPlayers(){
 	this->player = new Player(100, 100, this->textures["PLAYER_IDLE"]);
 }
 
-//ructors / Destructors
-GameState::GameState(RenderWindow* window, ::map<string, int>* supportedKeys, stack<State*>* states)
-	: State(window, supportedKeys, states){
+void GameState::initTileMap(){
+    	this->tileMap = new TileMap(this->stateData->gridSize, 10, 10, "Resources/Images/Tiles/tilesheet1.png");
+        this->tileMap->loadFromFile("text.slmp");
+}
+
+//Constructors / Destructors
+GameState::GameState(StateData* state_data): State(state_data){
+    this->initView();
 	this->initKeybinds();
     this->initFonts();
 	this->initTextures();
@@ -48,6 +68,10 @@ GameState::GameState(RenderWindow* window, ::map<string, int>* supportedKeys, st
 GameState::~GameState(){
     delete this->pMenu;
     delete this->player;
+}
+
+void GameState::updateView(const float & dt){
+	this->view.setCenter(this->player->getPosition());
 }
 
 void GameState::updateInput( float& dt){
@@ -81,13 +105,14 @@ void GameState::updatePauseMenuButtons(){
 }
 
 void GameState::update( float& dt){
-    this->updateMousePositions();
+    this->updateMousePositions(&this->view);
     this->updateKeytime(dt);
     this->updateInput(dt);
     if(!this->paused){
+        this->updateView(dt);
         this->player->update(dt);
     } else {
-        this->pMenu->update(this->mousePosView);
+        this->pMenu->update(this->mousePosWindow);
         this->updatePauseMenuButtons();
     }
 }
@@ -96,6 +121,11 @@ void GameState::render(RenderTarget* target){
     if (!target){
         target = this->window;
     }
+    target->setView(this->view);
+	this->tileMap->render(*target);
     this->player->render(*target);
-    if(this->paused){this->pMenu->render(*target);}
+    if(this->paused){
+        target->setView(this->window->getDefaultView());
+        this->pMenu->render(*target);
+    }
 }
