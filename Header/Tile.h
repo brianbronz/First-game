@@ -16,7 +16,7 @@ class Tile{
         virtual ~Tile();
 
         //Functions
-        string getAsString()
+        string getAsString();
         void update();
 	    void render(RenderTarget& target);
 };
