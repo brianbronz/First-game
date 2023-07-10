@@ -3,8 +3,21 @@
 #include "Player.h"
 #include "GraphicsSettings.h"
 //keep resources
+class State;
+class StateData
+{
+public:
+	StateData() {};
+	//Variables
+	float gridSize;
+	RenderWindow* window;
+	GraphicsSettings* gfxSettings;
+	::map<string, int>* supportedKeys;
+	stack<State*>* states;
+};
 class State{
     protected:
+        StateData* stateData;
         stack<State*>* states;
         RenderWindow* window;
         map<string, int>* supportedKeys;
@@ -13,17 +26,19 @@ class State{
         bool paused;
         float keytime;
         float keytimeMax;
+        float gridSize;
 
         Vector2i mousePosScreen;
         Vector2i mousePosWindow;
         Vector2f mousePosView;
+        Vector2u mousePosGrid;
         //resources
         map<string, Texture> textures;
 
         //function
         virtual void initKeybinds() = 0;
     public:
-        State(RenderWindow* window, map<string, int>* supportedKeys, stack<State*>* states);
+        State(StateData* state_data);
         virtual ~State();
 
         bool& getQuit();

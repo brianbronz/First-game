@@ -4,7 +4,6 @@
 #include "State.h"
 class SettingsState: public State{
     private:
-        GraphicsSettings& gfxSettings;
         Texture backgroundTexture;
         RectangleShape background;
         Font font;
@@ -20,7 +19,7 @@ class SettingsState: public State{
 	    void initButtons();
         void initText();
     public:
-        SettingsState(RenderWindow* window, GraphicsSettings& gfxSettings, map<string, int>* supportedKeys, stack<State*>* states);
+        SettingsState(StateData* stateData);
         virtual ~SettingsState();
 
         void updateInput( float& dt);

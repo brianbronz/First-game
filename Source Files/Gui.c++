@@ -36,7 +36,7 @@ bool gui::Button::isPressed(){
     return this->buttonState == BTN_ACTIVE;
 }
 
- const string& gui::Button::getText(){
+ const string gui::Button::getText(){
     return this->text.getString();
 }
 

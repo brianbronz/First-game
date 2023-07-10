@@ -1,10 +1,12 @@
 #include "../Header/State.h"
 
-State::State(RenderWindow* window, map<string, int>* supportedKeys, stack<State*>* states){
-    this->window = window;
-    this->supportedKeys = supportedKeys;
+State::State(StateData* state_data){
+    this->stateData = state_data;
+	this->gridSize = state_data->gridSize;
+    this->window = state_data->window;
+    this->supportedKeys = state_data->supportedKeys;
     this->quit = false;
-    this->states = states;
+    this->states = state_data->states;
     this->paused = false;
     this->keytime = 0.f;
     this->keytimeMax = 10.f;

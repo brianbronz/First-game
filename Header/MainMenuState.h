@@ -7,7 +7,6 @@
 class MainMenuState:public State{
     private: 
         //Field variables
-        GraphicsSettings& gfxSettings;
         Texture backgroundTexture;
         RectangleShape background;
         Font font;
@@ -21,7 +20,7 @@ class MainMenuState:public State{
         void initKeybinds();
         void initButtons();
     public:
-        MainMenuState(RenderWindow* window, GraphicsSettings& gfxSettings, map<string, int>* supportedKeys, stack<State*>* states);
+        MainMenuState(StateData* state_data);
 	    virtual ~MainMenuState();
 
         //Functions

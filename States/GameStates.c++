@@ -51,8 +51,8 @@ void GameState::initPlayers(){
 }
 
 void GameState::initTileMap(){
-    	this->tileMap = new TileMap(this->stateData->gridSize, 10, 10, "Resources/Images/Tiles/tilesheet1.png");
-        this->tileMap->loadFromFile("text.slmp");
+    	this->map = new TileMap(this->stateData->gridSize, 10, 10, "Resources/Images/Tiles/tilesheet1.png");
+        this->map->loadFromFile("text.slmp");
 }
 
 //Constructors / Destructors
@@ -122,7 +122,7 @@ void GameState::render(RenderTarget* target){
         target = this->window;
     }
     target->setView(this->view);
-	this->tileMap->render(*target);
+	this->map->render(*target);
     this->player->render(*target);
     if(this->paused){
         target->setView(this->window->getDefaultView());

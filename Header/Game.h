@@ -7,6 +7,7 @@ class Game{
     private:
         //fields variable
         GraphicsSettings gfxSettings;
+        StateData stateData;
         RenderWindow *window;
         Event sfEvent;
 

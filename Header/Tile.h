@@ -2,6 +2,7 @@
 #define TILE_H
 #include "AllReference.h"
 
+static const short DEFAULT_TYPE = 0;
 enum TileTypes {DEFAULT = 0, DAMAGING};
 
 class Tile{
@@ -11,8 +12,8 @@ class Tile{
         bool collision;
         short type;
     public:
-        Tile();
-        Tile(float x, float y, float gridSizeF, Texture& texture, bool collision = false, short type = TileTypes::DEFAULT);
+        //Tile();
+        Tile(unsigned grid_x, unsigned grid_y, float gridSizeF, Texture& texture, IntRect& texture_rect, bool collision = false, short type = DEFAULT_TYPE);
         virtual ~Tile();
 
         //Functions

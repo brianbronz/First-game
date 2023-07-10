@@ -5,12 +5,6 @@
 #include "PauseMenu.h"
 #include "TileMap.h"
 
-class PauseMenu;
-class Player;
-class TileMap;
-class View;
-class Font;
-class RenderTexture;
 
 class GameState : public State{
     private: 
@@ -21,7 +15,7 @@ class GameState : public State{
         PauseMenu* pMenu;
         Player* player;
 	    Texture texture;
-        TileMap map;
+        TileMap* map;
         //functions
         void initView();
         void initKeybinds();
@@ -29,8 +23,9 @@ class GameState : public State{
         void initTextures();
         void initPauseMenu();
 	    void initPlayers();
+        void initTileMap();
     public:
-        GameState(RenderWindow* window, ::map<string, int>* supportedKeys, stack<State*>* states);
+        GameState(StateData* state_data);
 	    virtual ~GameState();
 
         //Functions

@@ -1,14 +1,14 @@
 #include "../Header/Tile.h"
 
-Tile::Tile(){
+/* Tile::Tile(){
 	this->collision = false;
 	this->type = 0;
 }
-
-Tile::Tile(float x, float y, float gridSizeF, Texture& texture, bool collision, short type){
+ */
+Tile::Tile(unsigned grid_x, unsigned grid_y, float gridSizeF, Texture& texture, IntRect& texture_rect, bool collision, short type){
 	this->shape.setSize(Vector2f(gridSizeF, gridSizeF));
 	this->shape.setFillColor(Color::Green);
-	this->shape.setPosition(x, y);
+	this->shape.setPosition(static_cast<float>(grid_x) * gridSizeF, static_cast<float>(grid_y) * gridSizeF);
     this->shape.setTexture(&texture);
 	this->collision = collision;
 	this->type = type;

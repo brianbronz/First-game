@@ -35,7 +35,7 @@ namespace gui{
 
             //Accessors
             bool isPressed();
-            const string& getText();
+            const string getText();
             short unsigned& getId();
             //Modifiers
             void setText( string text);
@@ -84,10 +84,10 @@ namespace gui{
             float gridSize,  Texture* texture_sheet, Font& font, string text);
         ~TextureSelector();
         //Accessors
-         bool& getActive();
-         IntRect& getTextureRect();
+        bool& getActive();
+        IntRect& getTextureRect();
 		//Functions
-		const bool getKeytime();
+	    bool getKeytime();
 		void updateKeytime(float& dt);
 		void update(Vector2i& mousePosWindow, float& dt);
 		void render(RenderTarget& target);

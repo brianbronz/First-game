@@ -59,7 +59,7 @@ void SettingsState::initText(){
     this->optionsText.setString("Resolution \n\nFullscreen \n\nVsync \n\nAntialiasing\n\n");
 }
 
-SettingsState::SettingsState(RenderWindow* window, GraphicsSettings& gfxSettings, map<string, int>* supportedKeys, stack<State*>* states):State(window, supportedKeys, states), gfxSettings(gfxSettings) {
+SettingsState::SettingsState(StateData* state_data): State(state_data) {
     this->initVariables();
     this->initBackground();
     this->initFonts();
@@ -92,8 +92,8 @@ void SettingsState::updateButtons( float& dt){
     }
 
     if (this->buttons["APPLY"]->isPressed()){
-        this->gfxSettings.resolution = this->modes[this->ddl["RESOLUTION"]->getActiveElementId()];
-		this->window->create(this->gfxSettings.resolution, this->gfxSettings.title, Style::Default);
+        this->stateData->gfxSettings->resolution = this->modes[this->ddl["RESOLUTION"]->getActiveElementId()];
+		this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, Style::Default);
 	}
 
     for(map<string, gui::DropDownList*>::iterator it= this->ddl.begin(); it != this->ddl.end(); ++it){

@@ -60,8 +60,7 @@ void MainMenuState::initButtons(){
         Color::Red, Color::Green, Color::Blue);
 }
 
-MainMenuState::MainMenuState(RenderWindow* window, GraphicsSettings& gfxSettings, map<string, int>* supportedKeys, stack<State*>* states)
-	: State(window, supportedKeys, states), gfxSettings(gfxSettings){
+MainMenuState::MainMenuState(StateData* state_data): State(state_data){
     this->initVariables();
 	this->initBackground();
     this->initFonts();
@@ -88,7 +87,7 @@ void MainMenuState::updateButtons(){
 
     //New game
     if(this->buttons["GAME_STATE"]->isPressed()){
-        this->states->push(new GameState(this->window, this->supportedKeys, this->states));
+        this->states->push(new GameState(this->stateData));
     }
     //Quit the game
     if(this->buttons["EXIT_STATE"]->isPressed()){
@@ -97,7 +96,7 @@ void MainMenuState::updateButtons(){
 
     //Quit the game
     if(this->buttons["SETTINGS_STATE"]->isPressed()){
-         this->states->push(new SettingsState(this->window, this->gfxSettings, this->supportedKeys, this->states));
+         this->states->push(new SettingsState(this->stateData));
     } 
 }
 

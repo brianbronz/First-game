@@ -15,7 +15,6 @@ class TileMap{
 	Texture tileSheet;
 
 public:
-	TileMap(string file_name);
 	TileMap(float gridSize, unsigned width, unsigned height, string texture_file);
 	virtual ~TileMap();
 
@@ -23,7 +22,7 @@ public:
 	Texture* getTileSheet() ;
 
 	//Functions
-	void addTile(unsigned x, unsigned y, unsigned z, IntRect& texture_rect, bool& collision, short& type);
+	void addTile(unsigned x, unsigned y, unsigned z, IntRect& texture_rect, bool collision, short type);
 	void removeTile(unsigned x, unsigned y, unsigned z);
 	void loadFromFile(string file_name);
 

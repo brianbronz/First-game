@@ -3,14 +3,11 @@
 
 void TileMap::clear(){
 	if(!this->map.empty()){
-		for (int i = 0; i < this->map.size(); i++){
-			for (int j = 0; j < this->map[i].size(); j++){
-				for (int k = 0; k < this->map[i][j].size(); k++){
-					for (int l = 0; l < this->map[i][j][k].size(); l++){
-						delete this->map[i][j][k][l];
-						this->map[i][j][k][l] = NULL;
-					}
-					this->map[i][j][k].clear();
+		for (int i = 0; i < this->maxSize.x; i++){
+			for (int j = 0; j < this->maxSize.y; j++){
+				for (int k = 0; k < this->layers; k++){
+						delete this->map[i][j][k];
+						this->map[i][j][k] = NULL;
 				}
 				this->map[i][j].clear();
 			}
@@ -44,18 +41,6 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height, string texture
 		std::cout << "ERROR::TILEMAP::FAILED TO LOAD TILETEXTURESHEET::FILENAME: " << texture_file << "\n";
 }
 
-TileMap::TileMap(string file_name){
-	this->fromX = 0;
-	this->toX = 0;
-	this->fromY = 0;
-	this->toY = 0;
-	this->layer = 0;
-	this->loadFromFile(file_name);
-	this->collisionBox.setSize(sf::Vector2f(this->gridSizeF, this->gridSizeF));
-	this->collisionBox.setFillColor(sf::Color(255, 0, 0, 50));
-	this->collisionBox.setOutlineColor(sf::Color::Red);
-	this->collisionBox.setOutlineThickness(1.f);
-}
 
 TileMap::~TileMap(){
     this->clear();
@@ -64,14 +49,11 @@ Texture * TileMap::getTileSheet(){
 	return &this->tileSheet;
 }
 
-void TileMap::addTile( unsigned x,  unsigned y,  unsigned z, bool& collision, short& type)
-{
-	/* Take two indicies from the mouse position in the grid and add a tile to that position if the internal tilemap array allows it. */
-
+void TileMap::addTile( unsigned x,  unsigned y,  unsigned z, IntRect& texture_rect, bool collision, short type){
 	if (x < this->maxSize.x && x >= 0 && y < this->maxSize.y && y >= 0 && z < this->layers && z >= 0){
 		if (this->map[x][y][z] == NULL){
 			/* OK To add tile. */
-			this->map[x][y][z] = new Tile(x, y, this->gridSizeF, this->tileTextureSheet);
+			this->map[x][y][z] = new Tile(x, y, this->gridSizeF, this->tileSheet, texture_rect, collision, type);
 			cout << "DEGBUG: ADDED TILE!" << "\n";
 		}	
 	}
@@ -145,7 +127,8 @@ void TileMap::loadFromFile(string file_name){
 			cout << "ERROR::TILEMAP::FAILED TO LOAD TILETEXTURESHEET::FILENAME: " << texture_file << "\n";
 		//Load all tiles
 		while (in_file >> x >> y >> z >> trX >> trY >> collision >> type){
-			this->map[x][y][z] = new Tile(x, y, this->gridSizeF, this->tileSheet, IntRect(trX, trY, this->gridSizeU, this->gridSizeU), collision, type);
+			IntRect rect(trX, trY, this->gridSizeU, this->gridSizeU);
+			this->map[x][y][z] = new Tile(x, y, this->gridSizeF, this->tileSheet, rect, collision, type);
 		}
 	} else {
 		cout << "ERROR::TILEMAP::COULD NOT LOAD FROM FILE::FILENAME: " << file_name << "\n";
