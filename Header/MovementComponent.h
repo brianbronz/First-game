@@ -27,6 +27,9 @@ class MovementComponent{
 
 		//Functions
 		bool getState(short unsigned state);
+		void stopVelocity();
+		void stopVelocityX();
+		void stopVelocityY();
 		void move( float x,  float y,  float & dt);
 		void update( float & dt);
 };

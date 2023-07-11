@@ -21,6 +21,7 @@ class Game{
         void initGraphicsSettings();
         void initWindow();
         void initKeys();
+        void initStateData();
         void initStates();
     public:
         //ructor and destructor

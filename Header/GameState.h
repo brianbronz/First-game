@@ -17,6 +17,7 @@ class GameState : public State{
 	    Texture texture;
         TileMap* map;
         //functions
+        void initDeferredRender();
         void initView();
         void initKeybinds();
         void initFonts();
@@ -33,6 +34,7 @@ class GameState : public State{
         void updateInput( float& dt);
         void updatePlayerInput(float& dt);
         void updatePauseMenuButtons();
+        void updateTileMap(float& dt);
         void update( float& dt);
         void render(RenderTarget* target = NULL);
 };

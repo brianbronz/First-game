@@ -4,16 +4,28 @@
 #include "../Maps code/TileMap.c++"
 #include "State.c++"
 
+void GameState::initDeferredRender(){
+	this->renderTexture.create(
+		this->stateData->gfxSettings->resolution.width,
+		this->stateData->gfxSettings->resolution.height
+	);
+
+	this->renderSprite.setTexture(this->renderTexture.getTexture());
+	this->renderSprite.setTextureRect(
+		IntRect(0, 0, this->stateData->gfxSettings->resolution.width, this->stateData->gfxSettings->resolution.height)
+	);
+}
+
 void GameState::initView(){
     this->view.setSize(Vector2f(
-			this->stateData->gfxSettings->resolution.width,
-			this->stateData->gfxSettings->resolution.height
+			static_cast<float>(this->stateData->gfxSettings->resolution.width),
+			static_cast<float>(this->stateData->gfxSettings->resolution.height)
 		)
 	);
 
     this->view.setCenter(Vector2f(
-			this->stateData->gfxSettings->resolution.width / 2.f,
-			this->stateData->gfxSettings->resolution.height / 2.f
+			static_cast<float>(this->stateData->gfxSettings->resolution.width / 2.f),
+			static_cast<float>(this->stateData->gfxSettings->resolution.height / 2.f)
 		)
 	);
 }
@@ -51,12 +63,13 @@ void GameState::initPlayers(){
 }
 
 void GameState::initTileMap(){
-    	this->map = new TileMap(this->stateData->gridSize, 10, 10, "Resources/Images/Tiles/tilesheet1.png");
+    	this->map = new TileMap(this->stateData->gridSize, 10, 10, "../Source Files/Resources/Images/Tiles/tilesheet1.png");
         this->map->loadFromFile("text.slmp");
 }
 
 //Constructors / Destructors
 GameState::GameState(StateData* state_data): State(state_data){
+    this->initDeferredRender();
     this->initView();
 	this->initKeybinds();
     this->initFonts();
@@ -71,7 +84,7 @@ GameState::~GameState(){
 }
 
 void GameState::updateView(const float & dt){
-	this->view.setCenter(this->player->getPosition());
+	this->view.setCenter(floor(this->player->getPosition().x),floor(this->player->getPosition().y));
 }
 
 void GameState::updateInput( float& dt){
@@ -104,12 +117,18 @@ void GameState::updatePauseMenuButtons(){
     }
 }
 
-void GameState::update( float& dt){
+void GameState::updateTileMap(float & dt){
+	this->map->update();
+	this->map->updateCollision(this->player, dt);
+}
+
+void GameState::update(float& dt){
     this->updateMousePositions(&this->view);
     this->updateKeytime(dt);
     this->updateInput(dt);
     if(!this->paused){
         this->updateView(dt);
+        this->updateTileMap(dt);
         this->player->update(dt);
     } else {
         this->pMenu->update(this->mousePosWindow);
@@ -121,11 +140,16 @@ void GameState::render(RenderTarget* target){
     if (!target){
         target = this->window;
     }
-    target->setView(this->view);
-	this->map->render(*target);
-    this->player->render(*target);
+	this->renderTexture.clear();
+	this->renderTexture.setView(this->view);
+	this->map->render(this->renderTexture, this->player);
+    this->player->render(this->renderTexture);
     if(this->paused){
         target->setView(this->window->getDefaultView());
-        this->pMenu->render(*target);
-    }
+        this->renderTexture.setView(this->renderTexture.getDefaultView());
+		this->pMenu->render(this->renderTexture);
+	}
+	//FINAL RENDER
+	this->renderTexture.display();
+	target->draw(this->renderSprite);
 }

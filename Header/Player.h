@@ -20,7 +20,9 @@ public:
 	//Functions
 	void updateAttack();
 	void updateAnimation( float& dt);
-	virtual void update( float& dt);
+	void update(float& dt);
+
+	void render(RenderTarget& target);
 };
 
 #endif

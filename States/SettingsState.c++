@@ -9,7 +9,7 @@ void SettingsState::initBackground(){
         static_cast<float>(this->window->getSize().x),
         static_cast<float>(this->window->getSize().y)
     ));
-    if (!this->backgroundTexture.loadFromFile("Resources/Images/Backgrounds/bg2.png")){
+    if (!this->backgroundTexture.loadFromFile("../Source Files/Resources/Images/Backgrounds/bg2.png")){
         throw("ERROR::FAILED_TO_LOAD_BACKGROUND"); 
     }
     this->background.setTexture(&this->backgroundTexture);

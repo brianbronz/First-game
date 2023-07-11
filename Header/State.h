@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "GraphicsSettings.h"
 //keep resources
+class Player;
+class GraphicsSettings;
 class State;
 class StateData
 {
@@ -19,7 +21,7 @@ class State{
     protected:
         StateData* stateData;
         stack<State*>* states;
-        RenderWindow* window;
+        RenderWindow* window; //DA GUARDARE
         map<string, int>* supportedKeys;
         map<string, int> keybinds;
         bool quit;

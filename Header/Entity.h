@@ -26,10 +26,15 @@ class Entity{
         void createAnimationComponent(Texture& textureSheet);
         //Functions
         const virtual Vector2f& getPosition();
+        virtual const Vector2u getGridPosition(unsigned gridSizeU);
+        virtual const FloatRect getGlobalBounds();
+        virtual const FloatRect getNextPositionBounds(float& dt);
         virtual void setPosition( float x,  float y);
 	    virtual void move( float x,  float y,  float & dt);
-        virtual void update( float & dt);
-        virtual void render(RenderTarget& target);
-
+        virtual void stopVelocity();
+        virtual void stopVelocityX();
+        virtual void stopVelocityY();
+        virtual void update(float& dt);
+	    virtual void render(RenderTarget& target);
 };
 #endif

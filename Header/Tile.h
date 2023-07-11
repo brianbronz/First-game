@@ -13,9 +13,13 @@ class Tile{
         short type;
     public:
         //Tile();
-        Tile(unsigned grid_x, unsigned grid_y, float gridSizeF, Texture& texture, IntRect& texture_rect, bool collision = false, short type = DEFAULT_TYPE);
+        Tile(int grid_x, int grid_y, float gridSizeF, Texture& texture, IntRect& texture_rect, bool collision = false, short type = DEFAULT_TYPE);
         virtual ~Tile();
 
+        bool & getCollision();
+	    const Vector2f& getPosition();
+        const FloatRect getGlobalBounds();
+	    bool intersects(FloatRect bounds);
         //Functions
         string getAsString();
         void update();

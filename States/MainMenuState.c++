@@ -8,21 +8,14 @@ void MainMenuState::initVariables()
 
 }
 
-void MainMenuState::initBackground()
-{
+void MainMenuState::initBackground(){
 	this->background.setSize(
-		Vector2f
-		(
-			static_cast<float>(this->window->getSize().x), 
-			static_cast<float>(this->window->getSize().y)
-		)
+		Vector2f(static_cast<float>(this->window->getSize().x), static_cast<float>(this->window->getSize().y))
 	);
-
-	if (!this->backgroundTexture.loadFromFile("Resources/Images/Backgrounds/bg2.png"))
+	if (!this->backgroundTexture.loadFromFile("../Source Files/Resources/Images/Backgrounds/bg2.png"))
 	{
 		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
-
 	this->background.setTexture(&this->backgroundTexture);
 }
 
@@ -100,7 +93,7 @@ void MainMenuState::updateButtons(){
     } 
 }
 
-void MainMenuState::update( float& dt){
+void MainMenuState::update(float& dt){
     this->updateMousePositions();
     this->updateInput(dt);
     this->updateButtons();

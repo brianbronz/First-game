@@ -73,6 +73,14 @@ void Game::initKeys(){
     ifs.close();
 }
 
+void Game::initStateData()
+{
+	this->stateData.window = this->window;
+	this->stateData.gfxSettings = &this->gfxSettings;
+	this->stateData.supportedKeys = &this->supportedKeys;
+	this->stateData.states = &this->states;
+}
+
 void Game::initStates(){
     this->states.push(new MainMenuState(&this->stateData));
 }
@@ -83,6 +91,7 @@ Game::Game(){
 	this->initGraphicsSettings();
     this->initWindow();
     this->initKeys();
+    this->initStateData();
     this->initStates();
 }
 
@@ -118,16 +127,17 @@ void Game::updateSFMLEvents(){
 void Game::update(){
     this->updateSFMLEvents();
      if(!this->states.empty()){
-        
-        this->states.top()->update(this->dt);
-        if (this->states.top()->getQuit()){
-            this->states.top()->endState();
-            delete this->states.top();
-            this->states.pop();
+        if (this->window->hasFocus()){
+            this->states.top()->update(this->dt);
+            if (this->states.top()->getQuit()){
+                this->states.top()->endState();
+                delete this->states.top();
+                this->states.pop();
+            }
         }
     }
     //Application end
-    else{
+    else {
         this->endApplication();
         this->window->close();
     }
@@ -146,7 +156,6 @@ void Game::render(){
 }
 
 void Game::run(){
-
     while(this->window->isOpen()){
         this->updateDt();
         this->update();
