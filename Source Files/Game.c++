@@ -6,6 +6,7 @@
 void Game::initVariables(){
 	this->window = NULL;
 	this->dt = 0.f;
+    this->gridSize = 64.f;
 }
 
 //Initialize functions
@@ -29,35 +30,6 @@ void Game::initWindow(){
     }
     this->window->setFramerateLimit(this->gfxSettings.frameRateLimit);
     this->window->setVerticalSyncEnabled(this->gfxSettings.verticalSync);
-    /* ifstream ifs("../Config/window.ini");
-    this->videoModes = VideoMode::getFullscreenModes();
-    bool fullscreen = false;
-
-    string title = "None";
-    VideoMode windowBounds = VideoMode::getDesktopMode();
-    unsigned framerateLimit = 120;
-    bool verticalSync = false;
-    unsigned antialiasingLevel = 0;
-
-    if(ifs.is_open()){
-        getline(ifs, title);
-        ifs >> windowBounds.width >> windowBounds.height;
-        ifs >> fullscreen;
-        ifs >> framerateLimit;
-        ifs >> verticalSync;
-        ifs >> antialiasingLevel;
-    }
-    ifs.close();
-    this->fullscreen = fullscreen;
-	this->windowSettings.antialiasingLevel = antialiasingLevel;
-
-	(this->fullscreen)?
-		this->window = new RenderWindow(windowBounds, title, Style::Fullscreen, windowSettings):
-		this->window = new RenderWindow(windowBounds, title, Style::Titlebar | Style::Close, windowSettings);	
-
-    this->window->setFramerateLimit(framerateLimit);
-    this->window->setVerticalSyncEnabled(verticalSync);
-     */
 }
 
 void Game::initKeys(){
@@ -73,12 +45,12 @@ void Game::initKeys(){
     ifs.close();
 }
 
-void Game::initStateData()
-{
+void Game::initStateData(){
 	this->stateData.window = this->window;
 	this->stateData.gfxSettings = &this->gfxSettings;
 	this->stateData.supportedKeys = &this->supportedKeys;
 	this->stateData.states = &this->states;
+    this->stateData.gridSize = this->gridSize;
 }
 
 void Game::initStates(){
@@ -135,8 +107,7 @@ void Game::update(){
                 this->states.pop();
             }
         }
-    }
-    //Application end
+    }//Application end
     else {
         this->endApplication();
         this->window->close();

@@ -13,6 +13,7 @@ class TileMap{
 	Vector2f maxSizeWorldF;
 	int layers;
 	vector< vector< vector< vector<Tile*> > > > map;
+	stack<Tile*> deferredRenderStack; 
 	string textureFile;
 	Texture tileSheet;
 	RectangleShape collisionBox;
@@ -38,5 +39,6 @@ public:
 	void updateCollision(Entity* entity, float& dt);
 	void update();
 	void render(RenderTarget& target, const Vector2i& gridPosition);
+	void renderDeferred(RenderTarget& target);
 };
 #endif

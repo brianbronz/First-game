@@ -18,6 +18,10 @@ Tile::~Tile(){
 
 }
 
+short & Tile::getType(){
+	return this->type;
+}
+
 bool & Tile::getCollision(){
 	return this->collision;
 }

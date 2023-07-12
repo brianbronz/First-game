@@ -118,14 +118,25 @@ void TileMap::render(RenderTarget & target, const Vector2i& gridPosition){
 	}
 	for (int x = this->fromX; x < this->toX; x++){
 		for (int y = this->fromY; y < this->toY; y++){
-			for (size_t k = 0; k < this->map[x][y][this->layer].size(); k++){
-			this->map[x][y][this->layer][k]->render(target);
+			for (int k = 0; k < this->map[x][y][this->layer].size(); k++){
+				if (this->map[x][y][this->layer][k]->getType() == TileTypes::DOODAD){//Used to render trees above the player. 
+						this->deferredRenderStack.push(this->map[x][y][this->layer][k]);
+				} else {
+					this->map[x][y][this->layer][k]->render(target);
+				}
 				if (this->map[x][y][this->layer][k]->getCollision()){
 					this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
 					target.draw(this->collisionBox);
 				}
 			}
 		}
+	}
+}
+
+void TileMap::renderDeferred(sf::RenderTarget & target){
+	while (!this->deferredRenderStack.empty()){
+		deferredRenderStack.top()->render(target);
+		deferredRenderStack.pop();
 	}
 }
 

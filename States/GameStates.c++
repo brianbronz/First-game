@@ -18,8 +18,8 @@ void GameState::initDeferredRender(){
 
 void GameState::initView(){
     this->view.setSize(Vector2f(
-			static_cast<float>(this->stateData->gfxSettings->resolution.width),
-			static_cast<float>(this->stateData->gfxSettings->resolution.height)
+			static_cast<float>(this->stateData->gfxSettings->resolution.width / 2),
+			static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)
 		)
 	);
 
@@ -54,6 +54,7 @@ void GameState::initTextures(){
 }
 
 void GameState::initPauseMenu(){
+    
     this->pMenu = new PauseMenu(*this->window, this->font);
     this->pMenu->addButton("QUIT", 800.f, "Quit");
 }
@@ -63,7 +64,7 @@ void GameState::initPlayers(){
 }
 
 void GameState::initTileMap(){
-    this->map = new TileMap(this->stateData->gridSize, 10, 10, "../Source Files/Resources/Images/Tiles/tilesheet1.png");
+    this->map = new TileMap(this->stateData->gridSize, 1000, 1000, "../Source Files/Resources/Images/Tiles/tilesheet1.png");
     this->map->loadFromFile("../Maps code/text.slmp");
 }
 
@@ -86,7 +87,9 @@ GameState::~GameState(){
 }
 
 void GameState::updateView(const float & dt){
-	this->view.setCenter(std::floor(this->player->getPosition().x), std::floor(this->player->getPosition().y));
+	this->view.setCenter(std::floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 10.f),
+		std::floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 10.f)
+    );
 }
 
 void GameState::updateInput( float& dt){
@@ -145,8 +148,9 @@ void GameState::render(RenderTarget* target){
 	this->renderTexture.setView(this->view);
     this->map->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)));
     this->player->render(this->renderTexture);
+    this->map->renderDeferred(this->renderTexture);
+    this->renderTexture.setView(this->renderTexture.getDefaultView());
     if(this->paused){
-        this->renderTexture.setView(this->renderTexture.getDefaultView());
 		this->pMenu->render(this->renderTexture);
 	}
 	//FINAL RENDER

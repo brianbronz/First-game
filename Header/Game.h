@@ -16,6 +16,7 @@ class Game{
 
         stack<State*> states;//State* because it is an abstract class
         map<string, int> supportedKeys;
+        float gridSize;
         //initialization
         void initVariables();
         void initGraphicsSettings();

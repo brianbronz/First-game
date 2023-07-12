@@ -3,7 +3,7 @@
 #include "AllReference.h"
 
 static const short DEFAULT_TYPE = 0;
-enum TileTypes {DEFAULT = 0, DAMAGING};
+enum TileTypes {DEFAULT = 0, DAMAGING, DOODAD};
 
 class Tile{
     private:
@@ -20,6 +20,8 @@ class Tile{
 	    const Vector2f& getPosition();
         const FloatRect getGlobalBounds();
 	    bool intersects(FloatRect bounds);
+
+        short& getType();
         //Functions
         string getAsString();
         void update();

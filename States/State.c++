@@ -46,7 +46,6 @@ void State::updateMousePositions(View* view){
 		this->window->setView(*view);
     }
     this->mousePosView = this->window->mapPixelToCoords(Mouse::getPosition(*this->window));
-    if (this->gridSize == 0){this->gridSize = 64.f;}
 	this->mousePosGrid = Vector2i(
 			static_cast<int>(this->mousePosView.x) / static_cast<int>(this->gridSize),
 			static_cast<int>(this->mousePosView.y) / static_cast<int>(this->gridSize)
