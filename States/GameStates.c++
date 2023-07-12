@@ -48,7 +48,7 @@ void GameState::initKeybinds(){
     ifs.close();}
 
 void GameState::initTextures(){
-	if (!this->textures["PLAYER_IDLE"].loadFromFile("Resources/Images/Sprites/Player/PLAYER_SHEET.png")){//change test with name file for animation
+	if (!this->textures["PLAYER_IDLE"].loadFromFile("../Source Files/Resources/Images/Sprites/Player/PLAYER_SHEET.png")){//change test with name file for animation
 		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_IDLE_TEXTURE";
 	}
 }
@@ -59,12 +59,12 @@ void GameState::initPauseMenu(){
 }
 
 void GameState::initPlayers(){
-	this->player = new Player(100, 100, this->textures["PLAYER_IDLE"]);
+	this->player = new Player(0, 0, this->textures["PLAYER_IDLE"]);
 }
 
 void GameState::initTileMap(){
-    	this->map = new TileMap(this->stateData->gridSize, 10, 10, "../Source Files/Resources/Images/Tiles/tilesheet1.png");
-        this->map->loadFromFile("text.slmp");
+    this->map = new TileMap(this->stateData->gridSize, 10, 10, "../Source Files/Resources/Images/Tiles/tilesheet1.png");
+    this->map->loadFromFile("../Maps code/text.slmp");
 }
 
 //Constructors / Destructors
@@ -76,22 +76,22 @@ GameState::GameState(StateData* state_data): State(state_data){
 	this->initTextures();
     this->initPauseMenu();
 	this->initPlayers();
+    this->initTileMap();
 }
 
 GameState::~GameState(){
     delete this->pMenu;
     delete this->player;
+    delete this->map;
 }
 
 void GameState::updateView(const float & dt){
-	this->view.setCenter(floor(this->player->getPosition().x),floor(this->player->getPosition().y));
+	this->view.setCenter(std::floor(this->player->getPosition().x), std::floor(this->player->getPosition().y));
 }
 
 void GameState::updateInput( float& dt){
     if(Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeytime()){
-        (this->paused)?
-            this->unpauseState():
-            this->pauseState();
+        (this->paused)? this->unpauseState(): this->pauseState();
     }
 }
 
@@ -126,13 +126,14 @@ void GameState::update(float& dt){
     this->updateMousePositions(&this->view);
     this->updateKeytime(dt);
     this->updateInput(dt);
-    if(!this->paused){
-        this->updateView(dt);
-        this->updateTileMap(dt);
-        this->player->update(dt);
-    } else {
+    if(this->paused){
         this->pMenu->update(this->mousePosWindow);
         this->updatePauseMenuButtons();
+    } else {
+        this->updateView(dt);
+        this->updatePlayerInput(dt);
+        this->updateTileMap(dt);
+        this->player->update(dt);
     }
 }
 
@@ -142,10 +143,9 @@ void GameState::render(RenderTarget* target){
     }
 	this->renderTexture.clear();
 	this->renderTexture.setView(this->view);
-	this->map->render(this->renderTexture, this->player);
+    this->map->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)));
     this->player->render(this->renderTexture);
     if(this->paused){
-        target->setView(this->window->getDefaultView());
         this->renderTexture.setView(this->renderTexture.getDefaultView());
 		this->pMenu->render(this->renderTexture);
 	}

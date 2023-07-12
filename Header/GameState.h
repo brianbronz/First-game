@@ -9,6 +9,7 @@
 class GameState : public State{
     private: 
         View view;
+        Vector2i viewGridPosition;
         RenderTexture renderTexture;
         Sprite renderSprite;
         Font font;

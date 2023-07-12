@@ -17,11 +17,12 @@ public:
 	::map<string, int>* supportedKeys;
 	stack<State*>* states;
 };
+
 class State{
     protected:
         StateData* stateData;
         stack<State*>* states;
-        RenderWindow* window; //DA GUARDARE
+        RenderWindow* window;
         map<string, int>* supportedKeys;
         map<string, int> keybinds;
         bool quit;
@@ -33,9 +34,9 @@ class State{
         Vector2i mousePosScreen;
         Vector2i mousePosWindow;
         Vector2f mousePosView;
-        Vector2u mousePosGrid;
+        Vector2i mousePosGrid;
         //resources
-        map<string, Texture> textures;
+        std::map<string, Texture> textures;
 
         //function
         virtual void initKeybinds() = 0;

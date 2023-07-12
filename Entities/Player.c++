@@ -15,10 +15,10 @@ Player::Player(float x, float y, Texture& textureSheet){
 	this->initVariables();
 	this->setPosition(x, y);
 	this->createHitboxComponent(this->sprite, 86.f, 74.f, 86.f, 111.f);
-	this->createMovementComponent(300.f, 15.f, 5.f);
+	this->createMovementComponent(350.f, 1500.f, 5.f);
 	this->createAnimationComponent(textureSheet);
-	this->animationComponent->addAnimation("IDLE", 100.f, 0, 0, 13, 0, 192, 192);
-	this->animationComponent->addAnimation("WALK", 100.f, 0, 1, 11, 1, 192, 192);
+	this->animationComponent->addAnimation("IDLE", 11.f, 0, 0, 13, 0, 192, 192);
+	this->animationComponent->addAnimation("WALK", 6.f, 0, 1, 11, 1, 192, 192);
 	this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 13, 2, 192*2, 192);
 }	
 //nome file, tempo, numero della colonna da partire, numero della riga, elementi della riga, frames_y, dimensione   
@@ -26,9 +26,7 @@ Player::Player(float x, float y, Texture& textureSheet){
 //width = the width of the file IDLE_LEFT / number of image in the row
 //height = the height of the file IDLE_LEFT / number of image in the column
 
-Player::~Player()
-{
-
+Player::~Player(){
 }
 
 //Functions
@@ -39,7 +37,7 @@ void Player::updateAttack(){
 	}
 }
 
-void Player::updateAnimation( float& dt){
+void Player::updateAnimation(float& dt){
 	if(this->attacking){
 		//Set origin depending on direction
 		(this->sprite.getScale().x > 0.f)?
@@ -75,16 +73,14 @@ void Player::updateAnimation( float& dt){
 
 }
 
-void Player::update( float& dt){
+void Player::update(float& dt){
 	this->movementComponent->update(dt);
 	this->updateAttack();
 	this->updateAnimation(dt);
 	this->hitboxComponent->update();
 }
 
-void Player::render(sf::RenderTarget & target)
-{
+void Player::render(sf::RenderTarget & target){
 	target.draw(this->sprite);
-
 	this->hitboxComponent->render(target);
 }
