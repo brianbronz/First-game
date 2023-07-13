@@ -1,5 +1,6 @@
 #include "../Header/GameState.h"
 #include "../Entities/Player.c++"
+#include "../Entities/PlayerGUI.c++"
 #include "../Source Files/PauseMenu.c++"
 #include "../Maps code/TileMap.c++"
 #include "State.c++"
@@ -63,6 +64,10 @@ void GameState::initPlayers(){
 	this->player = new Player(0, 0, this->textures["PLAYER_IDLE"]);
 }
 
+void GameState::initPlayerGUI(){
+	this->playerGUI = new PlayerGUI(this->player);
+}
+
 void GameState::initTileMap(){
     this->map = new TileMap(this->stateData->gridSize, 1000, 1000, "../Source Files/Resources/Images/Tiles/tilesheet1.png");
     this->map->loadFromFile("../Maps code/text.slmp");
@@ -77,12 +82,14 @@ GameState::GameState(StateData* state_data): State(state_data){
 	this->initTextures();
     this->initPauseMenu();
 	this->initPlayers();
+    this->initPlayerGUI();
     this->initTileMap();
 }
 
 GameState::~GameState(){
     delete this->pMenu;
     delete this->player;
+    delete this->playerGUI;
     delete this->map;
 }
 
@@ -105,13 +112,21 @@ void GameState::updatePlayerInput(float& dt){
     }
     if(Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("MOVE_UP")))){
         this->player->move(0.f, -1.f, dt);
+        if(this->getKeytime())
+			this->player->gainEXP(10);
     }
     if(Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("MOVE_DOWN")))){
         this->player->move(0.f, 1.f, dt);
+        if (this->getKeytime())
+			this->player->loseEXP(10);
     }
     if(Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("MOVE_RIGHT")))){
         this->player->move(1.f, 0.f, dt);
     }
+}
+
+void GameState::updatePlayerGUI(float & dt){
+	this->playerGUI->update(dt);
 }
 
 void GameState::updatePauseMenuButtons(){
@@ -137,6 +152,7 @@ void GameState::update(float& dt){
         this->updatePlayerInput(dt);
         this->updateTileMap(dt);
         this->player->update(dt);
+        this->playerGUI->update(dt);
     }
 }
 
@@ -149,7 +165,9 @@ void GameState::render(RenderTarget* target){
     this->map->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)));
     this->player->render(this->renderTexture);
     this->map->renderDeferred(this->renderTexture);
-    this->renderTexture.setView(this->renderTexture.getDefaultView());
+    //Render GUI
+	this->renderTexture.setView(this->renderTexture.getDefaultView());
+	this->playerGUI->render(this->renderTexture);
     if(this->paused){
 		this->pMenu->render(this->renderTexture);
 	}

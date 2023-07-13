@@ -1,6 +1,7 @@
 #include "../Header/Entity.h"
 #include "../Animation code/MovementComponent.c++"
 #include "../Source Files/HitBoxComponent.c++"
+#include "AttributeComponent.c++"
 
 void Entity:: initVariables(){
 	this->hitboxComponent = NULL;
@@ -16,6 +17,7 @@ Entity::~Entity(){
 	delete this->hitboxComponent;
     delete this->movementComponent;
 	delete this->animationComponent;
+	delete this->attributeComponent;
 }
 
 //Component functions
@@ -33,6 +35,10 @@ void Entity::createMovementComponent(float maxVelocity, float acceleration, floa
 
 void Entity::createAnimationComponent(Texture& textureSheet){
 	this->animationComponent = new AnimationComponent(this->sprite, textureSheet);
+}
+
+void Entity::createAttributeComponent(const unsigned level){
+	this->attributeComponent = new AttributeComponent(level);
 }
 
 //Functions
@@ -64,11 +70,11 @@ const FloatRect Entity::getGlobalBounds(){
 }
 
 
-const sf::FloatRect Entity::getNextPositionBounds(float& dt){
+const FloatRect Entity::getNextPositionBounds(float& dt){
 	if (this->hitboxComponent && this->movementComponent){
 		return this->hitboxComponent->getNextPosition(this->movementComponent->getVelocity() * dt);
 	}
-	return sf::FloatRect(-1.f, -1.f, -1.f, -1.f);
+	return FloatRect(-1.f, -1.f, -1.f, -1.f);
 }
 
 void Entity::setPosition(float x, float y)

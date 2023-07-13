@@ -161,7 +161,7 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
     this->keytime = 0.f;
     this->keytimeMax = 1.f;
     this->gridSize = gridSize;
-    float offset = 100.f;
+    float offset =  gridSize;
 	this->active = false;
     this->hidden = false;
 	this->bounds.setSize(Vector2f(width, height));

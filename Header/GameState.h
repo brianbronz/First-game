@@ -4,7 +4,7 @@
 #include "State.h"
 #include "PauseMenu.h"
 #include "TileMap.h"
-
+#include "PlayerGUI.h"
 
 class GameState : public State{
     private: 
@@ -15,6 +15,7 @@ class GameState : public State{
         Font font;
         PauseMenu* pMenu;
         Player* player;
+        PlayerGUI* playerGUI;
 	    Texture texture;
         TileMap* map;
         //functions
@@ -25,6 +26,7 @@ class GameState : public State{
         void initTextures();
         void initPauseMenu();
 	    void initPlayers();
+        void initPlayerGUI();
         void initTileMap();
     public:
         GameState(StateData* state_data);
@@ -34,6 +36,7 @@ class GameState : public State{
         void updateView(const float& dt);
         void updateInput( float& dt);
         void updatePlayerInput(float& dt);
+        void updatePlayerGUI(float& dt);
         void updatePauseMenuButtons();
         void updateTileMap(float& dt);
         void update( float& dt);

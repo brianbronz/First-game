@@ -58,9 +58,9 @@ Texture * TileMap::getTileSheet(){
 }
 
 int TileMap::getLayerSize(int x, int y, int layer){
-	if (x >= 0 && x < this->map.size()){
-		if (y >= 0 && y < this->map[x].size()){
-			if (layer >= 0 && layer < this->map[x][y].size()){
+	if (x >= 0 && x < static_cast<int>(this->map.size())){
+		if (y >= 0 && y < static_cast<int>(this->map[x].size())){
+			if (layer >= 0 && layer < static_cast<int>(this->map[x][y].size())){
 				return this->map[x][y][layer].size();
 			}
 		}
@@ -119,7 +119,7 @@ void TileMap::render(RenderTarget & target, const Vector2i& gridPosition){
 	for (int x = this->fromX; x < this->toX; x++){
 		for (int y = this->fromY; y < this->toY; y++){
 			for (int k = 0; k < this->map[x][y][this->layer].size(); k++){
-				if (this->map[x][y][this->layer][k]->getType() == TileTypes::DOODAD){//Used to render trees above the player. 
+				if (this->map[x][y][this->layer][k]->getType() == DOODAD){//Used to render trees above the player. 
 						this->deferredRenderStack.push(this->map[x][y][this->layer][k]);
 				} else {
 					this->map[x][y][this->layer][k]->render(target);

@@ -17,6 +17,7 @@ Player::Player(float x, float y, Texture& textureSheet){
 	this->createHitboxComponent(this->sprite, 86.f, 74.f, 86.f, 111.f);
 	this->createMovementComponent(350.f, 1500.f, 5.f);
 	this->createAnimationComponent(textureSheet);
+	this->createAttributeComponent(1);
 	this->animationComponent->addAnimation("IDLE", 11.f, 0, 0, 13, 0, 192, 192);
 	this->animationComponent->addAnimation("WALK", 6.f, 0, 1, 11, 1, 192, 192);
 	this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 13, 2, 192*2, 192);
@@ -29,7 +30,40 @@ Player::Player(float x, float y, Texture& textureSheet){
 Player::~Player(){
 }
 
+AttributeComponent * Player::getAttributeComponent(){
+	return this->attributeComponent;
+}
+
 //Functions
+void Player::loseHP(const int hp)
+{
+	this->attributeComponent->hp -= hp;
+
+	if (this->attributeComponent->hp < 0)
+		this->attributeComponent->hp = 0;
+}
+
+void Player::gainHP(const int hp)
+{
+	this->attributeComponent->hp += hp;
+
+	if (this->attributeComponent->hp > this->attributeComponent->hpMax)
+		this->attributeComponent->hp = this->attributeComponent->hpMax;
+}
+
+void Player::loseEXP(const int exp)
+{
+	this->attributeComponent->exp -= exp;
+
+	if (this->attributeComponent->exp < 0)
+		this->attributeComponent->exp = 0;
+}
+
+void Player::gainEXP(const int exp)
+{
+	this->attributeComponent->gainExp(exp);
+}
+
 void Player::updateAttack(){
 	//event to attack
 	if(Mouse::isButtonPressed(Mouse::Left)){
