@@ -36,7 +36,7 @@ class State{
         Vector2f mousePosView;
         Vector2i mousePosGrid;
         //resources
-        std::map<string, Texture> textures;
+        map<string, Texture> textures;
 
         //function
         virtual void initKeybinds() = 0;

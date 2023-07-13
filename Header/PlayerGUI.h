@@ -1,6 +1,7 @@
 #ifndef PLAYERGUI_H
 #define PLAYERGUI_H
 #include "Player.h"
+#include "Gui.h"
 
 class Player;
 
@@ -8,28 +9,28 @@ class PlayerGUI
 {
 private:
 	Player* player;
-
-	sf::Font font;
+    VideoMode& vm;
+	Font font;
 
     //Level bar
-	std::string levelBarString;
-	sf::Text levelBarText;
-	sf::RectangleShape levelBarBack;
+	string levelBarString;
+	Text levelBarText;
+	RectangleShape levelBarBack;
 
 	//EXP Bar
-	std::string expBarString;
-	sf::Text expBarText;
+	string expBarString;
+	Text expBarText;
 	float expBarMaxWidth;
-	sf::RectangleShape expBarBack;
-	sf::RectangleShape expBarInner;
+	RectangleShape expBarBack;
+	RectangleShape expBarInner;
 
 	//HP Bar
-	std::string hpBarString;
-	sf::Text hpBarText;
+	string hpBarString;
+	Text hpBarText;
 
 	float hpBarMaxWidth;
-	sf::RectangleShape hpBarBack;
-	sf::RectangleShape hpBarInner;
+	RectangleShape hpBarBack;
+	RectangleShape hpBarInner;
 
 	void initFont();
     void initLevelBar();
@@ -37,7 +38,7 @@ private:
 	void initHPBar();
 
 public:
-	PlayerGUI(Player* player);
+	PlayerGUI(Player* player, VideoMode& vm);
 	virtual ~PlayerGUI();
 
 	//Functions
@@ -46,9 +47,9 @@ public:
 	void updateHPBar();
 	void update(const float& dt);
 
-    void renderLevelBar(sf::RenderTarget & target);
-	void renderEXPBar(sf::RenderTarget & target);
-	void renderHPBar(sf::RenderTarget & target);
-	void render(sf::RenderTarget& target);
+    void renderLevelBar(RenderTarget & target);
+	void renderEXPBar(RenderTarget & target);
+	void renderHPBar(RenderTarget & target);
+	void render(RenderTarget& target);
 };
 #endif

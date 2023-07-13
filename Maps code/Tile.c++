@@ -40,7 +40,7 @@ bool Tile::intersects(FloatRect bounds){
 }
 
 string Tile::getAsString(){
-	std::stringstream ss;
+	stringstream ss;
 	ss << this->shape.getTextureRect().left << " " << this->shape.getTextureRect().top << " " << this->collision << " " << this->type;
 	return ss.str();
 }

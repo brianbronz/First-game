@@ -4,17 +4,6 @@ void SettingsState::initVariables(){
     this->modes = VideoMode::getFullscreenModes();
 }
 
-void SettingsState::initBackground(){
-    this->background.setSize(Vector2f(
-        static_cast<float>(this->window->getSize().x),
-        static_cast<float>(this->window->getSize().y)
-    ));
-    if (!this->backgroundTexture.loadFromFile("../Source Files/Resources/Images/Backgrounds/bg2.png")){
-        throw("ERROR::FAILED_TO_LOAD_BACKGROUND"); 
-    }
-    this->background.setTexture(&this->backgroundTexture);
-}
-
 void SettingsState::initFonts(){
     if(!this->font.loadFromFile("../Fonts/Dosis-Light.ttf")){
         throw("ERROR::NOT LOAD FONT");
@@ -33,46 +22,80 @@ void SettingsState::initKeybinds(){
     ifs.close();
 }
 
-void SettingsState::initButtons(){
-    this->buttons["BACK"] = new gui::Button(1500.f, 880.f, 250.f, 65.f,
-                                            &this->font, "Back", 50, 
+void SettingsState::initButtons(){//init the gui
+    const VideoMode& vm = this->stateData->gfxSettings->resolution;
+    //Background
+	this->background.setSize(Vector2f(static_cast<float>(vm.width), static_cast<float>(vm.height))
+	);
+
+	if (!this->backgroundTexture.loadFromFile("../Source Files/Resources/Images/Backgrounds/bg2.png")){
+		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
+	}
+
+	this->background.setTexture(&this->backgroundTexture);
+
+	//Buttons
+    this->buttons["BACK"] = new gui::Button(gui::p2pX(72.f, vm), gui::p2pY(81.5f, vm),
+		                                    gui::p2pX(13.f, vm), gui::p2pY(6.f, vm),
+		                                    &this->font, "Back", gui::calcCharSize(vm),
                                             Color::Black, Color::Black, Color::Black,
                                             Color::Blue, Color::Green, Color::Red);
     
-    this->buttons["APPLY"] = new gui::Button(1300.f, 880.f, 250.f, 65.f,
-                                            &this->font, "Apply", 50, 
+    this->buttons["APPLY"] = new gui::Button(gui::p2pX(60.f, vm), gui::p2pY(81.5f, vm),
+		                                    gui::p2pX(13.f, vm), gui::p2pY(6.f, vm),
+		                                    &this->font, "Apply", gui::calcCharSize(vm), 
                                             Color::Black, Color::Black, Color::Black,
                                             Color::Blue, Color::Green, Color::Red);
     
+    //Modes
     vector<string> modes_str;
     for (int i = 0; i < this->modes.size(); i++){
         modes_str.push_back(to_string(this->modes[i].width)+ 'x' + to_string(this->modes[i].height));
     }
-    this->ddl["RESOLUTION"] = new gui::DropDownList(800, 450, 200, 50, font, modes_str.data(), modes_str.size());
-}
+    //Drop down lists
+    this->ddl["RESOLUTION"] = new gui::DropDownList(gui::p2pX(42.f, vm), gui::p2pY(42.f, vm),
+		                                            gui::p2pX(10.4f, vm), gui::p2pY(4.5f, vm),
+		                                            font, modes_str.data(), modes_str.size());
 
-void SettingsState::initText(){
     this->optionsText.setFont(this->font);
-    this->optionsText.setPosition(Vector2f(100.f, 450.f));
-    this->optionsText.setCharacterSize(30);
+    this->optionsText.setPosition(Vector2f(gui::p2pX(5.2f, vm), gui::p2pY(41.7f, vm)));
+	this->optionsText.setCharacterSize(gui::calcCharSize(vm, 70));
     this->optionsText.setFillColor(Color::Black);
     this->optionsText.setString("Resolution \n\nFullscreen \n\nVsync \n\nAntialiasing\n\n");
 }
 
+void SettingsState::resetGui(){
+	/*
+	 * Clears the GUI elements and re-initialises the GUI.
+	 *
+	 * @return void
+	 */
+    for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
+        delete it->second;
+    }
+
+	this->buttons.clear();
+
+    for (map<string, gui::DropDownList*>::iterator it = this->ddl.begin(); it != this->ddl.end(); ++it){
+        delete it->second;
+    }
+
+	this->ddl.clear();
+	this->initButtons();
+}
+
 SettingsState::SettingsState(StateData* state_data): State(state_data) {
     this->initVariables();
-    this->initBackground();
     this->initFonts();
     this->initKeybinds();
     this->initButtons();
-    this->initText();
 }
 
 SettingsState::~SettingsState(){
     for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
         delete it->second;
     }
-
+    
     for (map<string, gui::DropDownList*>::iterator it = this->ddl.begin(); it != this->ddl.end(); ++it){
         delete it->second;
     }
@@ -94,6 +117,7 @@ void SettingsState::updateButtons( float& dt){
     if (this->buttons["APPLY"]->isPressed()){
         this->stateData->gfxSettings->resolution = this->modes[this->ddl["RESOLUTION"]->getActiveElementId()];
 		this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, Style::Default);
+        this->resetGui();
 	}
 
     for(map<string, gui::DropDownList*>::iterator it= this->ddl.begin(); it != this->ddl.end(); ++it){

@@ -1,28 +1,28 @@
 #include "../Header/PauseMenu.h"
 
-PauseMenu::PauseMenu(RenderWindow& window, Font& font): font(font){
+PauseMenu::PauseMenu(VideoMode& vm, Font& font): font(font){
     //init background
     this->background.setSize(Vector2f(
-        static_cast<float>(window.getSize().x),
-        static_cast<float>(window.getSize().y)
+        static_cast<float>(vm.width), 
+		static_cast<float>(vm.height)
     ));
     this->background.setFillColor(Color::Black);
     //Init container
     this->container.setSize(Vector2f(
-        static_cast<float>(window.getSize().x) / 4.f,
-        static_cast<float>(window.getSize().y) - 60.f
+        	static_cast<float>(vm.width) / 4.f,
+			static_cast<float>(vm.height) - gui::p2pY(9.3f, vm)
     ));
     this->container.setFillColor(Color::Blue);
-    this->container.setPosition( static_cast<float>(window.getSize().x) / 2.f - this->container.getSize().x / 2.f, 30.f);
+    this->container.setPosition(static_cast<float>(vm.width) / 2.f - this->container.getSize().x / 2.f, 30.f);
 
     //Init text
     this->menuText.setFont(font);
     this->menuText.setFillColor(Color::Black);
-    this->menuText.setCharacterSize(60);
+    this->menuText.setCharacterSize(gui::calcCharSize(vm));
     this->menuText.setString("PAUSED");
     this->menuText.setPosition(
         this->container.getPosition().x + this->container.getPosition().x / 2.f - this->menuText.getGlobalBounds().width / 2.f,
-        this->container.getPosition().y + 40.f
+        this->container.getPosition().y + gui::p2pY(4.f, vm)
     );
 }
 
@@ -40,11 +40,9 @@ bool PauseMenu::isButtonPressed(string key){
     return this->buttons[key]->isPressed();
 }
 
-void PauseMenu::addButton(string key, float y, string text){
-    float width = 250.f;
-    float height = 65.f;
+void PauseMenu::addButton(const string key, const float y, const float width, const float height, const unsigned char_size, const string text){
     float x = this->container.getPosition().x + this->container.getSize().x / 2.f - width / 2.f;
-    this->buttons[key] = new gui::Button(x, y, width, height, &this->font, text, 50, 
+    this->buttons[key] = new gui::Button(x, y, width, height, &this->font, text, char_size, 
     Color::Black, Color::Black, Color::Black,
     Color::Blue, Color::Green, Color::Red);
 }

@@ -13,11 +13,10 @@ class SettingsState: public State{
         vector<VideoMode> modes;
         //functions
         void initVariables();
-        void initBackground();
         void initFonts();
         void initKeybinds();
 	    void initButtons();
-        void initText();
+        void resetGui();
     public:
         SettingsState(StateData* stateData);
         virtual ~SettingsState();

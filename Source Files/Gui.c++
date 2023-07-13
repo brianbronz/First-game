@@ -1,5 +1,41 @@
 #include "../Header/Gui.h"
 
+const float gui::p2pX(const float perc, const VideoMode& vm)
+{
+	/*
+	 * Converts a percentage value to pixels relative to the current resolution in the x-axis.
+	 *
+	 * @param		float perc				The percentage value.
+	 * @param		VideoMode& vm		The current videomode of the window (resolution).
+	 *
+	 * @return		float					The calculated pixel value.
+	 */
+
+	return floor(static_cast<float>(vm.width) * (perc / 100.f));
+}
+
+const float gui::p2pY(const float perc, const VideoMode& vm){
+	/*
+	 * Converts a percentage value to pixels relative to the current resolution in the y-axis.
+	 * @param		float perc				The percentage value.
+	 * @param		VideoMode& vm		The current videomode of the window (resolution).
+	 * @return		float					The calculated pixel value.
+	 */
+
+	return floor(static_cast<float>(vm.height) * (perc / 100.f));
+}
+
+const unsigned gui::calcCharSize(const VideoMode& vm, const unsigned modifier){
+	/*
+	 * Calculates the character size for text using the current resolution and a constant.
+	 * @param		VideoMode& vm		The current videomode of the window (resolution).
+	 * @param		unsigned modifier		Used to modify the character size in a more custom way.
+     * @return		unsigned				The calculated character size value.
+	 */
+
+	return static_cast<unsigned>((vm.width + vm.height) / modifier);
+}
+
 gui::Button::Button(float x, float y, float width, float height, 
     Font* font, string text, unsigned character_size,
 	Color text_idle_color, Color text_hover_color, Color text_active_color,
@@ -58,7 +94,7 @@ void gui::Button::update(Vector2i& mousePosWindow){
     this->buttonState = BTN_IDLE;
     
     //hover
-    if(this->shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosWindow))){
+    if(this->shape.getGlobalBounds().contains(static_cast<Vector2f>(mousePosWindow))){
         this->buttonState = BTN_HOVER;
         //pressed
         if (Mouse::isButtonPressed(Mouse::Left)){
@@ -192,8 +228,8 @@ gui::TextureSelector::TextureSelector(float x, float y, float width, float heigh
 	this->hide_btn = new gui::Button(
 		y, x, 50.f, 50.f,
 		&font, text, 16,
-		sf::Color(255, 255, 255, 200), sf::Color(255, 255, 255, 250), sf::Color(255, 255, 255, 50),
-		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50)
+		Color(255, 255, 255, 200), Color(255, 255, 255, 250), Color(255, 255, 255, 50),
+		Color(70, 70, 70, 200), Color(150, 150, 150, 250), Color(20, 20, 20, 50)
 	);
 }
 
@@ -236,7 +272,7 @@ void gui::TextureSelector::update( Vector2i& mousePosWindow, float& dt){
 
 	if (!this->hidden){
 		this->active = false;
-		if (this->bounds.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosWindow))){
+		if (this->bounds.getGlobalBounds().contains(static_cast<Vector2f>(mousePosWindow))){
 			this->active = true;
 			this->mousePosGrid.x = (mousePosWindow.x - static_cast<int>(this->bounds.getPosition().x)) / static_cast<unsigned>(this->gridSize);
 			this->mousePosGrid.y = (mousePosWindow.y - static_cast<int>(this->bounds.getPosition().y)) / static_cast<unsigned>(this->gridSize);

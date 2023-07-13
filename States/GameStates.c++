@@ -56,8 +56,9 @@ void GameState::initTextures(){
 
 void GameState::initPauseMenu(){
     
-    this->pMenu = new PauseMenu(*this->window, this->font);
-    this->pMenu->addButton("QUIT", 800.f, "Quit");
+    const VideoMode& vm = this->stateData->gfxSettings->resolution;
+	this->pMenu = new PauseMenu(this->stateData->gfxSettings->resolution, this->font);
+    this->pMenu->addButton("QUIT", gui::p2pY(74.f, vm), gui::p2pX(13.f, vm), gui::p2pY(6.f, vm), gui::calcCharSize(vm), "Quit");
 }
 
 void GameState::initPlayers(){
@@ -65,7 +66,7 @@ void GameState::initPlayers(){
 }
 
 void GameState::initPlayerGUI(){
-	this->playerGUI = new PlayerGUI(this->player);
+	this->playerGUI = new PlayerGUI(this->player, this->stateData->gfxSettings->resolution);
 }
 
 void GameState::initTileMap(){
@@ -94,8 +95,8 @@ GameState::~GameState(){
 }
 
 void GameState::updateView(const float & dt){
-	this->view.setCenter(std::floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 10.f),
-		std::floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 10.f)
+	this->view.setCenter(floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 10.f),
+		floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 10.f)
     );
 }
 

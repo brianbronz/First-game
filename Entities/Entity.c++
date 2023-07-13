@@ -51,12 +51,12 @@ const Vector2f & Entity::getPosition(){
 
 const Vector2i Entity::getGridPosition(int gridSizeI){
 	if (this->hitboxComponent){
-		return sf::Vector2i(
+		return Vector2i(
 			static_cast<int>(this->hitboxComponent->getPosition().x) / gridSizeI,
 			static_cast<int>(this->hitboxComponent->getPosition().y) / gridSizeI
 		);
 	}
-	return sf::Vector2i(
+	return Vector2i(
 		static_cast<int>(this->sprite.getPosition().x) / gridSizeI,
 		static_cast<int>(this->sprite.getPosition().y) / gridSizeI
 	);

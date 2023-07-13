@@ -31,7 +31,7 @@ public:
 	virtual ~AttributeComponent();
 
 	//Functions
-	std::string debugPrint() const;
+	string debugPrint() const;
 
 	void gainExp(const int exp);
 

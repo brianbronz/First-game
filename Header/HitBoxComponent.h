@@ -17,7 +17,7 @@ public:
 	//Accessors
 	const Vector2f& getPosition();
 	FloatRect getGlobalBounds();
-	const FloatRect& getNextPosition(const sf::Vector2f& velocity);
+	const FloatRect& getNextPosition(const Vector2f& velocity);
 
 	//Modifiers
 	void setPosition(Vector2f& position);
