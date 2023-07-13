@@ -43,6 +43,6 @@ class Entity{
         virtual void stopVelocityX();
         virtual void stopVelocityY();
         virtual void update(float& dt) = 0;
-	    virtual void render(RenderTarget& target) = 0;
+	    virtual void render(RenderTarget& target, bool show_hitbox) = 0;
 };
 #endif

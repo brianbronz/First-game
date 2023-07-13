@@ -38,7 +38,7 @@ public:
 	void loadFromFile(string file_name);
 	void updateCollision(Entity* entity, float& dt);
 	void update();
-	void render(RenderTarget& target, const Vector2i& gridPosition);
+	void render(RenderTarget& target, const Vector2i& gridPosition, bool show_collision = false);
 	void renderDeferred(RenderTarget& target);
 };
 #endif

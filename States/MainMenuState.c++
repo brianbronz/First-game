@@ -138,6 +138,7 @@ void MainMenuState::render(RenderTarget* target){
         target = this->window;
     }
     target->draw(this->background);
+    target->draw(this->btnBackground);
     this->renderButtons(*target);
    	//REMOVE LATER!!! for debugging positions
 /* 	Text mouseText;

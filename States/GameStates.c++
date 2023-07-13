@@ -49,7 +49,7 @@ void GameState::initKeybinds(){
     ifs.close();}
 
 void GameState::initTextures(){
-	if (!this->textures["PLAYER_IDLE"].loadFromFile("../Source Files/Resources/Images/Sprites/Player/PLAYER_SHEET.png")){//change test with name file for animation
+	if (!this->textures["PLAYER_IDLE"].loadFromFile("../Source Files/Resources/Images/Sprites/Player/PLAYER_SHEET2.png")){//change test with name file for animation
 		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_IDLE_TEXTURE";
 	}
 }
@@ -95,8 +95,9 @@ GameState::~GameState(){
 }
 
 void GameState::updateView(const float & dt){
-	this->view.setCenter(floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 10.f),
-		floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 10.f)
+	this->view.setCenter(
+        floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 5.f),
+		floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 5.f)
     );
 }
 
@@ -163,8 +164,8 @@ void GameState::render(RenderTarget* target){
     }
 	this->renderTexture.clear();
 	this->renderTexture.setView(this->view);
-    this->map->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)));
-    this->player->render(this->renderTexture);
+    this->map->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)), false);
+    this->player->render(this->renderTexture, false);
     this->map->renderDeferred(this->renderTexture);
     //Render GUI
 	this->renderTexture.setView(this->renderTexture.getDefaultView());

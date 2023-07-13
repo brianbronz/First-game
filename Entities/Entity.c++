@@ -117,6 +117,6 @@ void Entity::update( float & dt){
 
 }
 
-void Entity::render(RenderTarget& target){
+void Entity::render(RenderTarget& target, bool show_hitbox){
 
 }

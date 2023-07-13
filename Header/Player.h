@@ -29,7 +29,7 @@ public:
 	void updateAnimation( float& dt);
 	void update(float& dt);
 
-	void render(RenderTarget& target);
+	void render(RenderTarget& target, bool show_hitbox = false);
 };
 
 #endif

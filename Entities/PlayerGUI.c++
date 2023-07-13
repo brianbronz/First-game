@@ -59,8 +59,8 @@ void PlayerGUI::initHPBar(){
 	this->hpBarInner.setFillColor(Color(250, 20, 20, 200));
 	this->hpBarInner.setPosition(this->hpBarBack.getPosition());
     this->hpBarText.setFont(this->font);
-	this->hpBarText.setCharacterSize(gui::calcCharSize(this->vm, 180));
-	this->hpBarText.setPosition(this->hpBarInner.getPosition().x + gui::p2pX(0.53f, this->vm), this->hpBarInner.getPosition().y + gui::p2pY(0.5f, this->vm)
+	this->hpBarText.setCharacterSize(gui::calcCharSize(this->vm, 200));
+	this->hpBarText.setPosition(this->hpBarInner.getPosition().x + gui::p2pX(0.53f, this->vm), this->hpBarInner.getPosition().y + gui::p2pY(0.15f, this->vm)
 	);
 }
 

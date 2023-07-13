@@ -14,13 +14,16 @@ void Player::initComponents(){
 Player::Player(float x, float y, Texture& textureSheet){
 	this->initVariables();
 	this->setPosition(x, y);
-	this->createHitboxComponent(this->sprite, 86.f, 74.f, 86.f, 111.f);
-	this->createMovementComponent(350.f, 1500.f, 5.f);
+	this->createHitboxComponent(this->sprite, 10.f, 5.f, 44.f, 54.f);
+	this->createMovementComponent(200.f, 1500.f, 900.f);
 	this->createAnimationComponent(textureSheet);
 	this->createAttributeComponent(1);
-	this->animationComponent->addAnimation("IDLE", 11.f, 0, 0, 13, 0, 192, 192);
-	this->animationComponent->addAnimation("WALK", 6.f, 0, 1, 11, 1, 192, 192);
-	this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 13, 2, 192*2, 192);
+	this->animationComponent->addAnimation("IDLE", 15.f, 0, 0, 8, 0, 64, 64);
+	this->animationComponent->addAnimation("WALK_DOWN", 12.f, 0, 1, 3, 1, 64, 64);
+	this->animationComponent->addAnimation("WALK_LEFT", 12.f, 4, 1, 7, 1, 64, 64);
+	this->animationComponent->addAnimation("WALK_RIGHT", 12.f, 8, 1, 11, 1, 64, 64);
+	this->animationComponent->addAnimation("WALK_UP", 12.f, 12, 1, 15, 1, 64, 64);
+	this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 1, 2, 64, 64);
 }	
 //nome file, tempo, numero della colonna da partire, numero della riga, elementi della riga, frames_y, dimensione   
 //14 number of image in the row and the following number is for the column (13 because we start from 0)
@@ -67,12 +70,12 @@ void Player::gainEXP(const int exp)
 void Player::updateAttack(){
 	//event to attack
 	if(Mouse::isButtonPressed(Mouse::Left)){
-		this->attacking = true;
+		//this->attacking = true;
 	}
 }
 
 void Player::updateAnimation(float& dt){
-	if(this->attacking){
+	/* if(this->attacking){
 		//Set origin depending on direction
 		(this->sprite.getScale().x > 0.f)?
 			this->sprite.setOrigin(96.f, 0.f):
@@ -103,8 +106,18 @@ void Player::updateAnimation(float& dt){
 		this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity()); //name file, dt
 	} else if(this->movementComponent->getState(MOVING_UP)){
 		this->animationComponent->play("WALK", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity()); //name file, dt
+	} */
+	if (this->movementComponent->getState(IDLE)){
+		this->animationComponent->play("IDLE", dt);
+	} else if (this->movementComponent->getState(MOVING_LEFT)){
+		this->animationComponent->play("WALK_LEFT", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
+	} else if (this->movementComponent->getState(MOVING_RIGHT)) {
+		this->animationComponent->play("WALK_RIGHT", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
+	} else if (this->movementComponent->getState(MOVING_UP)){
+		this->animationComponent->play("WALK_UP", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
+	} else if (this->movementComponent->getState(MOVING_DOWN)){
+		this->animationComponent->play("WALK_DOWN", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
 	}
-
 }
 
 void Player::update(float& dt){
@@ -114,7 +127,9 @@ void Player::update(float& dt){
 	this->hitboxComponent->update();
 }
 
-void Player::render(RenderTarget & target){
+void Player::render(RenderTarget & target, bool show_hitbox){
 	target.draw(this->sprite);
-	this->hitboxComponent->render(target);
+	if(show_hitbox){
+		this->hitboxComponent->render(target);
+	}
 }
