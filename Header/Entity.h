@@ -34,6 +34,7 @@ class Entity{
         void createAttributeComponent(const unsigned level);
         //Functions
         const virtual Vector2f& getPosition();
+        virtual const Vector2f getCenter();
         virtual const Vector2i getGridPosition(int gridSizeI);
         virtual const FloatRect getGlobalBounds();
         virtual const FloatRect getNextPositionBounds(float& dt);
@@ -43,6 +44,6 @@ class Entity{
         virtual void stopVelocityX();
         virtual void stopVelocityY();
         virtual void update(float& dt) = 0;
-	    virtual void render(RenderTarget& target, bool show_hitbox) = 0;
+	    virtual void render(RenderTarget& target, Shader* shader, bool show_hitbox) = 0;
 };
 #endif

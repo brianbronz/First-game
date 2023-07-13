@@ -14,6 +14,7 @@ class GameState : public State{
         Sprite renderSprite;
         Font font;
         PauseMenu* pMenu;
+        Shader core_shader;
         Player* player;
         PlayerGUI* playerGUI;
 	    Texture texture;
@@ -25,6 +26,7 @@ class GameState : public State{
         void initFonts();
         void initTextures();
         void initPauseMenu();
+        void initShaders();
 	    void initPlayers();
         void initPlayerGUI();
         void initTileMap();

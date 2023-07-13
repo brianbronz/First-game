@@ -61,6 +61,12 @@ void GameState::initPauseMenu(){
     this->pMenu->addButton("QUIT", gui::p2pY(74.f, vm), gui::p2pX(13.f, vm), gui::p2pY(6.f, vm), gui::calcCharSize(vm), "Quit");
 }
 
+void GameState::initShaders(){
+	if (!this->core_shader.loadFromFile("vertex_shader.vert", "fragment_shader.frag")){
+		std::cout << "ERROR::GAMESTATE::COULD NOT LOAD SHADER." << "\n";
+	}
+}
+
 void GameState::initPlayers(){
 	this->player = new Player(0, 0, this->textures["PLAYER_IDLE"]);
 }
@@ -82,6 +88,7 @@ GameState::GameState(StateData* state_data): State(state_data){
     this->initFonts();
 	this->initTextures();
     this->initPauseMenu();
+    this->initShaders();
 	this->initPlayers();
     this->initPlayerGUI();
     this->initTileMap();
@@ -164,9 +171,11 @@ void GameState::render(RenderTarget* target){
     }
 	this->renderTexture.clear();
 	this->renderTexture.setView(this->view);
-    this->map->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)), false);
-    this->player->render(this->renderTexture, false);
-    this->map->renderDeferred(this->renderTexture);
+    this->map->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)), 
+		&this->core_shader, this->player->getCenter(), false
+	);
+    this->player->render(this->renderTexture, &this->core_shader,  false);
+    this->map->renderDeferred(this->renderTexture, &this->core_shader, this->player->getCenter());
     //Render GUI
 	this->renderTexture.setView(this->renderTexture.getDefaultView());
 	this->playerGUI->render(this->renderTexture);

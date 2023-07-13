@@ -49,6 +49,12 @@ const Vector2f & Entity::getPosition(){
 	return this->sprite.getPosition();
 }
 
+const Vector2f Entity::getCenter(){
+	if (this->hitboxComponent)
+		return this->hitboxComponent->getPosition() + Vector2f(this->hitboxComponent->getGlobalBounds().width / 2.f, this->hitboxComponent->getGlobalBounds().height / 2.f);
+	return this->sprite.getPosition() + Vector2f(this->sprite.getGlobalBounds().width / 2.f, this->sprite.getGlobalBounds().height / 2.f);
+}
+
 const Vector2i Entity::getGridPosition(int gridSizeI){
 	if (this->hitboxComponent){
 		return Vector2i(
@@ -110,13 +116,4 @@ void Entity::stopVelocityY(){
 	if (this->movementComponent){
 		this->movementComponent->stopVelocityY();
 	}
-}
-
-
-void Entity::update( float & dt){
-
-}
-
-void Entity::render(RenderTarget& target, bool show_hitbox){
-
 }

@@ -6,10 +6,10 @@
 }
  */
 Tile::Tile(int grid_x, int grid_y, float gridSizeF, Texture& texture, IntRect& texture_rect, bool collision, short type){
-	this->shape.setSize(Vector2f(gridSizeF, gridSizeF));
-	this->shape.setFillColor(Color::Green);
+	//this->shape.setSize(Vector2f(gridSizeF, gridSizeF));
+	//this->shape.setFillColor(Color::Green);
 	this->shape.setPosition(static_cast<float>(grid_x) * gridSizeF, static_cast<float>(grid_y) * gridSizeF);
-    this->shape.setTexture(&texture);
+    this->shape.setTexture(texture);
 	this->collision = collision;
 	this->type = type;
 }
@@ -50,6 +50,12 @@ void Tile::update(){
 
 }
 
-void Tile::render(RenderTarget & target){
-	target.draw(this->shape);
+void Tile::render(RenderTarget & target, Shader* shader, Vector2f playerPosition){
+	if (shader){
+		shader->setUniform("hasTexture", true);
+		shader->setUniform("lightPos", playerPosition);
+		target.draw(this->shape, shader);
+	} else{
+		target.draw(this->shape);
+	}
 }

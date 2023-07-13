@@ -8,7 +8,7 @@ enum TileTypes {DEFAULT = 0, DAMAGING, DOODAD};
 class Tile{
     private:
     protected:
-        RectangleShape shape;
+        Sprite shape;
         bool collision;
         short type;
     public:
@@ -25,7 +25,7 @@ class Tile{
         //Functions
         string getAsString();
         void update();
-	    void render(RenderTarget& target);
+	    void render(RenderTarget& target, Shader* shader = NULL, Vector2f playerPosition = Vector2f());
 };
 
 #endif
