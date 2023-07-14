@@ -31,8 +31,9 @@ public:
 	virtual ~AttributeComponent();
 
 	//Functions
-	string debugPrint() const;
-
+	void loseHP(const int hp);
+	void gainHP(const int hp);
+	void loseEXP(const int exp);
 	void gainExp(const int exp);
 
 	void updateStats(const bool reset);

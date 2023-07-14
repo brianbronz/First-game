@@ -9,6 +9,8 @@ class Player :
 private:
 	//Variables
 	bool attacking;
+	Texture weapon_texture;
+	Sprite weapon_sprite;
 	//Initializer functions
 	void initVariables();
 	void initComponents();
@@ -27,7 +29,7 @@ public:
 
 	void updateAttack();
 	void updateAnimation( float& dt);
-	void update(float& dt);
+	void update(float& dt, Vector2f& mouse_pos_view);
 
 	void render(RenderTarget& target, Shader* shader = NULL, bool show_hitbox = false);
 };

@@ -19,6 +19,7 @@ class GameState : public State{
         PlayerGUI* playerGUI;
 	    Texture texture;
         TileMap* map;
+        
         //functions
         void initDeferredRender();
         void initView();

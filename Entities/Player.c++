@@ -14,21 +14,27 @@ void Player::initComponents(){
 Player::Player(float x, float y, Texture& textureSheet){
 	this->initVariables();
 	this->setPosition(x, y);
-	this->createHitboxComponent(this->sprite, 10.f, 5.f, 44.f, 54.f);
-	this->createMovementComponent(200.f, 1500.f, 900.f);
+	this->createHitboxComponent(this->sprite, 12.f, 10.f, 40.f, 54.f);
+	this->createMovementComponent(200.f, 1600.f, 1000.f);
 	this->createAnimationComponent(textureSheet);
 	this->createAttributeComponent(1);
+	//nome file, tempo, numero della colonna da partire, numero della riga, elementi della riga, frames_y, dimensione   
+	//14 number of image in the row and the following number is for the column (13 because we start from 0)
+	//width = the width of the file IDLE_LEFT / number of image in the row
+	//height = the height of the file IDLE_LEFT / number of image in the column
 	this->animationComponent->addAnimation("IDLE", 15.f, 0, 0, 8, 0, 64, 64);
-	this->animationComponent->addAnimation("WALK_DOWN", 12.f, 0, 1, 3, 1, 64, 64);
-	this->animationComponent->addAnimation("WALK_LEFT", 12.f, 4, 1, 7, 1, 64, 64);
-	this->animationComponent->addAnimation("WALK_RIGHT", 12.f, 8, 1, 11, 1, 64, 64);
-	this->animationComponent->addAnimation("WALK_UP", 12.f, 12, 1, 15, 1, 64, 64);
+	this->animationComponent->addAnimation("WALK_DOWN", 11.f, 0, 1, 3, 1, 64, 64);
+	this->animationComponent->addAnimation("WALK_LEFT", 11.f, 4, 1, 7, 1, 64, 64);
+	this->animationComponent->addAnimation("WALK_RIGHT", 11.f, 8, 1, 11, 1, 64, 64);
+	this->animationComponent->addAnimation("WALK_UP", 11.f, 12, 1, 15, 1, 64, 64);
 	this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 1, 2, 64, 64);
+
+	//Visual Weapon
+	if (!this->weapon_texture.loadFromFile("../Source Files/Resources/Images/Sprites/Player/sword.png"))
+		std::cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE." << "\n";
+	this->weapon_sprite.setTexture(this->weapon_texture);
+	this->weapon_sprite.setOrigin(this->weapon_sprite.getGlobalBounds().width / 2.f,this->weapon_sprite.getGlobalBounds().height);
 }	
-//nome file, tempo, numero della colonna da partire, numero della riga, elementi della riga, frames_y, dimensione   
-//14 number of image in the row and the following number is for the column (13 because we start from 0)
-//width = the width of the file IDLE_LEFT / number of image in the row
-//height = the height of the file IDLE_LEFT / number of image in the column
 
 Player::~Player(){
 }
@@ -38,24 +44,15 @@ AttributeComponent * Player::getAttributeComponent(){
 }
 
 //Functions
-void Player::loseHP(const int hp)
-{
-	this->attributeComponent->hp -= hp;
-
-	if (this->attributeComponent->hp < 0)
-		this->attributeComponent->hp = 0;
+void Player::loseHP(const int hp){
+	this->attributeComponent->loseHP(hp);
 }
 
-void Player::gainHP(const int hp)
-{
-	this->attributeComponent->hp += hp;
-
-	if (this->attributeComponent->hp > this->attributeComponent->hpMax)
-		this->attributeComponent->hp = this->attributeComponent->hpMax;
+void Player::gainHP(const int hp){
+	this->attributeComponent->gainHP(hp);
 }
 
-void Player::loseEXP(const int exp)
-{
+void Player::loseEXP(const int exp){
 	this->attributeComponent->exp -= exp;
 
 	if (this->attributeComponent->exp < 0)
@@ -120,11 +117,18 @@ void Player::updateAnimation(float& dt){
 	}
 }
 
-void Player::update(float& dt){
+void Player::update(float& dt, Vector2f& mouse_pos_view){
 	this->movementComponent->update(dt);
 	this->updateAttack();
 	this->updateAnimation(dt);
 	this->hitboxComponent->update();
+	//Update visual weapon
+	this->weapon_sprite.setPosition(this->getCenter());
+	float dX = mouse_pos_view.x - this->weapon_sprite.getPosition().x;
+	float dY = mouse_pos_view.y - this->weapon_sprite.getPosition().y;
+	const float PI = 3.14159265;
+	float deg = atan2(dY, dX) * 180 / PI;
+	this->weapon_sprite.setRotation(deg + 90.f);
 }
 
 void Player::render(RenderTarget & target, Shader* shader, bool show_hitbox){
@@ -132,8 +136,12 @@ void Player::render(RenderTarget & target, Shader* shader, bool show_hitbox){
 		shader->setUniform("hasTexture", true);
 		shader->setUniform("lightPos", this->getCenter());
 		target.draw(this->sprite, shader);
+		shader->setUniform("hasTexture", true);
+		shader->setUniform("lightPos", this->getCenter());
+		target.draw(this->weapon_sprite, shader);
 	} else { 
 		target.draw(this->sprite);
+		target.draw(this->weapon_sprite);
 	}
 	if(show_hitbox){
 		this->hitboxComponent->render(target);

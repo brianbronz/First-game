@@ -62,7 +62,7 @@ void GameState::initPauseMenu(){
 }
 
 void GameState::initShaders(){
-	if (!this->core_shader.loadFromFile("vertex_shader.vert", "fragment_shader.frag")){
+	if (!this->core_shader.loadFromFile("../States/vertex_shader.vert", "../States/fragment_shader.frag")){
 		std::cout << "ERROR::GAMESTATE::COULD NOT LOAD SHADER." << "\n";
 	}
 }
@@ -103,9 +103,27 @@ GameState::~GameState(){
 
 void GameState::updateView(const float & dt){
 	this->view.setCenter(
-        floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 5.f),
-		floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 5.f)
+        floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 10.f),
+		floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 10.f)
     );
+    if (this->map->getMaxSizeF().x >= this->view.getSize().x){
+		if (this->view.getCenter().x - this->view.getSize().x / 2.f < 0.f){
+			this->view.setCenter(0.f + this->view.getSize().x / 2.f, this->view.getCenter().y);
+		} else if (this->view.getCenter().x + this->view.getSize().x / 2.f > this->map->getMaxSizeF().x){
+			this->view.setCenter(this->map->getMaxSizeF().x - this->view.getSize().x / 2.f, this->view.getCenter().y);
+		}
+	}
+
+	if (this->map->getMaxSizeF().y >= this->view.getSize().y){
+		if (this->view.getCenter().y - this->view.getSize().y / 2.f < 0.f){
+			this->view.setCenter(this->view.getCenter().x, 0.f + this->view.getSize().y / 2.f);
+		} else if (this->view.getCenter().y + this->view.getSize().y / 2.f > this->map->getMaxSizeF().y){
+			this->view.setCenter(this->view.getCenter().x, this->map->getMaxSizeF().y - this->view.getSize().y / 2.f);
+		}
+	}
+
+    this->viewGridPosition.x = static_cast<int>(this->view.getCenter().x) / static_cast<int>(this->stateData->gridSize);
+	this->viewGridPosition.y = static_cast<int>(this->view.getCenter().y) / static_cast<int>(this->stateData->gridSize);
 }
 
 void GameState::updateInput( float& dt){
@@ -121,13 +139,9 @@ void GameState::updatePlayerInput(float& dt){
     }
     if(Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("MOVE_UP")))){
         this->player->move(0.f, -1.f, dt);
-        if(this->getKeytime())
-			this->player->gainEXP(10);
     }
     if(Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("MOVE_DOWN")))){
         this->player->move(0.f, 1.f, dt);
-        if (this->getKeytime())
-			this->player->loseEXP(10);
     }
     if(Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("MOVE_RIGHT")))){
         this->player->move(1.f, 0.f, dt);
@@ -160,7 +174,7 @@ void GameState::update(float& dt){
         this->updateView(dt);
         this->updatePlayerInput(dt);
         this->updateTileMap(dt);
-        this->player->update(dt);
+        this->player->update(dt, this->mousePosView);
         this->playerGUI->update(dt);
     }
 }
@@ -171,9 +185,7 @@ void GameState::render(RenderTarget* target){
     }
 	this->renderTexture.clear();
 	this->renderTexture.setView(this->view);
-    this->map->render(this->renderTexture, this->player->getGridPosition(static_cast<int>(this->stateData->gridSize)), 
-		&this->core_shader, this->player->getCenter(), false
-	);
+    this->map->render(this->renderTexture, this->viewGridPosition, &this->core_shader, this->player->getCenter(), false);
     this->player->render(this->renderTexture, &this->core_shader,  false);
     this->map->renderDeferred(this->renderTexture, &this->core_shader, this->player->getCenter());
     //Render GUI

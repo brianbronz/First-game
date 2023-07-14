@@ -53,6 +53,14 @@ TileMap::TileMap(float gridSize, int width, int height, string texture_file){
 TileMap::~TileMap(){
     this->clear();
 }
+
+bool TileMap::tileEmpty(int x, int y, int z){
+	if (x >= 0 && x < this->maxSizeWorldGrid.x && y >= 0 && y < this->maxSizeWorldGrid.y && z >= 0 && z < this->layers){
+		return this->map[x][y][z].empty();
+	}
+	throw("ERROR::TILEMAP::TILEEMTPY::TRYING TO ACCESS OUT OF BOUNDS TILE");
+}
+
 Texture * TileMap::getTileSheet(){
 	return &this->tileSheet;
 }
@@ -66,6 +74,14 @@ int TileMap::getLayerSize(int x, int y, int layer){
 		}
 	}
 	return -1;
+}
+
+Vector2i & TileMap::getMaxSizeGrid(){
+	return this->maxSizeWorldGrid;
+}
+
+Vector2f & TileMap::getMaxSizeF(){
+	return this->maxSizeWorldF;
 }
 
 void TileMap::addTile(int x, int y, int z, IntRect& texture_rect, bool collision, short type){
@@ -104,13 +120,13 @@ void TileMap::render(RenderTarget & target, const Vector2i& gridPosition, Shader
 	} else if (this->toX > this->maxSizeWorldGrid.x){
 		this->toX = this->maxSizeWorldGrid.x;
 	}
-	this->fromY = gridPosition.y - 9;
+	this->fromY = gridPosition.y - 8;
 	if (this->fromY < 0){
 		this->fromY = 0;
 	} else if (this->fromY > this->maxSizeWorldGrid.y){
 		this->fromY = this->maxSizeWorldGrid.y;
 	}
-	this->toY = gridPosition.y + 10;
+	this->toY = gridPosition.y + 9;
 	if (this->toY < 0){
 		this->toY = 0;
 	} else if (this->toY > this->maxSizeWorldGrid.y){

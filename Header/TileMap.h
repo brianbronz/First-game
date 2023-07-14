@@ -29,9 +29,12 @@ public:
 	TileMap(float gridSize, int width, int height, string texture_file);
 	virtual ~TileMap();
 
+	bool tileEmpty(int x, int y, int z);
 	//Accessors
 	Texture* getTileSheet();
 	int getLayerSize(int x, int y, int layer);
+	Vector2i& getMaxSizeGrid();
+	Vector2f& getMaxSizeF();
 	//Functions
 	void addTile(int x, int y, int z, IntRect& texture_rect, bool collision, short type);
 	void removeTile(int x, int y, int z);
