@@ -3,10 +3,11 @@
 #define ENTITY_H
 
 #include "AllReference.h"
-#include "MovementComponent.h"
 #include "AnimationComponent.h"
-#include "HitBoxComponent.h"
 #include "AttributeComponent.h"
+#include "HitBoxComponent.h"
+#include "MovementComponent.h"
+#include "SkillComponent.h"
 
 class HitboxComponent;
 class MovementComponent;
@@ -21,6 +22,7 @@ class Entity{
         MovementComponent* movementComponent;
         AnimationComponent* animationComponent;
         AttributeComponent* attributeComponent;
+        SkillComponent* skillComponent;
 
     public:
         Entity();
@@ -32,6 +34,7 @@ class Entity{
         void createMovementComponent(float maxVelocity, float acceleration, float deceleration);
         void createAnimationComponent(Texture& textureSheet);
         void createAttributeComponent(const unsigned level);
+        void createSkillComponent();
         //Functions
         const virtual Vector2f& getPosition();
         virtual const Vector2f getCenter();

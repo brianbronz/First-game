@@ -44,7 +44,11 @@ void PlayerGUI::initEXPBar(){
 }
 
 void PlayerGUI::initHPBar(){
-	float width = gui::p2pX(10.4f, this->vm);
+	this->hpBar = new gui::ProgressBar(
+		1.f, 8.3f, 10.4f, 2.8f, 
+		this->player->getAttributeComponent()->hpMax,
+		this->vm, &this->font);
+	/* float width = gui::p2pX(10.4f, this->vm);
 	float height = gui::p2pY(2.8f, this->vm);
 	float x = gui::p2pX(1.f, this->vm);
 	float y = gui::p2pY(8.3f, this->vm);
@@ -61,7 +65,7 @@ void PlayerGUI::initHPBar(){
     this->hpBarText.setFont(this->font);
 	this->hpBarText.setCharacterSize(gui::calcCharSize(this->vm, 200));
 	this->hpBarText.setPosition(this->hpBarInner.getPosition().x + gui::p2pX(0.53f, this->vm), this->hpBarInner.getPosition().y + gui::p2pY(0.15f, this->vm)
-	);
+	); */
 }
 
 PlayerGUI::PlayerGUI(Player* player, VideoMode& vm): vm(vm){
@@ -73,9 +77,8 @@ PlayerGUI::PlayerGUI(Player* player, VideoMode& vm): vm(vm){
 	this->initHPBar();
 }
 
-PlayerGUI::~PlayerGUI()
-{
-
+PlayerGUI::~PlayerGUI(){
+	delete this->hpBar;
 }
 
 //Functions
@@ -102,7 +105,7 @@ void PlayerGUI::updateEXPBar()
 
 void PlayerGUI::updateHPBar()
 {
-	float percent = static_cast<float>(this->player->getAttributeComponent()->hp) / static_cast<float>(this->player->getAttributeComponent()->hpMax);
+	/* float percent = static_cast<float>(this->player->getAttributeComponent()->hp) / static_cast<float>(this->player->getAttributeComponent()->hpMax);
 
 	this->hpBarInner.setSize(
 		Vector2f(
@@ -111,7 +114,8 @@ void PlayerGUI::updateHPBar()
 		)
 	);
     this->hpBarString = to_string(this->player->getAttributeComponent()->hp) + " / " + to_string(this->player->getAttributeComponent()->hpMax);
-	this->hpBarText.setString(this->hpBarString);
+	this->hpBarText.setString(this->hpBarString); */
+	this->hpBar->update(this->player->getAttributeComponent()->hp);
 }
 
 void PlayerGUI::update(const float & dt)
@@ -134,9 +138,7 @@ void PlayerGUI::renderEXPBar(RenderTarget & target){
 
 void PlayerGUI::renderHPBar(RenderTarget & target)
 {
-	target.draw(this->hpBarBack);
-	target.draw(this->hpBarInner);
-    target.draw(this->hpBarText);
+	this->hpBar->render(target);
 }
 
 void PlayerGUI::render(RenderTarget & target)

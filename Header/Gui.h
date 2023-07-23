@@ -95,5 +95,23 @@ namespace gui{
 		void update(Vector2i& mousePosWindow, float& dt);
 		void render(RenderTarget& target);
 	};
+
+    class ProgressBar{
+        private:
+            string barString;
+            Text text;
+            float maxWidth;
+            int maxValue;
+            RectangleShape back;
+            RectangleShape inner;
+        
+        public:
+            ProgressBar(float x, float y, float width, float height, int max_value, VideoMode& vm, Font * font = NULL);
+            ~ProgressBar();
+
+            //Functions
+            void update(int current_value);
+            void render(RenderTarget & target);
+    };
 }
 #endif

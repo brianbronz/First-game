@@ -2,6 +2,7 @@
 #include "../Animation code/MovementComponent.c++"
 #include "../Source Files/HitBoxComponent.c++"
 #include "AttributeComponent.c++"
+#include "SkillComponent.c++"
 
 void Entity:: initVariables(){
 	this->hitboxComponent = NULL;
@@ -40,6 +41,10 @@ void Entity::createAnimationComponent(Texture& textureSheet){
 
 void Entity::createAttributeComponent(const unsigned level){
 	this->attributeComponent = new AttributeComponent(level);
+}
+
+void Entity::createSkillComponent(){
+	this->skillComponent = new SkillComponent();
 }
 
 //Functions
@@ -96,6 +101,10 @@ void Entity::setPosition(float x, float y)
 void Entity::move(float dir_x, float dir_y, float & dt){
 	if (this->movementComponent){
 		this->movementComponent->move(dir_x, dir_y, dt); //Sets velocity
+	}
+
+	if (this->skillComponent){
+		this->skillComponent->gainExp(ENDURANCE, 1);
 	}
 }
 

@@ -25,12 +25,13 @@ private:
 	RectangleShape expBarInner;
 
 	//HP Bar
-	string hpBarString;
+/* 	string hpBarString;
 	Text hpBarText;
 
 	float hpBarMaxWidth;
 	RectangleShape hpBarBack;
-	RectangleShape hpBarInner;
+	RectangleShape hpBarInner; */
+	gui::ProgressBar* hpBar;
 
 	void initFont();
     void initLevelBar();

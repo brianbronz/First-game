@@ -11,14 +11,7 @@ void Player::initComponents(){
 
 }
 
-//ructors / Destructors
-Player::Player(float x, float y, Texture& textureSheet){
-	this->initVariables();
-	this->setPosition(x, y);
-	this->createHitboxComponent(this->sprite, 12.f, 10.f, 40.f, 54.f);
-	this->createMovementComponent(200.f, 1600.f, 1000.f);
-	this->createAnimationComponent(textureSheet);
-	this->createAttributeComponent(1);
+void Player::initAnimation(){
 	//nome file, tempo, numero della colonna da partire, numero della riga, elementi della riga, frames_y, dimensione   
 	//14 number of image in the row and the following number is for the column (13 because we start from 0)
 	//width = the width of the file IDLE_LEFT / number of image in the row
@@ -29,6 +22,18 @@ Player::Player(float x, float y, Texture& textureSheet){
 	this->animationComponent->addAnimation("WALK_RIGHT", 11.f, 8, 1, 11, 1, 64, 64);
 	this->animationComponent->addAnimation("WALK_UP", 11.f, 12, 1, 15, 1, 64, 64);
 	this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 1, 2, 64, 64);
+}
+
+//ructors / Destructors
+Player::Player(float x, float y, Texture& textureSheet){
+	this->initVariables();
+	this->createHitboxComponent(this->sprite, 12.f, 10.f, 40.f, 54.f);
+	this->createMovementComponent(200.f, 1600.f, 1000.f);
+	this->createAnimationComponent(textureSheet);
+	this->createAttributeComponent(1);
+	this->createSkillComponent();
+	this->setPosition(x, y);
+	this->initAnimation();
 }	
 
 Player::~Player(){

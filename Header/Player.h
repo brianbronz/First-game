@@ -14,6 +14,7 @@ private:
 	//Initializer functions
 	void initVariables();
 	void initComponents();
+	void initAnimation();
 
 public:
 	Player(float x, float y, Texture& textureSheet);
