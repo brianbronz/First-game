@@ -6,7 +6,7 @@ uniform vec2 lightPos;
 
 void main(){
 	//Ambient light
-	vec4 ambient = vec4(0.2, 0.2, 0.5, 1.0);
+	vec4 ambient = vec4(1.2, 1.2, 1.5, 1.0);
 	
 	//Convert light to view coords
 	vec2 transformedLightPos = (gl_ModelViewProjectionMatrix * vec4(lightPos, 0, 1)).xy;
