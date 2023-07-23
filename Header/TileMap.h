@@ -27,6 +27,7 @@ class TileMap{
 
 public:
 	TileMap(float gridSize, int width, int height, string texture_file);
+	TileMap(string filename);
 	virtual ~TileMap();
 
 	bool tileEmpty(int x, int y, int z);

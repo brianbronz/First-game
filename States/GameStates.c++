@@ -76,8 +76,9 @@ void GameState::initPlayerGUI(){
 }
 
 void GameState::initTileMap(){
-    this->map = new TileMap(this->stateData->gridSize, 1000, 1000, "../Source Files/Resources/Images/Tiles/tilesheet1.png");
-    this->map->loadFromFile("../Maps code/text.slmp");
+    //this->map = new TileMap(this->stateData->gridSize, 1000, 1000, "../Source Files/Resources/Images/Tiles/tilesheet1.png");
+    //this->map->loadFromFile("../Maps code/text.slmp");
+    this->map = new TileMap("../Maps code/text.slmp");
 }
 
 //Constructors / Destructors

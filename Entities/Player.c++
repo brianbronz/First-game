@@ -1,6 +1,7 @@
 #include "../Header/Player.h"
 #include "../Entities/Entity.c++"
 #include "../Animation code/AnimationComponent.c++"
+#include "../Weapons/Sword.c++"
 //Initializer functions
 void Player::initVariables(){
 	this->attacking = false;
@@ -28,12 +29,6 @@ Player::Player(float x, float y, Texture& textureSheet){
 	this->animationComponent->addAnimation("WALK_RIGHT", 11.f, 8, 1, 11, 1, 64, 64);
 	this->animationComponent->addAnimation("WALK_UP", 11.f, 12, 1, 15, 1, 64, 64);
 	this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 1, 2, 64, 64);
-
-	//Visual Weapon
-	if (!this->weapon_texture.loadFromFile("../Source Files/Resources/Images/Sprites/Player/sword.png"))
-		std::cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE." << "\n";
-	this->weapon_sprite.setTexture(this->weapon_texture);
-	this->weapon_sprite.setOrigin(this->weapon_sprite.getGlobalBounds().width / 2.f,this->weapon_sprite.getGlobalBounds().height);
 }	
 
 Player::~Player(){
@@ -122,13 +117,7 @@ void Player::update(float& dt, Vector2f& mouse_pos_view){
 	this->updateAttack();
 	this->updateAnimation(dt);
 	this->hitboxComponent->update();
-	//Update visual weapon
-	this->weapon_sprite.setPosition(this->getCenter());
-	float dX = mouse_pos_view.x - this->weapon_sprite.getPosition().x;
-	float dY = mouse_pos_view.y - this->weapon_sprite.getPosition().y;
-	const float PI = 3.14159265;
-	float deg = atan2(dY, dX) * 180 / PI;
-	this->weapon_sprite.setRotation(deg + 90.f);
+	this->sword.update(mouse_pos_view, this->getCenter());
 }
 
 void Player::render(RenderTarget & target, Shader* shader, bool show_hitbox){
@@ -138,10 +127,10 @@ void Player::render(RenderTarget & target, Shader* shader, bool show_hitbox){
 		target.draw(this->sprite, shader);
 		shader->setUniform("hasTexture", true);
 		shader->setUniform("lightPos", this->getCenter());
-		target.draw(this->weapon_sprite, shader);
+		this->sword.render(target, shader);
 	} else { 
 		target.draw(this->sprite);
-		target.draw(this->weapon_sprite);
+		this->sword.render(target, shader);
 	}
 	if(show_hitbox){
 		this->hitboxComponent->render(target);

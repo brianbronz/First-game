@@ -5,6 +5,8 @@
 #include "PauseMenu.h"
 #include "TileMap.h"
 #include "PlayerGUI.h"
+#include "Bow.h"
+#include "Sword.h"
 
 class GameState : public State{
     private: 

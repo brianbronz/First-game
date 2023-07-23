@@ -2,20 +2,22 @@
 #include "Tile.c++"
 
 void TileMap::clear(){
-	for (int i = 0; i < this->maxSizeWorldGrid.x; i++){
-		for (int j = 0; j < this->maxSizeWorldGrid.y; j++){
-			for (int k = 0; k < this->layers; k++){
-				for (int l = 0; l < this->map[i][j][k].size(); l++){
-					delete this->map[i][j][k][l];
-					this->map[i][j][k][l] = nullptr;
+	if(!this->map.empty()){
+		for (int i = 0; i < this->maxSizeWorldGrid.x; i++){
+			for (int j = 0; j < this->maxSizeWorldGrid.y; j++){
+				for (int k = 0; k < this->layers; k++){
+					for (int l = 0; l < this->map[i][j][k].size(); l++){
+						delete this->map[i][j][k][l];
+						this->map[i][j][k][l] = nullptr;
+					}
+					this->map[i][j][k].clear();
 				}
-				this->map[i][j][k].clear();
+				this->map[i][j].clear();
 			}
-			this->map[i][j].clear();
+			this->map[i].clear();
 		}
-		this->map[i].clear();
+		this->map.clear();
 	}
-	this->map.clear();
 }
 
 
@@ -50,6 +52,19 @@ TileMap::TileMap(float gridSize, int width, int height, string texture_file){
 	this->collisionBox.setOutlineThickness(1.f);
 }
 
+TileMap::TileMap(string file_name){
+	this->fromX = 0;
+	this->fromY = 0;
+	this->toX = 0;
+	this->toY = 0;
+	this->layer = 0;
+	this->loadFromFile(file_name);
+	this->collisionBox.setSize(Vector2f(this->gridSizeF, this->gridSizeF));
+	this->collisionBox.setFillColor(Color::White);
+	this->collisionBox.setOutlineColor(Color::Red);
+	this->collisionBox.setOutlineThickness(1.f);
+}
+
 TileMap::~TileMap(){
     this->clear();
 }
@@ -58,7 +73,7 @@ bool TileMap::tileEmpty(int x, int y, int z){
 	if (x >= 0 && x < this->maxSizeWorldGrid.x && y >= 0 && y < this->maxSizeWorldGrid.y && z >= 0 && z < this->layers){
 		return this->map[x][y][z].empty();
 	}
-	throw("ERROR::TILEMAP::TILEEMTPY::TRYING TO ACCESS OUT OF BOUNDS TILE");
+	return false;
 }
 
 Texture * TileMap::getTileSheet(){

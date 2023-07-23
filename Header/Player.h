@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "Entity.h"
+#include "Sword.h"
 
 class Player :
 	public Entity
@@ -9,8 +10,7 @@ class Player :
 private:
 	//Variables
 	bool attacking;
-	Texture weapon_texture;
-	Sprite weapon_sprite;
+	Sword sword;
 	//Initializer functions
 	void initVariables();
 	void initComponents();
