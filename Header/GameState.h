@@ -23,6 +23,7 @@ class GameState : public State{
 	    Texture texture;
         TileMap* map;
         
+        vector<Enemy*> activeEnemies;
         //functions
         void initDeferredRender();
         void initView();

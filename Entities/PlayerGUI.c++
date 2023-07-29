@@ -43,8 +43,7 @@ void PlayerGUI::initEXPBar(){
 	 */	
 	this->expBar = new gui::ProgressBar(
 		1.f, 5.6f, 10.4f, 1.9f,
-		this->player->getAttributeComponent()->expNext,
-		sf::Color::Blue, 220,
+		this->player->getAttributeComponent()->expNext, Color::Blue, 220,
 		this->vm, &this->font);
 }
 

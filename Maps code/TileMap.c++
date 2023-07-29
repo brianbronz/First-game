@@ -3,9 +3,9 @@
 
 void TileMap::clear(){
 	if(!this->map.empty()){
-		for (int i = 0; i < this->maxSizeWorldGrid.x; i++){
-			for (int j = 0; j < this->maxSizeWorldGrid.y; j++){
-				for (int k = 0; k < this->layers; k++){
+		for (int i = 0; i < this->map.size(); i++){
+			for (int j = 0; j < this->map[i].size(); j++){
+				for (int k = 0; k < this->map[i][j].size(); k++){
 					for (int l = 0; l < this->map[i][j][k].size(); l++){
 						delete this->map[i][j][k][l];
 						this->map[i][j][k][l] = nullptr;

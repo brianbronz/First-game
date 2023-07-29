@@ -47,6 +47,6 @@ class Entity{
         virtual void stopVelocityX();
         virtual void stopVelocityY();
         virtual void update(float& dt, Vector2f& mouse_pos_view) = 0;
-	    virtual void render(RenderTarget& target, Shader* shader, bool show_hitbox) = 0;
+	    virtual void render(RenderTarget& target, Shader* shader, Vector2f lightPosition, bool show_hitbox) = 0;
 };
 #endif

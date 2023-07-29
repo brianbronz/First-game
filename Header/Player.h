@@ -32,7 +32,7 @@ public:
 	void updateAnimation( float& dt);
 	void update(float& dt, Vector2f& mouse_pos_view);
 
-	void render(RenderTarget& target, Shader* shader = NULL, bool show_hitbox = false);
+	void render(RenderTarget& target, Shader* shader = NULL, Vector2f lightPosition = Vector2f(), bool show_hitbox = false);
 };
 
 #endif

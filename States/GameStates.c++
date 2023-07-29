@@ -1,4 +1,5 @@
 #include "../Header/GameState.h"
+#include "../Entities/Enemy.c++"
 #include "../Entities/Player.c++"
 #include "../Entities/PlayerGUI.c++"
 #include "../Source Files/PauseMenu.c++"
@@ -52,6 +53,10 @@ void GameState::initTextures(){
 	if (!this->textures["PLAYER_IDLE"].loadFromFile("../Source Files/Resources/Images/Sprites/Player/PLAYER_SHEET2.png")){//change test with name file for animation
 		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_PLAYER_IDLE_TEXTURE";
 	}
+    if(!this->textures["RAT1_SHEET"].loadFromFile("Resources/Images/Sprites/Enemy/rat1_60x64.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_RAT1_TEXTURE";
+	}
 }
 
 void GameState::initPauseMenu(){
@@ -59,6 +64,11 @@ void GameState::initPauseMenu(){
     const VideoMode& vm = this->stateData->gfxSettings->resolution;
 	this->pMenu = new PauseMenu(this->stateData->gfxSettings->resolution, this->font);
     this->pMenu->addButton("QUIT", gui::p2pY(74.f, vm), gui::p2pX(13.f, vm), gui::p2pY(6.f, vm), gui::calcCharSize(vm), "Quit");
+    this->activeEnemies.push_back(new Enemy(200.f, 100.f, this->textures["RAT1_SHEET"]));
+	this->activeEnemies.push_back(new Enemy(500.f, 200.f, this->textures["RAT1_SHEET"]));
+	this->activeEnemies.push_back(new Enemy(600.f, 300.f, this->textures["RAT1_SHEET"]));
+	this->activeEnemies.push_back(new Enemy(400.f, 500.f, this->textures["RAT1_SHEET"]));
+	this->activeEnemies.push_back(new Enemy(200.f, 400.f, this->textures["RAT1_SHEET"]));
 }
 
 void GameState::initShaders(){
@@ -100,6 +110,9 @@ GameState::~GameState(){
     delete this->player;
     delete this->playerGUI;
     delete this->map;
+    for (size_t i = 0; i < this->activeEnemies.size(); i++){
+		delete this->activeEnemies[i];
+	}
 }
 
 void GameState::updateView(const float & dt){
@@ -161,6 +174,9 @@ void GameState::updatePauseMenuButtons(){
 
 void GameState::updateTileMap(float & dt){
 	this->map->update(this->player, dt);
+    for (int i = 0; i < this->activeEnemies.size(); i++){
+		this->map->update(this->activeEnemies[i], dt);
+	}
 }
 
 void GameState::update(float& dt){
@@ -176,6 +192,9 @@ void GameState::update(float& dt){
         this->updateTileMap(dt);
         this->player->update(dt, this->mousePosView);
         this->playerGUI->update(dt);
+        for (int i = 0;  i < this->activeEnemies.size(); i++){
+			this->activeEnemies[i]->update(dt, this->mousePosView);
+		}	
     }
 }
 
@@ -186,7 +205,10 @@ void GameState::render(RenderTarget* target){
 	this->renderTexture.clear();
 	this->renderTexture.setView(this->view);
     this->map->render(this->renderTexture, this->viewGridPosition, &this->core_shader, this->player->getCenter(), false);
-    this->player->render(this->renderTexture, &this->core_shader,  false);
+    for (int i = 0;  i < this->activeEnemies.size(); i++){
+		this->activeEnemies[i]->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);
+	}
+    this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);
     this->map->renderDeferred(this->renderTexture, &this->core_shader, this->player->getCenter());
     //Render GUI
 	this->renderTexture.setView(this->renderTexture.getDefaultView());
