@@ -106,7 +106,9 @@ namespace gui{
             RectangleShape inner;
         
         public:
-            ProgressBar(float x, float y, float width, float height, int max_value, VideoMode& vm, Font * font = NULL);
+
+            ProgressBar(float x, float y, float width, float height, int max_value,
+            Color innerColor, unsigned characterSize, VideoMode& vm, Font * font = NULL);
             ~ProgressBar();
 
             //Functions

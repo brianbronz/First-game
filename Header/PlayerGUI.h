@@ -18,11 +18,12 @@ private:
 	RectangleShape levelBarBack;
 
 	//EXP Bar
-	string expBarString;
+/* 	string expBarString;
 	Text expBarText;
 	float expBarMaxWidth;
 	RectangleShape expBarBack;
-	RectangleShape expBarInner;
+	RectangleShape expBarInner; */
+	gui::ProgressBar* expBar;
 
 	//HP Bar
 /* 	string hpBarString;

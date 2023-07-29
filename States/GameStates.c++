@@ -160,8 +160,7 @@ void GameState::updatePauseMenuButtons(){
 }
 
 void GameState::updateTileMap(float & dt){
-	this->map->update();
-	this->map->updateCollision(this->player, dt);
+	this->map->update(this->player, dt);
 }
 
 void GameState::update(float& dt){

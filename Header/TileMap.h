@@ -40,8 +40,7 @@ public:
 	void addTile(int x, int y, int z, IntRect& texture_rect, bool collision, short type);
 	void removeTile(int x, int y, int z);
 	void loadFromFile(string file_name);
-	void updateCollision(Entity* entity, float& dt);
-	void update();
+	void update(Entity* entity, float& dt);
 	void render(RenderTarget& target, const Vector2i& gridPosition, Shader* shader = NULL, Vector2f playerPosition = Vector2f(), bool show_collision = false);
 	void renderDeferred(RenderTarget& target, Shader* shader = NULL, Vector2f playerPosition = Vector2f());
 };

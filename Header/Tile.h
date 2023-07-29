@@ -3,7 +3,7 @@
 #include "AllReference.h"
 
 static const short DEFAULT_TYPE = 0;
-enum TileTypes {DEFAULT = 0, DAMAGING, DOODAD};
+enum TileTypes {DEFAULT = 0, DAMAGING, DOODAD, ENEMYSPAWNER};
 
 class Tile{
     private:
@@ -24,8 +24,8 @@ class Tile{
         short& getType();
         //Functions
         string getAsString();
-        void update();
-	    void render(RenderTarget& target, Shader* shader = NULL, Vector2f playerPosition = Vector2f());
+        virtual void update();
+	    virtual void render(RenderTarget& target, Shader* shader = NULL, Vector2f playerPosition = Vector2f());
 };
 
 #endif

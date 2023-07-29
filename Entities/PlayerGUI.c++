@@ -22,7 +22,7 @@ void PlayerGUI::initLevelBar(){
 }
 
 void PlayerGUI::initEXPBar(){
-	float width = gui::p2pX(10.4f, this->vm);
+	/* float width = gui::p2pX(10.4f, this->vm);
 	float height = gui::p2pY(1.9f, this->vm);
 	float x = gui::p2pX(1.f, this->vm);
 	float y = gui::p2pY(5.6f, this->vm);
@@ -40,13 +40,18 @@ void PlayerGUI::initEXPBar(){
 	this->expBarText.setFont(this->font);
 	this->expBarText.setCharacterSize(gui::calcCharSize(this->vm, 180));
 	this->expBarText.setPosition(this->expBarInner.getPosition().x + gui::p2pX(0.53f, this->vm), this->expBarInner.getPosition().y + gui::p2pY(0.5f, this->vm)
-	);
+	 */	
+	this->expBar = new gui::ProgressBar(
+		1.f, 5.6f, 10.4f, 1.9f,
+		this->player->getAttributeComponent()->expNext,
+		sf::Color::Blue, 220,
+		this->vm, &this->font);
 }
 
 void PlayerGUI::initHPBar(){
 	this->hpBar = new gui::ProgressBar(
 		1.f, 8.3f, 10.4f, 2.8f, 
-		this->player->getAttributeComponent()->hpMax,
+		this->player->getAttributeComponent()->hpMax, Color::Red, 180,
 		this->vm, &this->font);
 	/* float width = gui::p2pX(10.4f, this->vm);
 	float height = gui::p2pY(2.8f, this->vm);
@@ -79,6 +84,7 @@ PlayerGUI::PlayerGUI(Player* player, VideoMode& vm): vm(vm){
 
 PlayerGUI::~PlayerGUI(){
 	delete this->hpBar;
+	delete this->expBar;
 }
 
 //Functions
@@ -88,9 +94,8 @@ void PlayerGUI::updateLevelBar()
 	this->levelBarText.setString(this->levelBarString);
 }
 
-void PlayerGUI::updateEXPBar()
-{
-	float percent = static_cast<float>(this->player->getAttributeComponent()->exp) / static_cast<float>(this->player->getAttributeComponent()->expNext);
+void PlayerGUI::updateEXPBar(){
+	/* float percent = static_cast<float>(this->player->getAttributeComponent()->exp) / static_cast<float>(this->player->getAttributeComponent()->expNext);
 
 	this->expBarInner.setSize(
 		Vector2f(
@@ -100,7 +105,8 @@ void PlayerGUI::updateEXPBar()
 	);
 
 	this->expBarString = to_string(this->player->getAttributeComponent()->exp) + " / " + to_string(this->player->getAttributeComponent()->expNext);
-	this->expBarText.setString(this->expBarString);
+	this->expBarText.setString(this->expBarString); */
+	this->expBar->update(this->player->getAttributeComponent()->exp);
 }
 
 void PlayerGUI::updateHPBar()
@@ -131,9 +137,10 @@ void PlayerGUI::renderLevelBar(RenderTarget & target){
 }
 
 void PlayerGUI::renderEXPBar(RenderTarget & target){
-	target.draw(this->expBarBack);
-	target.draw(this->expBarInner);
-	target.draw(this->expBarText);
+	// target.draw(this->expBarBack);
+	// target.draw(this->expBarInner);
+	// target.draw(this->expBarText);
+	this->expBar->render(target);
 }
 
 void PlayerGUI::renderHPBar(RenderTarget & target)
