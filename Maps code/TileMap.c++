@@ -1,5 +1,6 @@
 #include "../Header/TileMap.h"
 #include "Tile.c++"
+#include "../Entities/EnemySpawner.c++"
 
 void TileMap::clear(){
 	if(!this->map.empty()){
@@ -102,21 +103,28 @@ Vector2f & TileMap::getMaxSizeF(){
 void TileMap::addTile(int x, int y, int z, IntRect& texture_rect, bool collision, short type){
 	if (x < this->maxSizeWorldGrid.x && x >= 0 && y < this->maxSizeWorldGrid.y && y >= 0 && z < this->layers && z >= 0){
 		/* OK To add tile. */
-		this->map[x][y][z].push_back(new Tile(x, y, this->gridSizeF, this->tileSheet, texture_rect, collision, type));
+		this->map[x][y][z].push_back(new Tile(type, x, y, this->gridSizeF, this->tileSheet, texture_rect, collision));
 	}
 }
 
-void TileMap::removeTile(int x, int y, int z){
+void TileMap::removeTile(int x, int y, int z, int type){
 	/* Take three indicies from the mouse position in the grid and remove a tile at that position if the internal tilemap array allows it. */
 	if (x < this->maxSizeWorldGrid.x && x >= 0 && y < this->maxSizeWorldGrid.y && y >= 0 && z < this->layers && z >= 0){
 		if (!this->map[x][y][z].empty()){
-			delete this->map[x][y][z][this->map[x][y][z].size()-1];
-			this->map[x][y][z].pop_back();
+			if (type >= 0){
+				if (this->map[x][y][z].back()->getType() == type){
+					delete this->map[x][y][z][this->map[x][y][z].size() - 1];
+					this->map[x][y][z].pop_back();
+				}
+			} else {
+				delete this->map[x][y][z][this->map[x][y][z].size() - 1];
+				this->map[x][y][z].pop_back();
+			}		
 		}
 	}
 }
 
-void TileMap::render(RenderTarget & target, const Vector2i& gridPosition, Shader* shader, Vector2f playerPosition, bool show_collision){	
+void TileMap::render(RenderTarget & target, Vector2i& gridPosition, Shader* shader, Vector2f playerPosition, bool show_collision){	
 	this->layer = 0;
 	this->fromX = gridPosition.x - 15;
 	if (this->fromX < 0){
@@ -159,6 +167,10 @@ void TileMap::render(RenderTarget & target, const Vector2i& gridPosition, Shader
 						this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
 						target.draw(this->collisionBox);
 					}
+				}
+				if (this->map[x][y][this->layer][k]->getType() == TileTypes::ENEMYSPAWNER){
+					this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
+					target.draw(this->collisionBox);
 				}
 			}
 		}
@@ -216,9 +228,28 @@ void TileMap::loadFromFile(string file_name){
 		if (!this->tileSheet.loadFromFile(texture_file))
 			cout << "ERROR::TILEMAP::FAILED TO LOAD TILETEXTURESHEET::FILENAME: " << texture_file << "\n";
 		//Load all tiles
-		while (in_file >> x >> y >> z >> trX >> trY >> collision >> type){
-			IntRect rect(trX, trY, this->gridSizeI, this->gridSizeI);
-			this->map[x][y][z].push_back(new Tile(x, y, this->gridSizeF, this->tileSheet, rect, collision, type));
+		while (in_file >> x >> y >> z >> type){
+			if (type == TileTypes::ENEMYSPAWNER)
+			{
+				//amount, time, max dist
+				int enemy_type, enemy_am, enemy_tts, enemy_md;
+
+				in_file >> trX >> trY
+					>> enemy_type >> enemy_am >> enemy_tts >> enemy_md;
+				IntRect temp = IntRect(trX, trY, this->gridSizeI, this->gridSizeI);
+				this->map[x][y][z].push_back(
+					new EnemySpawner(x, y, this->gridSizeF, this->tileSheet, temp,
+						enemy_type, enemy_am, enemy_tts, enemy_md));
+			} else {
+				in_file >> trX >> trY >> collision;
+				IntRect temp = IntRect(trX, trY, this->gridSizeI, this->gridSizeI);
+				this->map[x][y][z].push_back(
+					new Tile(type, x, y, this->gridSizeF, this->tileSheet,
+						temp,
+						collision
+					)
+				);
+			}
 		}
 	} else {
 		cout << "ERROR::TILEMAP::COULD NOT LOAD FROM FILE::FILENAME: " << file_name << "\n";

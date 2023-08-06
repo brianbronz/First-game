@@ -55,7 +55,7 @@ DefaultEditorMode::~DefaultEditorMode()
 }
 
 //Functions
-void DefaultEditorMode::updateInput(const float & dt)
+void DefaultEditorMode::updateInput(float & dt)
 {
 	//Add a tile to the tilemap
 	if (Mouse::isButtonPressed(Mouse::Left) && this->getKeytime())
@@ -121,7 +121,7 @@ void DefaultEditorMode::updateInput(const float & dt)
 	}
 }
 
-void DefaultEditorMode::updateGui(const float & dt)
+void DefaultEditorMode::updateGui(float & dt)
 {
 	this->textureSelector->update(*this->editorStateData->mousePosWindow, dt);
 
@@ -145,7 +145,7 @@ void DefaultEditorMode::updateGui(const float & dt)
 	this->cursorText.setString(ss.str());
 }
 
-void DefaultEditorMode::update(const float & dt)
+void DefaultEditorMode::update(float & dt)
 {
 	this->updateInput(dt);
 	this->updateGui(dt);

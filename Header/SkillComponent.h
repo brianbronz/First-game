@@ -27,7 +27,7 @@ class SkillComponent{
                 ~Skill(){}
 
                 //Accessors
-                inline int getType() const { return this->type; }
+                inline int getType() { return this->type; }
                 inline int& getLevel(){ return this->level;}
                 inline int& getExp(){ return this->exp;}
                 inline int& getExpNext(){ return this->expNext;}

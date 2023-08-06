@@ -25,9 +25,9 @@ public:
 	DefaultEditorMode(StateData* state_data, TileMap* tile_map, EditorStateData* editor_state_data);
 	virtual ~DefaultEditorMode();
 
-	void updateInput(const float& dt);
-	void updateGui(const float& dt);
-	void update(const float& dt);
+	void updateInput(float& dt);
+	void updateGui(float& dt);
+	void update(float& dt);
 
 	void renderGui(RenderTarget& target);
 	void render(RenderTarget& target);

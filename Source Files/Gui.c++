@@ -1,6 +1,6 @@
 #include "../Header/Gui.h"
 
-const float gui::p2pX(const float perc, const VideoMode& vm)
+float gui::p2pX(float perc, VideoMode& vm)
 {
 	/*
 	 * Converts a percentage value to pixels relative to the current resolution in the x-axis.
@@ -14,7 +14,7 @@ const float gui::p2pX(const float perc, const VideoMode& vm)
 	return floor(static_cast<float>(vm.width) * (perc / 100.f));
 }
 
-const float gui::p2pY(const float perc, const VideoMode& vm){
+float gui::p2pY(float perc, VideoMode& vm){
 	/*
 	 * Converts a percentage value to pixels relative to the current resolution in the y-axis.
 	 * @param		float perc				The percentage value.
@@ -25,9 +25,9 @@ const float gui::p2pY(const float perc, const VideoMode& vm){
 	return floor(static_cast<float>(vm.height) * (perc / 100.f));
 }
 
-const unsigned gui::calcCharSize(const VideoMode& vm, const unsigned modifier){
+unsigned gui::calcCharSize(VideoMode& vm, unsigned modifier){
 	/*
-	 * Calculates the character size for text using the current resolution and a constant.
+	 * Calculates the character size for text using the current resolution and a ant.
 	 * @param		VideoMode& vm		The current videomode of the window (resolution).
 	 * @param		unsigned modifier		Used to modify the character size in a more custom way.
      * @return		unsigned				The calculated character size value.
@@ -72,7 +72,7 @@ bool gui::Button::isPressed(){
     return this->buttonState == BTN_ACTIVE;
 }
 
- const string gui::Button::getText(){
+ string gui::Button::getText(){
     return this->text.getString();
 }
 

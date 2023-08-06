@@ -63,7 +63,7 @@ void EditorState::initKeybinds()
 
 void EditorState::initPauseMenu()
 {
-	const VideoMode& vm = this->stateData->gfxSettings->resolution;
+	VideoMode& vm = this->stateData->gfxSettings->resolution;
 	this->pmenu = new PauseMenu(this->stateData->gfxSettings->resolution, this->font);
 
 	this->pmenu->addButton("QUIT", gui::p2pY(74.f, vm), gui::p2pX(13.f, vm), gui::p2pY(6.f, vm), gui::calcCharSize(vm), "Quit");
@@ -128,7 +128,7 @@ EditorState::~EditorState()
 }
 
 //Functions
-void EditorState::updateInput(const float & dt)
+void EditorState::updateInput(float & dt)
 {
 	if (Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeytime())
 	{
@@ -139,7 +139,7 @@ void EditorState::updateInput(const float & dt)
 	}
 }
 
-void EditorState::updateEditorInput(const float& dt)
+void EditorState::updateEditorInput(float& dt)
 {
 	//Move view
 	if (Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("MOVE_CAMERA_UP"))))
@@ -193,7 +193,7 @@ void EditorState::updateButtons()
 	}
 }
 
-void EditorState::updateGui(const float& dt)
+void EditorState::updateGui(float& dt)
 {
 	
 }
@@ -210,12 +210,12 @@ void EditorState::updatePauseMenuButtons()
 		this->tileMap->loadFromFile("text.slmp");
 }
 
-void EditorState::updateModes(const float & dt)
+void EditorState::updateModes(float & dt)
 {
 	this->modes[this->activeMode]->update(dt);
 }
 
-void EditorState::update(const float& dt)
+void EditorState::update(float& dt)
 {
 	this->updateMousePositions(&this->view);
 	this->updateKeytime(dt);

@@ -23,10 +23,10 @@ public:
 	AttributeComponent* getAttributeComponent();
 
 	//Functions
-	void loseHP(const int hp);
-	void gainHP(const int hp);
-	void loseEXP(const int exp);
-	void gainEXP(const int exp);
+	void loseHP(int hp);
+	void gainHP(int hp);
+	void loseEXP(int exp);
+	void gainEXP(int exp);
 
 	void updateAttack();
 	void updateAnimation( float& dt);

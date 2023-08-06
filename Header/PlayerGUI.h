@@ -47,7 +47,7 @@ public:
     void updateLevelBar();
 	void updateEXPBar();
 	void updateHPBar();
-	void update(const float& dt);
+	void update(float& dt);
 
     void renderLevelBar(RenderTarget & target);
 	void renderEXPBar(RenderTarget & target);

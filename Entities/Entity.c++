@@ -39,7 +39,7 @@ void Entity::createAnimationComponent(Texture& textureSheet){
 	this->animationComponent = new AnimationComponent(this->sprite, textureSheet);
 }
 
-void Entity::createAttributeComponent(const unsigned level){
+void Entity::createAttributeComponent(unsigned level){
 	this->attributeComponent = new AttributeComponent(level);
 }
 
@@ -55,13 +55,13 @@ const Vector2f & Entity::getPosition(){
 	return this->sprite.getPosition();
 }
 
-const Vector2f Entity::getCenter(){
+Vector2f Entity::getCenter(){
 	if (this->hitboxComponent)
 		return this->hitboxComponent->getPosition() + Vector2f(this->hitboxComponent->getGlobalBounds().width / 2.f, this->hitboxComponent->getGlobalBounds().height / 2.f);
 	return this->sprite.getPosition() + Vector2f(this->sprite.getGlobalBounds().width / 2.f, this->sprite.getGlobalBounds().height / 2.f);
 }
 
-const Vector2i Entity::getGridPosition(int gridSizeI){
+Vector2i Entity::getGridPosition(int gridSizeI){
 	if (this->hitboxComponent){
 		return Vector2i(
 			static_cast<int>(this->hitboxComponent->getPosition().x) / gridSizeI,
@@ -74,7 +74,7 @@ const Vector2i Entity::getGridPosition(int gridSizeI){
 	);
 }
 
-const FloatRect Entity::getGlobalBounds(){
+FloatRect Entity::getGlobalBounds(){
 	if (this->hitboxComponent){
 		return this->hitboxComponent->getGlobalBounds();
 	}
@@ -82,9 +82,10 @@ const FloatRect Entity::getGlobalBounds(){
 }
 
 
-const FloatRect Entity::getNextPositionBounds(float& dt){
+FloatRect Entity::getNextPositionBounds(float& dt){
 	if (this->hitboxComponent && this->movementComponent){
-		return this->hitboxComponent->getNextPosition(this->movementComponent->getVelocity() * dt);
+		Vector2f velocity = this->movementComponent->getVelocity() * dt;
+		return this->hitboxComponent->getNextPosition(velocity);
 	}
 	return FloatRect(-1.f, -1.f, -1.f, -1.f);
 }

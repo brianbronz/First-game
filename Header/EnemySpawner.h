@@ -4,7 +4,7 @@
 
 #include "AllReference.h"
 #include "Tile.h"
-class EnemySpawner
+class EnemySpawner : public Tile
 {
 private:
 	int enemyType;
@@ -15,9 +15,9 @@ private:
 public:
 	EnemySpawner(Vector2i grid_position, float grid_size, int type, int amount, int time_to_spawn, float max_distance);
 	EnemySpawner(int grid_x, int grid_y, float gridSizeF, Texture& texture, IntRect& texture_rect,
-		float grid_size, int enemy_type, int enemy_amount, int enemy_time_to_spawn, float enemy_max_distance);
+		 int enemy_type, int enemy_amount, int enemy_time_to_spawn, float enemy_max_distance);
     virtual ~EnemySpawner();
-
+	string getAsString();
 	void update();
 	void render(RenderTarget & target, Shader* shader = NULL, Vector2f player_position = Vector2f());
 };

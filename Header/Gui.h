@@ -8,9 +8,9 @@ enum button_states{
                     BTN_ACTIVE
     };
 namespace gui{
-    const float p2pX(const float perc, const VideoMode& vm);
-	const float p2pY(const float perc, const VideoMode& vm);
-	const unsigned calcCharSize(const VideoMode& vm, const unsigned modifier = 60);
+    float p2pX(float perc, VideoMode& vm);
+	float p2pY(float perc, VideoMode& vm);
+	unsigned calcCharSize(VideoMode& vm, unsigned modifier = 60);
     class Button{
         private:
             short unsigned buttonState;
@@ -38,7 +38,7 @@ namespace gui{
 
             //Accessors
             bool isPressed();
-            const string getText();
+            string getText();
             short unsigned& getId();
             //Modifiers
             void setText( string text);

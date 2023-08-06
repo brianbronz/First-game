@@ -47,13 +47,13 @@ public:
 	virtual ~EditorState();
 
 	//Functions
-	void updateInput(const float& dt);
-	void updateEditorInput(const float& dt);
+	void updateInput(float& dt);
+	void updateEditorInput(float& dt);
 	void updateButtons();
-	void updateGui(const float& dt);
+	void updateGui(float& dt);
 	void updatePauseMenuButtons();
-	void updateModes(const float& dt);
-	void update(const float& dt);
+	void updateModes(float& dt);
+	void update(float& dt);
 	void renderButtons(RenderTarget& target);
 	void renderGui(RenderTarget& target);
 	void renderModes(RenderTarget& target);

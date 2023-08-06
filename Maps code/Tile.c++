@@ -1,11 +1,11 @@
 #include "../Header/Tile.h"
 
-/* Tile::Tile(){
+ Tile::Tile(){
 	this->collision = false;
 	this->type = 0;
 }
- */
-Tile::Tile(int grid_x, int grid_y, float gridSizeF, Texture& texture, IntRect& texture_rect, bool collision, short type){
+ 
+Tile::Tile(short type, int grid_x, int grid_y, float gridSizeF, Texture& texture, IntRect& texture_rect, bool collision){
 	//this->shape.setSize(Vector2f(gridSizeF, gridSizeF));
 	//this->shape.setFillColor(Color::Green);
 	this->shape.setPosition(static_cast<float>(grid_x) * gridSizeF, static_cast<float>(grid_y) * gridSizeF);
@@ -30,7 +30,7 @@ const Vector2f & Tile::getPosition(){
 	return this->shape.getPosition();
 }
 
-const FloatRect Tile::getGlobalBounds(){
+FloatRect Tile::getGlobalBounds(){
 	return this->shape.getGlobalBounds();
 }
 
@@ -41,7 +41,7 @@ bool Tile::intersects(FloatRect bounds){
 
 string Tile::getAsString(){
 	stringstream ss;
-	ss << this->shape.getTextureRect().left << " " << this->shape.getTextureRect().top << " " << this->collision << " " << this->type;
+	ss << this->type << " " << this->shape.getTextureRect().left << " " << this->shape.getTextureRect().top << " " << this->collision;
 	return ss.str();
 }
 

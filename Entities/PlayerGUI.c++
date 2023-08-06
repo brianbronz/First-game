@@ -123,7 +123,7 @@ void PlayerGUI::updateHPBar()
 	this->hpBar->update(this->player->getAttributeComponent()->hp);
 }
 
-void PlayerGUI::update(const float & dt)
+void PlayerGUI::update(float & dt)
 {
     this->updateLevelBar();
 	this->updateEXPBar();

@@ -1,5 +1,6 @@
 #include "../Header/GameState.h"
 #include "../Entities/Enemy.c++"
+#include "../Entities/TypeEnemies/Rat.c++"
 #include "../Entities/Player.c++"
 #include "../Entities/PlayerGUI.c++"
 #include "../Source Files/PauseMenu.c++"
@@ -61,14 +62,14 @@ void GameState::initTextures(){
 
 void GameState::initPauseMenu(){
     
-    const VideoMode& vm = this->stateData->gfxSettings->resolution;
+    VideoMode& vm = this->stateData->gfxSettings->resolution;
 	this->pMenu = new PauseMenu(this->stateData->gfxSettings->resolution, this->font);
     this->pMenu->addButton("QUIT", gui::p2pY(74.f, vm), gui::p2pX(13.f, vm), gui::p2pY(6.f, vm), gui::calcCharSize(vm), "Quit");
-    this->activeEnemies.push_back(new Enemy(200.f, 100.f, this->textures["RAT1_SHEET"]));
-	this->activeEnemies.push_back(new Enemy(500.f, 200.f, this->textures["RAT1_SHEET"]));
-	this->activeEnemies.push_back(new Enemy(600.f, 300.f, this->textures["RAT1_SHEET"]));
-	this->activeEnemies.push_back(new Enemy(400.f, 500.f, this->textures["RAT1_SHEET"]));
-	this->activeEnemies.push_back(new Enemy(200.f, 400.f, this->textures["RAT1_SHEET"]));
+    this->activeEnemies.push_back(new Rat(200.f, 100.f, this->textures["RAT1_SHEET"]));
+	this->activeEnemies.push_back(new Rat(500.f, 200.f, this->textures["RAT1_SHEET"]));
+	this->activeEnemies.push_back(new Rat(600.f, 300.f, this->textures["RAT1_SHEET"]));
+	this->activeEnemies.push_back(new Rat(400.f, 500.f, this->textures["RAT1_SHEET"]));
+	this->activeEnemies.push_back(new Rat(200.f, 400.f, this->textures["RAT1_SHEET"]));
 }
 
 void GameState::initShaders(){
@@ -91,7 +92,7 @@ void GameState::initTileMap(){
     this->map = new TileMap("../Maps code/text.slmp");
 }
 
-//Constructors / Destructors
+//ructors / Destructors
 GameState::GameState(StateData* state_data): State(state_data){
     this->initDeferredRender();
     this->initView();
@@ -115,7 +116,7 @@ GameState::~GameState(){
 	}
 }
 
-void GameState::updateView(const float & dt){
+void GameState::updateView(float & dt){
 	this->view.setCenter(
         floor(this->player->getPosition().x + (static_cast<float>(this->mousePosWindow.x) - static_cast<float>(this->stateData->gfxSettings->resolution.width / 2)) / 10.f),
 		floor(this->player->getPosition().y + (static_cast<float>(this->mousePosWindow.y) - static_cast<float>(this->stateData->gfxSettings->resolution.height / 2)) / 10.f)

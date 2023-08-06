@@ -40,7 +40,7 @@ class GameState : public State{
 	    virtual ~GameState();
 
         //Functions
-        void updateView(const float& dt);
+        void updateView(float& dt);
         void updateInput( float& dt);
         void updatePlayerInput(float& dt);
         void updatePlayerGUI(float& dt);

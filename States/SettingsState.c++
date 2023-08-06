@@ -23,7 +23,7 @@ void SettingsState::initKeybinds(){
 }
 
 void SettingsState::initButtons(){//init the gui
-    const VideoMode& vm = this->stateData->gfxSettings->resolution;
+    VideoMode& vm = this->stateData->gfxSettings->resolution;
     //Background
 	this->background.setSize(Vector2f(static_cast<float>(vm.width), static_cast<float>(vm.height))
 	);

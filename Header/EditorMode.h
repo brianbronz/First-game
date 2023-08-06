@@ -41,11 +41,11 @@ public:
 	virtual ~EditorMode();
 
 	//Functions
-	const bool getKeytime();
+	bool getKeytime();
 
-	virtual void updateInput(const float& dt) = 0;
-	virtual void updateGui(const float& dt) = 0;
-	virtual void update(const float& dt) = 0;
+	virtual void updateInput(float& dt) = 0;
+	virtual void updateGui(float& dt) = 0;
+	virtual void update(float& dt) = 0;
 
 	virtual void renderGui(RenderTarget& target) = 0;
 	virtual void render(RenderTarget& target) = 0;

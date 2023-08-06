@@ -27,7 +27,7 @@ FloatRect HitboxComponent::getGlobalBounds(){
 	return this->hitbox.getGlobalBounds();
 }
 
-const FloatRect & HitboxComponent::getNextPosition(const Vector2f & velocity)
+FloatRect & HitboxComponent::getNextPosition(Vector2f & velocity)
 {
 	this->nextPosition.left = this->hitbox.getPosition().x + velocity.x;
 	this->nextPosition.top = this->hitbox.getPosition().y + velocity.y;
@@ -42,7 +42,7 @@ void HitboxComponent::setPosition(Vector2f& position)
 	this->sprite.setPosition(position.x - this->offsetX, position.y - this->offsetY);
 }
 
-void HitboxComponent::setPosition(const float x, const float y)
+void HitboxComponent::setPosition(float x, float y)
 {
 	this->hitbox.setPosition(x, y);
 	this->sprite.setPosition(x - this->offsetX, y - this->offsetY);

@@ -22,30 +22,30 @@ AttributeComponent::~AttributeComponent(){
 }
 
 //Functions
-void AttributeComponent::loseHP(const int hp){
+void AttributeComponent::loseHP(int hp){
 	this->hp -= hp;
 	if (this->hp < 0)
 		this->hp = 0;
 }
 
-void AttributeComponent::gainHP(const int hp){
+void AttributeComponent::gainHP(int hp){
 	this->hp += hp;
 	if (this->hp > this->hpMax)
 		this->hp = this->hpMax;
 }
 
-void AttributeComponent::loseEXP(const int exp){
+void AttributeComponent::loseEXP(int exp){
 	this->exp -= exp;
 	if (this->exp < 0)
 		this->exp = 0;
 }
 
-void AttributeComponent::gainExp(const int exp){
+void AttributeComponent::gainExp(int exp){
 	this->exp += exp;
 	this->updateLevel();
 }
 
-void AttributeComponent::updateStats(const bool reset){
+void AttributeComponent::updateStats(bool reset){
 	this->hpMax			= this->vitality * 5 + this->vitality + this->strength / 2 + this->intelligence / 5;
 	this->damageMin		= this->strength * 2 + this->strength / 4 + this->intelligence / 5;
 	this->damageMax		= this->strength * 2 + this->strength / 2 + this->intelligence / 5;

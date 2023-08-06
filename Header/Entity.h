@@ -33,14 +33,14 @@ class Entity{
         void createHitboxComponent(Sprite& sprite, float offset_x, float offset_y,float width, float height);
         void createMovementComponent(float maxVelocity, float acceleration, float deceleration);
         void createAnimationComponent(Texture& textureSheet);
-        void createAttributeComponent(const unsigned level);
+        void createAttributeComponent(unsigned level);
         void createSkillComponent();
         //Functions
-        const virtual Vector2f& getPosition();
-        virtual const Vector2f getCenter();
-        virtual const Vector2i getGridPosition(int gridSizeI);
-        virtual const FloatRect getGlobalBounds();
-        virtual const FloatRect getNextPositionBounds(float& dt);
+        virtual const Vector2f& getPosition();
+        virtual Vector2f getCenter();
+        virtual Vector2i getGridPosition(int gridSizeI);
+        virtual FloatRect getGlobalBounds();
+        virtual FloatRect getNextPositionBounds(float& dt);
         virtual void setPosition(float x, float y);
 	    virtual void move(float x, float y, float & dt);
         virtual void stopVelocity();

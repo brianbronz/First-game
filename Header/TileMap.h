@@ -3,6 +3,7 @@
 
 #include "Tile.h"
 #include "Entity.h"
+#include "EnemySpawner.h"
 class TileMap{
 	private:
 	void clear();
@@ -38,10 +39,10 @@ public:
 	Vector2f& getMaxSizeF();
 	//Functions
 	void addTile(int x, int y, int z, IntRect& texture_rect, bool collision, short type);
-	void removeTile(int x, int y, int z);
+	void removeTile(int x, int y, int z, int type);
 	void loadFromFile(string file_name);
 	void update(Entity* entity, float& dt);
-	void render(RenderTarget& target, const Vector2i& gridPosition, Shader* shader = NULL, Vector2f playerPosition = Vector2f(), bool show_collision = false);
+	void render(RenderTarget& target, Vector2i& gridPosition, Shader* shader = NULL, Vector2f playerPosition = Vector2f(), bool show_collision = false);
 	void renderDeferred(RenderTarget& target, Shader* shader = NULL, Vector2f playerPosition = Vector2f());
 };
 #endif
