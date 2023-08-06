@@ -2,7 +2,7 @@
 #define ENEMY_H
 #include "AllReference.h"
 #include "Entity.h"
-#include "EnemySpawner.h"
+#include "EnemySpawnerTile.h"
 
 class Enemy : public Entity{
     private:

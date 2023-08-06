@@ -24,6 +24,7 @@ class GameState : public State{
         TileMap* map;
         
         vector<Enemy*> activeEnemies;
+        EnemySystem *enemySystem;
         //functions
         void initDeferredRender();
         void initView();
@@ -34,6 +35,7 @@ class GameState : public State{
         void initShaders();
 	    void initPlayers();
         void initPlayerGUI();
+        void initEnemySystem();
         void initTileMap();
     public:
         GameState(StateData* state_data);
@@ -47,6 +49,8 @@ class GameState : public State{
         void updatePauseMenuButtons();
         void updateTileMap(float& dt);
         void update( float& dt);
+        void updatePlayer(float& dt);
+	    void updateEnemies(float& dt);
         void render(RenderTarget* target = NULL);
 };
 

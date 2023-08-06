@@ -13,7 +13,7 @@ class Tile{
         short type;
     public:
         Tile();
-        Tile(short type, int grid_x, int grid_y, float gridSizeF, Texture& texture, IntRect& texture_rect, bool collision = false);
+        Tile(short type, int grid_x, int grid_y, float gridSizeF, Texture& texture, IntRect& texture_rect, bool collision);
         virtual ~Tile();
 
         virtual bool & getCollision();
@@ -22,8 +22,8 @@ class Tile{
         virtual bool intersects(FloatRect bounds);
         virtual std::string getAsString();
         virtual short & getType();
-        virtual void update();
-	    virtual void render(RenderTarget& target, Shader* shader = NULL, Vector2f playerPosition = Vector2f());
+        virtual void update() = 0;
+	    virtual void render(RenderTarget& target, Shader* shader = NULL, Vector2f playerPosition = Vector2f()) = 0;
 };
 
 #endif

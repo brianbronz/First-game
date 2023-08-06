@@ -92,6 +92,10 @@ void GameState::initTileMap(){
     this->map = new TileMap("../Maps code/text.slmp");
 }
 
+
+void GameState::initEnemySystem(){
+	this->enemySystem = new EnemySystem(this->activeEnemies, this->textures);
+}
 //ructors / Destructors
 GameState::GameState(StateData* state_data): State(state_data){
     this->initDeferredRender();
@@ -103,6 +107,7 @@ GameState::GameState(StateData* state_data): State(state_data){
     this->initShaders();
 	this->initPlayers();
     this->initPlayerGUI();
+    this->initEnemySystem();
     this->initTileMap();
 }
 
@@ -110,6 +115,7 @@ GameState::~GameState(){
     delete this->pMenu;
     delete this->player;
     delete this->playerGUI;
+    delete this->enemySystem;
     delete this->map;
     for (size_t i = 0; i < this->activeEnemies.size(); i++){
 		delete this->activeEnemies[i];
@@ -174,9 +180,12 @@ void GameState::updatePauseMenuButtons(){
 }
 
 void GameState::updateTileMap(float & dt){
-	this->map->update(this->player, dt);
+    this->map->updateWorldBoundsCollision(this->player, dt); 
+	this->map->updateTileCollision(this->player, dt);
+	this->map->updateTiles(this->player, dt, *this->enemySystem);
     for (int i = 0; i < this->activeEnemies.size(); i++){
-		this->map->update(this->activeEnemies[i], dt);
+		this->map->updateWorldBoundsCollision(i, dt);
+		this->map->updateTileCollision(i, dt);
 	}
 }
 
@@ -197,6 +206,13 @@ void GameState::update(float& dt){
 			this->activeEnemies[i]->update(dt, this->mousePosView);
 		}	
     }
+}
+
+
+void GameState::updatePlayer(float & dt){
+}
+
+void GameState::updateEnemies(float & dt){
 }
 
 void GameState::render(RenderTarget* target){
