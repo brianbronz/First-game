@@ -165,7 +165,7 @@ void TileMap::render(RenderTarget & target, const Vector2i& gridPosition, Shader
 	}
 }
 
-void TileMap::renderDeferred(RenderTarget & target, sf::Shader* shader, sf::Vector2f playerPosition){
+void TileMap::renderDeferred(RenderTarget & target, Shader* shader, Vector2f playerPosition){
 	while (!this->deferredRenderStack.empty()){
 		if(shader)
 			deferredRenderStack.top()->render(target, shader, playerPosition);

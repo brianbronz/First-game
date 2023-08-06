@@ -13,7 +13,7 @@ private:
 	float enemyMaxDistance;
 
 public:
-	EnemySpawner(sf::Vector2i grid_position, float grid_size, int type, int amount, int time_to_spawn, float max_distance);
+	EnemySpawner(Vector2i grid_position, float grid_size, int type, int amount, int time_to_spawn, float max_distance);
 	EnemySpawner(int grid_x, int grid_y, float gridSizeF, Texture& texture, IntRect& texture_rect,
 		float grid_size, int enemy_type, int enemy_amount, int enemy_time_to_spawn, float enemy_max_distance);
     virtual ~EnemySpawner();
