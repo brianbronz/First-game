@@ -1,9 +1,9 @@
 #ifndef MELEEWEAPON_H
 #define MELEEWEAPON_H
 
-#include "Item.h"
+#include "Weapon.h"
 
-class MeleeWeapon : Item {
+class MeleeWeapon : public Weapon {
     protected:
         Texture weaponTexture;
         Sprite weaponSprite;
@@ -12,8 +12,9 @@ class MeleeWeapon : Item {
         int damageMax;
 
     public:
-        MeleeWeapon();
+        MeleeWeapon(unsigned value, string texture_file);
         virtual ~MeleeWeapon();
+        virtual MeleeWeapon* Clone() = 0;
         virtual void update(Vector2f & mousePosView, Vector2f center) = 0;
         virtual void render(RenderTarget & target, Shader * shader) = 0;
 };

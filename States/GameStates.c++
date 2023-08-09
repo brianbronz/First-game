@@ -205,6 +205,7 @@ void GameState::update(float& dt){
         for (int i = 0;  i < this->activeEnemies.size(); i++){
 			this->activeEnemies[i]->update(dt, this->mousePosView);
 		}	
+        this->updateCombat(dt);
     }
 }
 
@@ -236,4 +237,20 @@ void GameState::render(RenderTarget* target){
 	//FINAL RENDER
 	this->renderTexture.display();
 	target->draw(this->renderSprite);
+}
+
+void GameState::updateCombat(const float & dt)
+{
+	for (auto i : this->activeEnemies)
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			if (i->getGlobalBounds().contains(this->mousePosView) &&
+				std::abs(this->player->getPosition().x - i->getPosition().x) < this->player->getWeapon()->getRange())
+			{
+				//Get to this!!!!
+				std::cout << "Hit!" << rand()%29 << "\n";
+			}
+		}
+	}
 }

@@ -1,10 +1,7 @@
 #include "../Header/Sword.h"
 #include "MeleeWeapon.c++"
-Sword::Sword(){
+Sword::Sword(unsigned value, string texture_file): MeleeWeapon(value, texture_file){
     //Visual Weapon
-	if (!this->weaponTexture.loadFromFile("../Source Files/Resources/Images/Sprites/Player/sword.png"))
-		std::cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE." << "\n";
-	this->weaponSprite.setTexture(this->weaponTexture);
 	this->weaponSprite.setOrigin(this->weaponSprite.getGlobalBounds().width / 2.f,this->weaponSprite.getGlobalBounds().height);
 }
 
@@ -26,4 +23,8 @@ void Sword::update(Vector2f & mousePosView, Vector2f center){
 void Sword::render(RenderTarget & target, Shader * shader){
     (shader)? target.draw(this->weaponSprite, shader):
               target.draw(this->weaponSprite);
+}
+
+Sword * Sword::Clone(){
+	return new Sword(*this);
 }

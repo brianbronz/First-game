@@ -2,26 +2,29 @@
 #define PLAYER_H
 
 #include "Entity.h"
-#include "Sword.h"
+#include "Items.h"
+#include "Inventory.h"
 
 class Player :
 	public Entity
 {
 private:
 	//Variables
+	Inventory* inventory;
 	bool attacking;
-	Sword sword;
+	Sword* sword;
 	//Initializer functions
 	void initVariables();
 	void initComponents();
 	void initAnimation();
+	void initInventory();
 
 public:
 	Player(float x, float y, Texture& textureSheet);
 	virtual ~Player();
 	//Accessors
 	AttributeComponent* getAttributeComponent();
-
+	Weapon* getWeapon();
 	//Functions
 	void loseHP(int hp);
 	void gainHP(int hp);

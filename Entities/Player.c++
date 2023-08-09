@@ -5,6 +5,7 @@
 //Initializer functions
 void Player::initVariables(){
 	this->attacking = false;
+	this->sword = new Sword(20, "../Source Files/Resources/Images/Sprites/Player/sword.png");
 }
 
 void Player::initComponents(){
@@ -24,6 +25,10 @@ void Player::initAnimation(){
 	this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 1, 2, 64, 64);
 }
 
+void Player::initInventory(){
+	this->inventory = new Inventory(100);
+}
+
 //ructors / Destructors
 Player::Player(float x, float y, Texture& textureSheet){
 	this->initVariables();
@@ -34,15 +39,21 @@ Player::Player(float x, float y, Texture& textureSheet){
 	this->createSkillComponent();
 	this->setPosition(x, y);
 	this->initAnimation();
+	this->initInventory();
 }	
 
 Player::~Player(){
+	delete this->inventory;
+	delete this->sword;
 }
 
 AttributeComponent * Player::getAttributeComponent(){
 	return this->attributeComponent;
 }
 
+Weapon * Player::getWeapon(){
+	return this->sword;
+}
 //Functions
 void Player::loseHP(int hp){
 	this->attributeComponent->loseHP(hp);
@@ -122,7 +133,7 @@ void Player::update(float& dt, Vector2f& mouse_pos_view){
 	this->updateAttack();
 	this->updateAnimation(dt);
 	this->hitboxComponent->update();
-	this->sword.update(mouse_pos_view, this->getCenter());
+	this->sword->update(mouse_pos_view, this->getCenter());
 }
 
 void Player::render(RenderTarget & target, Shader* shader, Vector2f lightPosition, bool show_hitbox){
@@ -132,10 +143,10 @@ void Player::render(RenderTarget & target, Shader* shader, Vector2f lightPositio
 		target.draw(this->sprite, shader);
 		shader->setUniform("hasTexture", true);
 		shader->setUniform("lightPos", lightPosition);
-		this->sword.render(target, shader);
+		this->sword->render(target, shader);
 	} else { 
 		target.draw(this->sprite);
-		this->sword.render(target, shader);
+		this->sword->render(target, shader);
 	}
 	if(show_hitbox){
 		this->hitboxComponent->render(target);

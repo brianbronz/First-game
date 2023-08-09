@@ -52,6 +52,7 @@ class GameState : public State{
         void updatePlayer(float& dt);
 	    void updateEnemies(float& dt);
         void render(RenderTarget* target = NULL);
+        void updateCombat(const float & dt)
 };
 
 #endif
