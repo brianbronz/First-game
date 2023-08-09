@@ -1,6 +1,6 @@
 #include "../Header/Bow.h"
 
-Bow::Bow(unsigned value, string texture_file) :RangedWeapon(value, texture_file){
+Bow::Bow(unsigned level, unsigned value, string texture_file):RangeWeapon(level, value, texture_file){
 
 }
 

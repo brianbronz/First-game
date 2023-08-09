@@ -174,7 +174,7 @@ void TileMap::render(RenderTarget & target, Vector2i& gridPosition, Shader* shad
 				}
 				if (this->map[x][y][this->layer][k]->getType() == TileTypes::ENEMYSPAWNER){
 					this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
-					//target.draw(this->collisionBox);
+					target.draw(this->collisionBox);
 				}
 			}
 		}
@@ -427,8 +427,10 @@ void TileMap::updateTiles(Entity * entity, float & dt, EnemySystem& enemySystem)
 				{
 					EnemySpawnerTile* es = dynamic_cast<EnemySpawnerTile*>(this->map[x][y][this->layer][k]);
 					if (es){
-						if (es->getSpawnTimer() && es->getEnemyCounter() < es->getEnemyAmount()){
-							enemySystem.createEnemy(es->getEnemyType(), x*this->gridSizeF, y*this->gridSizeF, *es);
+						if (!es->getSpawned() && es->getEnemyCounter() < es->getEnemyAmount()){
+							enemySystem.createEnemy(RAT, x*this->gridSizeF, y*this->gridSizeF);
+							enemySystem.createEnemy(RAT, x*this->gridSizeF, y*this->gridSizeF, *es);
+							es->setSpawned(true);
 						}	
 					}
 				}

@@ -72,6 +72,24 @@ void PlayerGUI::initHPBar(){
 	); */
 }
 
+void PlayerGUI::initPlayerTabs(sf::VideoMode &vm, sf::Font &font, Player &player)
+{
+	this->playerTabs = new PlayerGUITabs(vm, font, player);
+}
+
+void PlayerGUI::initCharacterTab()
+{
+	//Background
+	this->CharacterTabBack.setFillColor(sf::Color(50, 50, 50, 180));
+	this->CharacterTabBack.setSize(sf::Vector2f(gui::p2pX(30.f, this->vm), static_cast<float>(this->vm.height)));
+
+	//Text
+	this->CharacterInfoText.setFont(this->font);
+	this->CharacterInfoText.setCharacterSize(gui::calcCharSize(this->vm, 50));
+	this->CharacterInfoText.setFillColor(sf::Color::White);
+	this->CharacterInfoText.setPosition(this->CharacterTabBack.getPosition().x + 20.f, this->CharacterTabBack.getPosition().y + 20.f);
+}
+
 PlayerGUI::PlayerGUI(Player* player, VideoMode& vm): vm(vm){
 	this->player = player;
 
@@ -79,11 +97,15 @@ PlayerGUI::PlayerGUI(Player* player, VideoMode& vm): vm(vm){
     this->initLevelBar();
 	this->initEXPBar();
 	this->initHPBar();
+	this->initPlayerTabs(vm, font, *player);
+	//this->initTabMenu();
+	//this->initCharacterTab();
 }
 
 PlayerGUI::~PlayerGUI(){
 	delete this->hpBar;
 	delete this->expBar;
+	delete this->playerTabs;
 }
 
 //Functions
@@ -146,6 +168,8 @@ void PlayerGUI::renderHPBar(RenderTarget & target)
 {
 	this->hpBar->render(target);
 }
+
+//Tabs
 
 void PlayerGUI::render(RenderTarget & target)
 {

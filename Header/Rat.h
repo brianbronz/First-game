@@ -11,7 +11,7 @@ private:
 
 	RectangleShape hpBar;
 public:
-	Rat(float x, float y, Texture& texture_sheet);
+	Rat(float x, float y, Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile);
 	virtual ~Rat();
 
 	//Functions

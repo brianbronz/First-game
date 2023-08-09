@@ -7,18 +7,21 @@
 class Enemy : public Entity{
     private:
         unsigned gainExp;
-        //EnemySpawner& enemy_spawner;
+        EnemySpawnerTile& enemySpawnerTile;
         //initializer functions
         virtual void initVariables() = 0;
         virtual void initAnimations() = 0;
 
     public:
-        Enemy();
+        Enemy(EnemySpawnerTile& enemy_spawner_tile);
         virtual ~Enemy();
 
         unsigned& getGainExp();
-
+        EnemySpawnerTile& getEnemySpawnerTile();
+        
         //Functions
+        virtual void generateAttributes(const unsigned level);
+        
         virtual void loseHP(const int hp);
         virtual bool isDead();
 

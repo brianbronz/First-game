@@ -1,9 +1,6 @@
 #ifndef PLAYERGUI_H
 #define PLAYERGUI_H
-#include "Player.h"
-#include "Gui.h"
-
-class Player;
+#include "PlayerGUITabs.h"
 
 class PlayerGUI
 {
@@ -34,10 +31,13 @@ private:
 	RectangleShape hpBarInner; */
 	gui::ProgressBar* hpBar;
 
+	PlayerGUITabs* playerTabs;
+	
 	void initFont();
     void initLevelBar();
 	void initEXPBar();
 	void initHPBar();
+	void initPlayerTabs(sf::VideoMode &vm, sf::Font &font, Player &player);
 
 public:
 	PlayerGUI(Player* player, VideoMode& vm);
@@ -47,6 +47,7 @@ public:
     void updateLevelBar();
 	void updateEXPBar();
 	void updateHPBar();
+
 	void update(float& dt);
 
     void renderLevelBar(RenderTarget & target);

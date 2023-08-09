@@ -8,7 +8,7 @@ class Sword : public MeleeWeapon{
     private:
 
     public:
-        Sword(unsigned value, string texture_file);
+        Sword(unsigned level, unsigned damageMin, unsigned damageMax, unsigned range, unsigned value, std::string texture_file);
 	    virtual ~Sword();
         virtual Sword* Clone();
         virtual void update(Vector2f & mousePosView, Vector2f center);

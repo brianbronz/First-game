@@ -8,7 +8,7 @@ void Enemy::initAnimations(){
 
 }
 
-Enemy::Enemy(){
+Enemy::Enemy(EnemySpawnerTile& enemy_spawner_tile): enemySpawnerTile(enemy_spawner_tile){
     this->initVariables();
 	this->initAnimations();
 }
@@ -18,6 +18,14 @@ Enemy::~Enemy(){}
 
 unsigned & Enemy::getGainExp(){
 	return this->gainExp;
+}
+
+EnemySpawnerTile & Enemy::getEnemySpawnerTile(){
+	return this->enemySpawnerTile;
+}
+
+void Enemy::generateAttributes(const unsigned level){
+	this->gainExp = level * (rand() % 5 + 1);
 }
 
 void Enemy::loseHP(const int hp){

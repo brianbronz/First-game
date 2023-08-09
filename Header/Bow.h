@@ -8,7 +8,7 @@ class Bow : public RangeWeapon{
     private:
 
     public:
-        Bow(unsigned value, string texture_file);
+        Bow(unsigned level, unsigned value, string texture_file);
 	    virtual ~Bow();
         virtual Bow* Clone();
         virtual void update(const sf::Vector2f& mouse_pos_view, const sf::Vector2f center);

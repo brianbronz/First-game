@@ -227,8 +227,8 @@ void GameState::updateCombatAndEnemies(float & dt){
 		if (enemy->isDead())
 		{
 			this->player->gainEXP(enemy->getGainExp());
-			this->tts->addTextTag(EXPERIENCE_TAG, this->player->getPosition().x, this->player->getPosition().y, static_cast<int>(enemy->getGainExp()));
-			this->activeEnemies.erase(this->activeEnemies.begin() + index);
+			this->tts->addTextTag(EXPERIENCE_TAG, this->player->getPosition().x, this->player->getPosition().y, static_cast<int>(enemy->getGainExp()), "", "+EXP");
+			this->enemySystem->removeEnemy(index);
 			--index;
 		}
 		++index;
@@ -260,14 +260,13 @@ void GameState::render(RenderTarget* target){
 
 void GameState::updateCombat(Enemy* enemy, int index, const float & dt)
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-		if (this->player->getWeapon()->getAttackTimer()
-			&& enemy->getGlobalBounds().contains(this->mousePosView) 
-			&& enemy->getDistance(*this->player) < this->player->getWeapon()->getRange())
-		{
-			int dmg = static_cast<int>(this->player->getWeapon()->getDamageMax());
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) 
+		&& enemy->getGlobalBounds().contains(this->mousePosView)
+		&& enemy->getDistance(*this->player) < this->player->getWeapon()->getRange()){
+		if (this->player->getWeapon()->getAttackTimer()){
+			int dmg = static_cast<int>(this->player->getWeapon()->getDamage());
 			enemy->loseHP(dmg);
-			this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg);
+			this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg, "", "-HP");
 		}
 	}
 	
