@@ -31,7 +31,6 @@ public:
 	void loseEXP(int exp);
 	void gainEXP(int exp);
 
-	void updateAttack();
 	void updateAnimation( float& dt);
 	void update(float& dt, Vector2f& mouse_pos_view);
 

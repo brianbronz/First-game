@@ -6,6 +6,7 @@
 
 class Enemy : public Entity{
     private:
+        unsigned gainExp;
         //EnemySpawner& enemy_spawner;
         //initializer functions
         virtual void initVariables() = 0;
@@ -15,7 +16,13 @@ class Enemy : public Entity{
         Enemy();
         virtual ~Enemy();
 
+        unsigned& getGainExp();
+
         //Functions
+        virtual void loseHP(const int hp);
+        virtual bool isDead();
+
+        virtual AttributeComponent* getAttributeComp();
         virtual void updateAnimation(float & dt) = 0;
         virtual void update(float & dt, Vector2f & mousePosView) = 0;
         virtual void render(RenderTarget & target, Shader* shader = NULL, Vector2f light_position = Vector2f(), bool show_hitbox = false) = 0;

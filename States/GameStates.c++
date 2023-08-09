@@ -96,6 +96,11 @@ void GameState::initTileMap(){
 void GameState::initEnemySystem(){
 	this->enemySystem = new EnemySystem(this->activeEnemies, this->textures);
 }
+
+void GameState::initSystems()
+{
+	this->tts = new TextTagSystem("../Fonts/PixellettersFull.ttf");
+}
 //ructors / Destructors
 GameState::GameState(StateData* state_data): State(state_data){
     this->initDeferredRender();
@@ -109,6 +114,7 @@ GameState::GameState(StateData* state_data): State(state_data){
     this->initPlayerGUI();
     this->initEnemySystem();
     this->initTileMap();
+	this->initSystems();
 }
 
 GameState::~GameState(){
@@ -117,6 +123,7 @@ GameState::~GameState(){
     delete this->playerGUI;
     delete this->enemySystem;
     delete this->map;
+	delete this->tts;
     for (size_t i = 0; i < this->activeEnemies.size(); i++){
 		delete this->activeEnemies[i];
 	}
@@ -183,10 +190,6 @@ void GameState::updateTileMap(float & dt){
     this->map->updateWorldBoundsCollision(this->player, dt); 
 	this->map->updateTileCollision(this->player, dt);
 	this->map->updateTiles(this->player, dt, *this->enemySystem);
-    for (int i = 0; i < this->activeEnemies.size(); i++){
-		this->map->updateWorldBoundsCollision(i, dt);
-		this->map->updateTileCollision(i, dt);
-	}
 }
 
 void GameState::update(float& dt){
@@ -202,10 +205,10 @@ void GameState::update(float& dt){
         this->updateTileMap(dt);
         this->player->update(dt, this->mousePosView);
         this->playerGUI->update(dt);
-        for (int i = 0;  i < this->activeEnemies.size(); i++){
-			this->activeEnemies[i]->update(dt, this->mousePosView);
-		}	
-        this->updateCombat(dt);
+        this->updateCombatAndEnemies(dt);
+
+		//Update systems
+		this->tts->update(dt);
     }
 }
 
@@ -213,7 +216,23 @@ void GameState::update(float& dt){
 void GameState::updatePlayer(float & dt){
 }
 
-void GameState::updateEnemies(float & dt){
+void GameState::updateCombatAndEnemies(float & dt){
+	unsigned index = 0;
+	for (auto *enemy : this->activeEnemies){
+		enemy->update(dt, this->mousePosView);
+		this->tileMap->updateWorldBoundsCollision(enemy, dt);
+		this->tileMap->updateTileCollision(enemy, dt);
+		this->updateCombat(enemy, index, dt);
+		//DANGEROUS!!!
+		if (enemy->isDead())
+		{
+			this->player->gainEXP(enemy->getGainExp());
+			this->tts->addTextTag(EXPERIENCE_TAG, this->player->getPosition().x, this->player->getPosition().y, static_cast<int>(enemy->getGainExp()));
+			this->activeEnemies.erase(this->activeEnemies.begin() + index);
+			--index;
+		}
+		++index;
+	}
 }
 
 void GameState::render(RenderTarget* target){
@@ -239,18 +258,17 @@ void GameState::render(RenderTarget* target){
 	target->draw(this->renderSprite);
 }
 
-void GameState::updateCombat(const float & dt)
+void GameState::updateCombat(Enemy* enemy, int index, const float & dt)
 {
-	for (auto i : this->activeEnemies)
-	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+		if (this->player->getWeapon()->getAttackTimer()
+			&& enemy->getGlobalBounds().contains(this->mousePosView) 
+			&& enemy->getDistance(*this->player) < this->player->getWeapon()->getRange())
 		{
-			if (i->getGlobalBounds().contains(this->mousePosView) &&
-				std::abs(this->player->getPosition().x - i->getPosition().x) < this->player->getWeapon()->getRange())
-			{
-				//Get to this!!!!
-				std::cout << "Hit!" << rand()%29 << "\n";
-			}
+			int dmg = static_cast<int>(this->player->getWeapon()->getDamageMax());
+			enemy->loseHP(dmg);
+			this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg);
 		}
 	}
+	
 }

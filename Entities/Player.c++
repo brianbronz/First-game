@@ -75,13 +75,6 @@ void Player::gainEXP(int exp)
 	this->attributeComponent->gainExp(exp);
 }
 
-void Player::updateAttack(){
-	//event to attack
-	if(Mouse::isButtonPressed(Mouse::Left)){
-		//this->attacking = true;
-	}
-}
-
 void Player::updateAnimation(float& dt){
 	/* if(this->attacking){
 		//Set origin depending on direction
@@ -130,7 +123,6 @@ void Player::updateAnimation(float& dt){
 
 void Player::update(float& dt, Vector2f& mouse_pos_view){
 	this->movementComponent->update(dt);
-	this->updateAttack();
 	this->updateAnimation(dt);
 	this->hitboxComponent->update();
 	this->sword->update(mouse_pos_view, this->getCenter());

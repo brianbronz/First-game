@@ -3,7 +3,13 @@
 
 void Weapon::initVariables()
 {
-	this->range = 20;
+	this->range = 30;
+	this->damageMin = 1;
+	this->damageMax = 2;
+
+	//Timer
+	this->attackTimer.restart();
+	this->attackTimerMax = 500;
 }
 
 Weapon::Weapon(unsigned value, std::string texture_file)
@@ -23,7 +29,22 @@ Weapon::~Weapon()
 }
 
 //Accessors
-const unsigned & Weapon::getRange() const
-{
+unsigned & Weapon::getRange(){
 	return this->range;
+}
+
+unsigned & Weapon::getDamageMin(){
+	return this->damageMin;
+}
+
+unsigned & Weapon::getDamageMax(){
+	return this->damageMax;
+}
+
+bool Weapon::getAttackTimer(){
+	if (this->attackTimer.getElapsedTime().asMilliseconds() >= this->attackTimerMax){
+		this->attackTimer.restart();
+		return true;
+	}
+	return false;
 }

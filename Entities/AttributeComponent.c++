@@ -45,6 +45,10 @@ void AttributeComponent::gainExp(int exp){
 	this->updateLevel();
 }
 
+bool AttributeComponent::isDead(){
+	return this->hp <= 0;
+}
+
 void AttributeComponent::updateStats(bool reset){
 	this->hpMax			= this->vitality * 5 + this->vitality + this->strength / 2 + this->intelligence / 5;
 	this->damageMin		= this->strength * 2 + this->strength / 4 + this->intelligence / 5;

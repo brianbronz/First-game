@@ -8,6 +8,7 @@
 #include "Bow.h"
 #include "Sword.h"
 #include "Enemy.h"
+#include "TextTagSystem.h"
 
 class GameState : public State{
     private: 
@@ -23,6 +24,9 @@ class GameState : public State{
 	    Texture texture;
         TileMap* map;
         
+        //Systems
+        TextTagSystem* tts;
+
         vector<Enemy*> activeEnemies;
         EnemySystem *enemySystem;
         //functions
@@ -37,6 +41,7 @@ class GameState : public State{
         void initPlayerGUI();
         void initEnemySystem();
         void initTileMap();
+        void initSystems();
     public:
         GameState(StateData* state_data);
 	    virtual ~GameState();
@@ -50,7 +55,7 @@ class GameState : public State{
         void updateTileMap(float& dt);
         void update( float& dt);
         void updatePlayer(float& dt);
-	    void updateEnemies(float& dt);
+	    void updateCombatAndEnemies(Enemy* enemy, int index, float& dt);
         void render(RenderTarget* target = NULL);
         void updateCombat(const float & dt)
 };

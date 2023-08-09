@@ -7,7 +7,9 @@ class Rat : public Enemy{
 private:
 	void initVariables();
 	void initAnimations();
+	void initGUI();
 
+	RectangleShape hpBar;
 public:
 	Rat(float x, float y, Texture& texture_sheet);
 	virtual ~Rat();

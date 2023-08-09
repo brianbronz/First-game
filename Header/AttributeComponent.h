@@ -36,6 +36,7 @@ public:
 	void loseEXP(int exp);
 	void gainExp(int exp);
 
+ 	bool isDead();
 	void updateStats(bool reset);
 	void updateLevel();
 

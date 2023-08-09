@@ -114,7 +114,6 @@ void Entity::stopVelocity(){
 	if (this->movementComponent){
 		this->movementComponent->stopVelocity();
 	}
-
 }
 
 void Entity::stopVelocityX(){
@@ -127,4 +126,8 @@ void Entity::stopVelocityY(){
 	if (this->movementComponent){
 		this->movementComponent->stopVelocityY();
 	}
+}
+
+float Entity::getDistance(const Entity& entity){
+	return sqrt(pow(this->getCenter().x - entity.getCenter().x, 2) + pow(this->getCenter().y - entity.getCenter().y, 2));
 }
