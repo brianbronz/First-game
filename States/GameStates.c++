@@ -100,7 +100,7 @@ void GameState::initTileMap(){
 
 
 void GameState::initEnemySystem(){
-	this->enemySystem = new EnemySystem(this->activeEnemies, this->textures);
+	this->enemySystem = new EnemySystem(this->activeEnemies, this->textures, *this->player);
 }
 
 void GameState::initSystems()
@@ -242,12 +242,15 @@ void GameState::updatePlayer(float & dt){
 }
 
 void GameState::updateCombatAndEnemies(float & dt){
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		this->player->setInitAttack(true);
 	unsigned index = 0;
 	for (auto *enemy : this->activeEnemies){
 		enemy->update(dt, this->mousePosView);
 		this->tileMap->updateWorldBoundsCollision(enemy, dt);
 		this->tileMap->updateTileCollision(enemy, dt);
-		this->updateCombat(enemy, index, dt);
+		if(this->player->getInitAttack())
+			this->updateCombat(enemy, index, dt);
 		//DANGEROUS!!!
 		if (enemy->isDead())
 		{
@@ -258,6 +261,7 @@ void GameState::updateCombatAndEnemies(float & dt){
 		}
 		++index;
 	}
+	this->player->setInitAttack(false);
 }
 
 void GameState::render(RenderTarget* target){
@@ -285,12 +289,11 @@ void GameState::render(RenderTarget* target){
 
 void GameState::updateCombat(Enemy* enemy, int index, const float & dt)
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) 
-		&& enemy->getGlobalBounds().contains(this->mousePosView)
-		&& enemy->getDistance(*this->player) < this->player->getWeapon()->getRange()){
-		if (this->player->getWeapon()->getAttackTimer()){
+	if (enemy->getGlobalBounds().contains(this->mousePosView) && enemy->getDistance(*this->player) < this->player->getWeapon()->getRange()){
+		if (this->player->getWeapon()->getAttackTimer() && enemy->getDamageTimerDone()){	
 			int dmg = static_cast<int>(this->player->getWeapon()->getDamage());
 			enemy->loseHP(dmg);
+			enemy->resetDamageTimer();
 			this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg, "", "-HP");
 		}
 	}

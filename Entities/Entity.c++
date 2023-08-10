@@ -55,6 +55,11 @@ const Vector2f & Entity::getPosition(){
 	return this->sprite.getPosition();
 }
 
+void Entity::createAIComponent()
+{
+
+}
+
 Vector2f Entity::getCenter(){
 	if (this->hitboxComponent)
 		return this->hitboxComponent->getPosition() + Vector2f(this->hitboxComponent->getGlobalBounds().width / 2.f, this->hitboxComponent->getGlobalBounds().height / 2.f);

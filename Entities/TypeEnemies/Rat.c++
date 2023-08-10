@@ -15,6 +15,12 @@ void Rat::initAnimations(){
 	this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 1, 2, 60, 64);
 }
 
+
+void Rat::initAI()
+{
+
+}
+
 void Rat::initGUI()
 {
 	this->hpBar.setFillColor(sf::Color::Red);
@@ -23,7 +29,7 @@ void Rat::initGUI()
 }
 
 //ructors / Destructors
-Rat::Rat(float x, float y, Texture& texture_sheet,  EnemySpawnerTile& enemy_spawner_tile)
+Rat::Rat(float x, float y, Texture& texture_sheet,  EnemySpawnerTile& enemy_spawner_tile, Entity& player)
 	: Enemy(enemy_spawner_tile){
 	this->initVariables();
 	this->initGUI();
@@ -36,11 +42,13 @@ Rat::Rat(float x, float y, Texture& texture_sheet,  EnemySpawnerTile& enemy_spaw
 	this->generateAttributes(this->attributeComponent->level);
 	this->setPosition(x, y);
 	this->initAnimations();
+
+	this->follow = new AIFollow(*this, player);
 }
 
 
 Rat::~Rat(){
-
+ 	delete this->follow;
 }
 
 void Rat::updateAnimation(float & dt){
@@ -55,6 +63,12 @@ void Rat::updateAnimation(float & dt){
 	} else if (this->movementComponent->getState(MOVING_DOWN)){
 		this->animationComponent->play("WALK_DOWN", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
 	}
+	if (this->damageTimer.getElapsedTime().asMilliseconds() <= this->damageTimerMax)
+	{
+		this->sprite.setColor(sf::Color::Red);
+	}
+	else
+		this->sprite.setColor(sf::Color::White);
 }
 
 void Rat::update(float & dt, Vector2f& mouse_pos_view){
@@ -66,6 +80,8 @@ void Rat::update(float & dt, Vector2f& mouse_pos_view){
 
 	this->updateAnimation(dt);
 	this->hitboxComponent->update();
+
+	this->follow->update(dt);
 }
 
 void Rat::render(RenderTarget & target, Shader* shader, Vector2f light_position, bool show_hitbox){

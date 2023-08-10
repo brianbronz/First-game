@@ -11,6 +11,8 @@ class Player :
 private:
 	//Variables
 	Inventory* inventory;
+
+	bool initAttack;
 	bool attacking;
 	Sword* sword;
 	//Initializer functions
@@ -27,6 +29,10 @@ public:
 	Weapon* getWeapon();
 
 	string toStringCharacterTab();
+	bool& getInitAttack();
+
+	//Modifier
+	void setInitAttack(bool initAttack);
 	//Functions
 	void loseHP(int hp);
 	void gainHP(int hp);

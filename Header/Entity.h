@@ -35,6 +35,7 @@ class Entity{
         void createAnimationComponent(Texture& textureSheet);
         void createAttributeComponent(unsigned level);
         void createSkillComponent();
+        void createAIComponent();
         //Functions
         virtual const Vector2f& getPosition();
         virtual Vector2f getCenter();

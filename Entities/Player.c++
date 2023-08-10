@@ -4,6 +4,7 @@
 #include "../Weapons/Sword.c++"
 //Initializer functions
 void Player::initVariables(){
+	this->initAttack = false;
 	this->attacking = false;
 	this->sword = new Sword(1, 2, 5, 60, 20,  "../Source Files/Resources/Images/Sprites/Player/sword.png");
 	this->sword->generate(1, 3);
@@ -64,6 +65,14 @@ string Player::toStringCharacterTab(){
 		<< "Exp next: " << ac->expNext << "\n";
 
 	return ss.str();
+}
+
+bool& Player::getInitAttack(){
+	return this->initAttack;
+}
+
+void Player::setInitAttack(bool initAttack){
+	this->initAttack = initAttack;
 }
 
 //Functions

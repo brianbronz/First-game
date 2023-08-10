@@ -2,10 +2,19 @@
 
 void Enemy::initVariables(){
     this->gainExp =10;
+	this->damageTimerMax = 1000;
 }
 
 void Enemy::initAnimations(){
 
+}
+
+bool Enemy::getDamageTimerDone(){
+	return this->damageTimer.getElapsedTime().asMilliseconds() >= this->damageTimerMax;
+}
+
+void Enemy::resetDamageTimer(){
+	this->damageTimer.restart();
 }
 
 Enemy::Enemy(EnemySpawnerTile& enemy_spawner_tile): enemySpawnerTile(enemy_spawner_tile){

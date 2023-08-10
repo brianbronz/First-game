@@ -2,16 +2,19 @@
 #define RAT_H
 
 #include "Enemy.h"
+#include "AIFollow.h"
 
 class Rat : public Enemy{
 private:
 	void initVariables();
 	void initAnimations();
+	void initAI();
 	void initGUI();
 
 	RectangleShape hpBar;
+	AIFollow* follow;
 public:
-	Rat(float x, float y, Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile);
+	Rat(float x, float y, Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile, Entity& player);
 	virtual ~Rat();
 
 	//Functions

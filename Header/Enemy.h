@@ -5,9 +5,11 @@
 #include "EnemySpawnerTile.h"
 
 class Enemy : public Entity{
-    private:
+    protected:
         unsigned gainExp;
         EnemySpawnerTile& enemySpawnerTile;
+        Clock damageTimer;
+	    Int32 damageTimerMax;
         //initializer functions
         virtual void initVariables() = 0;
         virtual void initAnimations() = 0;
@@ -18,7 +20,10 @@ class Enemy : public Entity{
 
         unsigned& getGainExp();
         EnemySpawnerTile& getEnemySpawnerTile();
-        
+        bool getDamageTimerDone();
+
+	    //Modifiers
+	    void resetDamageTimer();
         //Functions
         virtual void generateAttributes(const unsigned level);
         
