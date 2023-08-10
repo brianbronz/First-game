@@ -25,6 +25,8 @@ public:
 	//Accessors
 	AttributeComponent* getAttributeComponent();
 	Weapon* getWeapon();
+
+	string toStringCharacterTab();
 	//Functions
 	void loseHP(int hp);
 	void gainHP(int hp);

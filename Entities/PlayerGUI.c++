@@ -108,6 +108,15 @@ PlayerGUI::~PlayerGUI(){
 	delete this->playerTabs;
 }
 
+bool PlayerGUI::getTabsOpen(){
+	return this->playerTabs->tabsOpen();
+}
+
+void PlayerGUI::toggleCharacterTab()
+{
+	this->playerTabs->toggleTab(PLAYER_TABS::CHARACTER_TAB);
+}
+
 //Functions
 void PlayerGUI::updateLevelBar()
 {
@@ -145,11 +154,17 @@ void PlayerGUI::updateHPBar()
 	this->hpBar->update(this->player->getAttributeComponent()->hp);
 }
 
+void PlayerGUI::updatePlayerTabs()
+{
+	this->playerTabs->update();
+}
+
 void PlayerGUI::update(float & dt)
 {
     this->updateLevelBar();
 	this->updateEXPBar();
 	this->updateHPBar();
+	this->updatePlayerTabs();
 }
 
 void PlayerGUI::renderLevelBar(RenderTarget & target){
@@ -170,10 +185,15 @@ void PlayerGUI::renderHPBar(RenderTarget & target)
 }
 
 //Tabs
+void PlayerGUI::renderPlayerTabs(sf::RenderTarget& target)
+{
+	this->playerTabs->render(target);
+}
 
 void PlayerGUI::render(RenderTarget & target)
 {
     this->renderLevelBar(target);
 	this->renderEXPBar(target);
 	this->renderHPBar(target);
+	this->renderPlayerTabs(target);
 }

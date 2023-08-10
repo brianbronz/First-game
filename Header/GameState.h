@@ -19,6 +19,10 @@ class GameState : public State{
         Font font;
         PauseMenu* pMenu;
         Shader core_shader;
+
+        Clock keyTimer;
+    	float keyTimeMax;
+
         Player* player;
         PlayerGUI* playerGUI;
 	    Texture texture;
@@ -36,6 +40,7 @@ class GameState : public State{
         void initFonts();
         void initTextures();
         void initPauseMenu();
+        void initKeyTime();
         void initShaders();
 	    void initPlayers();
         void initPlayerGUI();
@@ -46,6 +51,8 @@ class GameState : public State{
         GameState(StateData* state_data);
 	    virtual ~GameState();
 
+        //Accessors
+        bool getKeyTime();
         //Functions
         void updateView(float& dt);
         void updateInput( float& dt);

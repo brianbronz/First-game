@@ -43,16 +43,20 @@ public:
 	PlayerGUI(Player* player, VideoMode& vm);
 	virtual ~PlayerGUI();
 
+	bool getTabsOpen();
+	void toggleCharacterTab();
 	//Functions
     void updateLevelBar();
 	void updateEXPBar();
 	void updateHPBar();
+	void updatePlayerTabs();
 
 	void update(float& dt);
 
     void renderLevelBar(RenderTarget & target);
 	void renderEXPBar(RenderTarget & target);
 	void renderHPBar(RenderTarget & target);
+	void renderPlayerTabs(sf::RenderTarget& target);
 	void render(RenderTarget& target);
 };
 #endif
