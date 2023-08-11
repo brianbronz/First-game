@@ -18,6 +18,12 @@ class Item {
     public:
         Item(unsigned level, unsigned value);
         virtual ~Item();
+
+        //Accessors
+        short unsigned& getType() { return this->type;}
+        unsigned& getLevel() { return this->level;}
+        unsigned& getValue() { return this->value;}
+
         virtual Item* Clone() = 0;
 };
 

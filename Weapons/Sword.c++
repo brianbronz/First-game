@@ -17,7 +17,7 @@ void Sword::update(Vector2f & mousePosView, Vector2f center){
 	float dY = mousePosView.y - this->weaponSprite.getPosition().y;
 	float PI = 3.14159265f;
 	float deg = atan2(dY, dX) * 180.f / PI;
-	if (this->attackTimer.getElapsedTime().asMilliseconds() < this->attackTimerMax){
+	if (this->attackTimer.getElapsedTime().asMilliseconds() < this->attackTimerMax / 4){
 		float len = std::sqrt(pow(dX, 2) + pow(dY, 2));
 		sf::Vector2f normVec(dX / len, dY / len);
 

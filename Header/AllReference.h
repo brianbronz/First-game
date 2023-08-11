@@ -17,7 +17,7 @@
 #include"../Source Files/SFML/include/SFML/Audio.hpp"
 #include"../Source Files/SFML/include/SFML/Network.hpp"
 
-
+#include "VectorMath.h"
 //namespace
 using namespace sf;
 using namespace std;

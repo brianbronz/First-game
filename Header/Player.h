@@ -14,7 +14,11 @@ private:
 
 	bool initAttack;
 	bool attacking;
-	Sword* sword;
+	Weapon* weapon;
+
+	Clock damageTimer;
+	Int32 damageTimerMax;
+
 	//Initializer functions
 	void initVariables();
 	void initComponents();
@@ -30,6 +34,9 @@ public:
 
 	string toStringCharacterTab();
 	bool& getInitAttack();
+
+	bool getDamageTimer();
+	unsigned getDamage();
 
 	//Modifier
 	void setInitAttack(bool initAttack);

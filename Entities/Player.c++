@@ -6,8 +6,9 @@
 void Player::initVariables(){
 	this->initAttack = false;
 	this->attacking = false;
-	this->sword = new Sword(1, 2, 5, 60, 20,  "../Source Files/Resources/Images/Sprites/Player/sword.png");
-	this->sword->generate(1, 3);
+	this->weapon = new Sword(1, 2, 5, 100, 20,  "../Source Files/Resources/Images/Sprites/Player/sword.png");
+	this->weapon->generate(1, 3);
+	this->damageTimerMax = 500;
 }
 
 void Player::initComponents(){
@@ -35,7 +36,7 @@ void Player::initInventory(){
 Player::Player(float x, float y, Texture& textureSheet){
 	this->initVariables();
 	this->createHitboxComponent(this->sprite, 12.f, 10.f, 40.f, 54.f);
-	this->createMovementComponent(200.f, 1600.f, 1000.f);
+	this->createMovementComponent(140.f, 1400.f, 1000.f);
 	this->createAnimationComponent(textureSheet);
 	this->createAttributeComponent(1);
 	this->createSkillComponent();
@@ -46,7 +47,7 @@ Player::Player(float x, float y, Texture& textureSheet){
 
 Player::~Player(){
 	delete this->inventory;
-	delete this->sword;
+	delete this->weapon;
 }
 
 AttributeComponent * Player::getAttributeComponent(){
@@ -54,21 +55,46 @@ AttributeComponent * Player::getAttributeComponent(){
 }
 
 Weapon * Player::getWeapon(){
-	return this->sword;
+	return this->weapon;
 }
 
 string Player::toStringCharacterTab(){
 	std::stringstream ss;
-	AttributeComponent* ac = this->attributeComponent;
+		const AttributeComponent* ac = this->attributeComponent;
+	const Weapon* w = this->weapon;
+
 	ss << "Level: " << ac->level << "\n"
 		<< "Exp: " << ac->exp << "\n"
-		<< "Exp next: " << ac->expNext << "\n";
-
+		<< "Exp next: " << ac->expNext << "\n"
+		<< "Weapon Level: " << w->getLevel() << "\n"
+		<< "Weapon Type: " << w->getType() << "\n"
+		<< "Weapon Value: " << w->getValue() << "\n"
+		<< "Weapon Range: " << w->getRange() << "\n"
+		<< "Weapon Damage Min: " << w->getDamageMin() + this->attributeComponent->damageMin << " (" << this->attributeComponent->damageMin << ")" << "\n"
+		<< "Weapon Damage Max: " << w->getDamageMax() + this->attributeComponent->damageMax << " (" << this->attributeComponent->damageMax << ")" << "\n";
 	return ss.str();
 }
 
 bool& Player::getInitAttack(){
 	return this->initAttack;
+}
+
+bool Player::getDamageTimer()
+{
+	if(this->damageTimer.getElapsedTime().asMilliseconds() >= this->damageTimerMax)
+	{ 
+		this->damageTimer.restart();
+		return true;
+	}
+
+	return false;
+}
+
+unsigned Player::getDamage(){
+	return rand() % (
+	(this->attributeComponent->damageMax + this->weapon->getDamageMax()) 
+	- (this->attributeComponent->damageMin + this->weapon->getDamageMin()) + 1)
+	+ (this->attributeComponent->damageMin + this->weapon->getDamageMin());
 }
 
 void Player::setInitAttack(bool initAttack){
@@ -146,7 +172,7 @@ void Player::update(float& dt, Vector2f& mouse_pos_view){
 	this->movementComponent->update(dt);
 	this->updateAnimation(dt);
 	this->hitboxComponent->update();
-	this->sword->update(mouse_pos_view, this->getCenter());
+	this->weapon->update(mouse_pos_view, this->getCenter());
 }
 
 void Player::render(RenderTarget & target, Shader* shader, Vector2f lightPosition, bool show_hitbox){
@@ -156,7 +182,7 @@ void Player::render(RenderTarget & target, Shader* shader, Vector2f lightPositio
 		target.draw(this->sprite, shader);
 		shader->setUniform("hasTexture", true);
 		shader->setUniform("lightPos", lightPosition);
-		this->sword->render(target, shader);
+		this->weapon->render(target, shader);
 	} else { 
 		target.draw(this->sprite);
 		this->sword->render(target, shader);

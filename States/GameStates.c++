@@ -242,20 +242,19 @@ void GameState::updatePlayer(float & dt){
 }
 
 void GameState::updateCombatAndEnemies(float & dt){
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->player->getWeapon()->getAttackTimer())
 		this->player->setInitAttack(true);
 	unsigned index = 0;
 	for (auto *enemy : this->activeEnemies){
 		enemy->update(dt, this->mousePosView);
 		this->tileMap->updateWorldBoundsCollision(enemy, dt);
 		this->tileMap->updateTileCollision(enemy, dt);
-		if(this->player->getInitAttack())
-			this->updateCombat(enemy, index, dt);
+		this->updateCombat(enemy, index, dt);
 		//DANGEROUS!!!
 		if (enemy->isDead())
 		{
 			this->player->gainEXP(enemy->getGainExp());
-			this->tts->addTextTag(EXPERIENCE_TAG, this->player->getPosition().x, this->player->getPosition().y, static_cast<int>(enemy->getGainExp()), "", "+EXP");
+			this->tts->addTextTag(EXPERIENCE_TAG, this->player->getPosition().x - 40.f, this->player->getPosition().y - 30.f, static_cast<int>(enemy->getGainExp()), "+", "EXP");
 			this->enemySystem->removeEnemy(index);
 			--index;
 		}
@@ -289,13 +288,21 @@ void GameState::render(RenderTarget* target){
 
 void GameState::updateCombat(Enemy* enemy, int index, const float & dt)
 {
-	if (enemy->getGlobalBounds().contains(this->mousePosView) && enemy->getDistance(*this->player) < this->player->getWeapon()->getRange()){
-		if (this->player->getWeapon()->getAttackTimer() && enemy->getDamageTimerDone()){	
-			int dmg = static_cast<int>(this->player->getWeapon()->getDamage());
-			enemy->loseHP(dmg);
-			enemy->resetDamageTimer();
-			this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x, enemy->getPosition().y, dmg, "", "-HP");
-		}
+		if (this->player->getInitAttack() && enemy->getGlobalBounds().contains(this->mousePosView)
+		&& enemy->getDistance(*this->player) < this->player->getWeapon()->getRange() 
+		&& enemy->getDamageTimerDone()){
+		//Get to this!!!!
+		int dmg = static_cast<int>(this->player->getDamage());
+		enemy->loseHP(dmg);
+		enemy->resetDamageTimer();
+		this->tts->addTextTag(DEFAULT_TAG, player->getPosition().x - 30.f, player->getPosition().y, dmg, "", "");	
+	}
+
+	//Check for enemy damage
+	if (enemy->getGlobalBounds().intersects(this->player->getGlobalBounds()) && this->player->getDamageTimer()){
+		int dmg = enemy->getAttributeComp()->damageMax;
+		this->player->loseHP(dmg);
+		this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x - 50.f, enemy->getPosition().y, dmg, "-", "HP");
 	}
 	
 }
