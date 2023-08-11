@@ -427,10 +427,8 @@ void TileMap::updateTiles(Entity * entity, float & dt, EnemySystem& enemySystem)
 				{
 					EnemySpawnerTile* es = dynamic_cast<EnemySpawnerTile*>(this->map[x][y][this->layer][k]);
 					if (es){
-						if (!es->getSpawned() && es->getEnemyCounter() < es->getEnemyAmount()){
-							enemySystem.createEnemy(RAT, x*this->gridSizeF, y*this->gridSizeF);
-							enemySystem.createEnemy(RAT, x*this->gridSizeF, y*this->gridSizeF, *es);
-							es->setSpawned(true);
+						if (es->getSpawnTimer() && es->getEnemyCounter() < es->getEnemyAmount()){
+							enemySystem.createEnemy(es->getEnemyType(), x*this->gridSizeF, y*this->gridSizeF, *es);
 						}	
 					}
 				}

@@ -58,6 +58,10 @@ void GameState::initTextures(){
 	{
 		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_RAT1_TEXTURE";
 	}
+	if (!this->textures["BIRD1_SHEET"].loadFromFile("Resources/Images/Sprites/Enemy/bird1_61x57.png"))
+	{
+		throw "ERROR::GAME_STATE::COULD_NOT_LOAD_BIRD1_TEXTURE";
+	}
 }
 
 void GameState::initPauseMenu(){
@@ -82,6 +86,14 @@ void GameState::initKeyTime()
 {
 	this->keyTimeMax = 0.3f;
 	this->keyTimer.restart();
+}
+
+void GameState::initDebugText()
+{
+	this->debugText.setFont(this->font);
+	this->debugText.setFillColor(sf::Color::White);
+	this->debugText.setCharacterSize(16);
+	this->debugText.setPosition(15.f, this->window->getSize().y / 2.f);
 }
 
 void GameState::initPlayers(){
@@ -117,6 +129,7 @@ GameState::GameState(StateData* state_data): State(state_data){
     this->initPauseMenu();
     this->initShaders();
 	this->initKeyTime();
+	this->initDebugText();
 
 	this->initPlayers();
     this->initPlayerGUI();
@@ -220,6 +233,8 @@ void GameState::update(float& dt){
     this->updateMousePositions(&this->view);
     this->updateKeytime(dt);
     this->updateInput(dt);
+	this->updateDebugText(dt);
+
     if(this->paused){
         this->pMenu->update(this->mousePosWindow);
         this->updatePauseMenuButtons();
@@ -238,7 +253,7 @@ void GameState::update(float& dt){
 
 
 void GameState::updatePlayer(float & dt){
-	this->player->update(dt, this->mousePosView);
+	this->player->update(dt, this->mousePosView, this->view);
 }
 
 void GameState::updateCombatAndEnemies(float & dt){
@@ -246,7 +261,7 @@ void GameState::updateCombatAndEnemies(float & dt){
 		this->player->setInitAttack(true);
 	unsigned index = 0;
 	for (auto *enemy : this->activeEnemies){
-		enemy->update(dt, this->mousePosView);
+		enemy->update(dt, this->mousePosView, this->view);
 		this->tileMap->updateWorldBoundsCollision(enemy, dt);
 		this->tileMap->updateTileCollision(enemy, dt);
 		this->updateCombat(enemy, index, dt);
@@ -256,7 +271,10 @@ void GameState::updateCombatAndEnemies(float & dt){
 			this->player->gainEXP(enemy->getGainExp());
 			this->tts->addTextTag(EXPERIENCE_TAG, this->player->getPosition().x - 40.f, this->player->getPosition().y - 30.f, static_cast<int>(enemy->getGainExp()), "+", "EXP");
 			this->enemySystem->removeEnemy(index);
-			--index;
+			continue;
+		} else if (enemy->getDespawnTimerDone()){
+			this->enemySystem->removeEnemy(index);
+			continue;
 		}
 		++index;
 	}
@@ -271,9 +289,9 @@ void GameState::render(RenderTarget* target){
 	this->renderTexture.setView(this->view);
     this->map->render(this->renderTexture, this->viewGridPosition, &this->core_shader, this->player->getCenter(), false);
     for (int i = 0;  i < this->activeEnemies.size(); i++){
-		this->activeEnemies[i]->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);
+		this->activeEnemies[i]->render(this->renderTexture, &this->core_shader, this->player->getCenter(), true);
 	}
-    this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(), false);
+    this->player->render(this->renderTexture, &this->core_shader, this->player->getCenter(), true);
     this->map->renderDeferred(this->renderTexture, &this->core_shader, this->player->getCenter());
     //Render GUI
 	this->renderTexture.setView(this->renderTexture.getDefaultView());
@@ -281,6 +299,9 @@ void GameState::render(RenderTarget* target){
     if(this->paused){
 		this->pMenu->render(this->renderTexture);
 	}
+	//Debug Text
+	this->renderTexture.draw(this->debugText);
+
 	//FINAL RENDER
 	this->renderTexture.display();
 	target->draw(this->renderSprite);
@@ -289,7 +310,7 @@ void GameState::render(RenderTarget* target){
 void GameState::updateCombat(Enemy* enemy, int index, const float & dt)
 {
 		if (this->player->getInitAttack() && enemy->getGlobalBounds().contains(this->mousePosView)
-		&& enemy->getDistance(*this->player) < this->player->getWeapon()->getRange() 
+		&& enemy->getSpriteDistance(*this->player) < this->player->getWeapon()->getRange() 
 		&& enemy->getDamageTimerDone()){
 		//Get to this!!!!
 		int dmg = static_cast<int>(this->player->getDamage());
@@ -305,4 +326,14 @@ void GameState::updateCombat(Enemy* enemy, int index, const float & dt)
 		this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x - 50.f, enemy->getPosition().y, dmg, "-", "HP");
 	}
 	
+}
+
+void GameState::updateDebugText(const float& dt)
+{
+	std::stringstream ss;
+
+	ss << "Mouse Pos View: " << this->mousePosView.x << " " << this->mousePosView.y << "\n"
+	<< "Active Enemies: " << this->activeEnemies.size() << "\n";
+
+	this->debugText.setString(ss.str());
 }

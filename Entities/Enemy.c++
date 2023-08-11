@@ -3,6 +3,7 @@
 void Enemy::initVariables(){
     this->gainExp =10;
 	this->damageTimerMax = 1000;
+	this->despawnTimerMax = 1000;
 }
 
 void Enemy::initAnimations(){
@@ -12,6 +13,11 @@ void Enemy::initAnimations(){
 bool Enemy::getDamageTimerDone(){
 	return this->damageTimer.getElapsedTime().asMilliseconds() >= this->damageTimerMax;
 }
+
+bool Enemy::getDespawnTimerDone(){
+	return this->despawnTimer.getElapsedTime().asMilliseconds() >= this->despawnTimerMax;
+}
+
 
 void Enemy::resetDamageTimer(){
 	this->damageTimer.restart();
@@ -61,4 +67,9 @@ AttributeComponent * Enemy::getAttributeComp() {
 		cout << "ERROR::ENEMY::ATTRIBUTECOMPONENT IS NOT INITIALIZED" << "\n";
 		return nullptr;
 	}
+}
+
+void Enemy::update(float& dt, sf::Vector2f& mouse_pos_view, sf::View& view){
+	if(vectorDistance(this->getPosition(), view.getCenter()) < 1500.f)
+		this->despawnTimer.restart();
 }

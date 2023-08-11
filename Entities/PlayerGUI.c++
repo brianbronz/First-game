@@ -42,15 +42,13 @@ void PlayerGUI::initEXPBar(){
 	this->expBarText.setPosition(this->expBarInner.getPosition().x + gui::p2pX(0.53f, this->vm), this->expBarInner.getPosition().y + gui::p2pY(0.5f, this->vm)
 	 */	
 	this->expBar = new gui::ProgressBar(
-		1.f, 5.6f, 10.4f, 1.9f,
-		this->player->getAttributeComponent()->expNext, Color::Blue, 220,
+		1.f, 5.6f, 10.4f, 1.9f, Color::Blue, 220,
 		this->vm, &this->font);
 }
 
 void PlayerGUI::initHPBar(){
 	this->hpBar = new gui::ProgressBar(
-		1.f, 8.3f, 10.4f, 2.8f, 
-		this->player->getAttributeComponent()->hpMax, Color::Red, 180,
+		1.f, 8.3f, 10.4f, 2.8f, Color::Red, 180,
 		this->vm, &this->font);
 	/* float width = gui::p2pX(10.4f, this->vm);
 	float height = gui::p2pY(2.8f, this->vm);
@@ -136,7 +134,7 @@ void PlayerGUI::updateEXPBar(){
 
 	this->expBarString = to_string(this->player->getAttributeComponent()->exp) + " / " + to_string(this->player->getAttributeComponent()->expNext);
 	this->expBarText.setString(this->expBarString); */
-	this->expBar->update(this->player->getAttributeComponent()->exp);
+	this->expBar->update(this->player->getAttributeComponent()->exp, this->player->getAttributeComponent()->expNext);
 }
 
 void PlayerGUI::updateHPBar()
@@ -151,7 +149,7 @@ void PlayerGUI::updateHPBar()
 	);
     this->hpBarString = to_string(this->player->getAttributeComponent()->hp) + " / " + to_string(this->player->getAttributeComponent()->hpMax);
 	this->hpBarText.setString(this->hpBarString); */
-	this->hpBar->update(this->player->getAttributeComponent()->hp);
+	this->hpBar->update(this->player->getAttributeComponent()->hp, this->player->getAttributeComponent()->hpMax);
 }
 
 void PlayerGUI::updatePlayerTabs()

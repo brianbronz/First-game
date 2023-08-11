@@ -35,7 +35,7 @@ void Player::initInventory(){
 //ructors / Destructors
 Player::Player(float x, float y, Texture& textureSheet){
 	this->initVariables();
-	this->createHitboxComponent(this->sprite, 12.f, 10.f, 40.f, 54.f);
+	this->createHitboxComponent(this->sprite, 16.f, 26.f, 32.f, 38.f);
 	this->createMovementComponent(140.f, 1400.f, 1000.f);
 	this->createAnimationComponent(textureSheet);
 	this->createAttributeComponent(1);
@@ -168,11 +168,11 @@ void Player::updateAnimation(float& dt){
 	}
 }
 
-void Player::update(float& dt, Vector2f& mouse_pos_view){
+void Player::update(float& dt, Vector2f& mouse_pos_view, sf::View& view){
 	this->movementComponent->update(dt);
 	this->updateAnimation(dt);
 	this->hitboxComponent->update();
-	this->weapon->update(mouse_pos_view, this->getCenter());
+	this->weapon->update(mouse_pos_view, sf::Vector2f(this->getSpriteCenter().x, this->getSpriteCenter().y + 5.f));
 }
 
 void Player::render(RenderTarget & target, Shader* shader, Vector2f lightPosition, bool show_hitbox){

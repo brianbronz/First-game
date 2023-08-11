@@ -3,9 +3,10 @@
 
 #include "EnemySpawnerTile.h"
 #include "Rat.h"
+#include "Bird1.h"
 #include "AllReference.h"
 
-enum EnemyTypes {RAT = 0};
+enum EnemyTypes {RAT = 0, BIRD1};
 
 class EnemySystem
 {

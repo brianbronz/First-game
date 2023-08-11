@@ -14,20 +14,20 @@ private:
 	Clock enemySpawnTimer;
 	Int32 enemyTimeToSpawn;
 	float enemyMaxDistance;
-	bool spawned;
+	bool firstSpawn;
 
 public:
 	EnemySpawnerTile(int grid_x, int grid_y, float gridSizeF, Texture& texture, IntRect& texture_rect,
 		 int enemy_type, int enemy_amount, Int32 enemy_time_to_spawn, float enemy_max_distance);
     virtual ~EnemySpawnerTile();
 	virtual string getAsString();
-	bool& getSpawned();
 	int& getEnemyAmount();
 	int& getEnemyCounter();
 	//Modifiers
 	
-	void setSpawned(bool spawned);
-	bool canSpawn();
+	bool getSpawnTimer();
+	int& getEnemyType();
+	float& getEnemyMaxDistance();
 	void increaseEnemyCounter();
 	void decreaseEnemyCounter();
 	void update();

@@ -23,6 +23,8 @@ class GameState : public State{
         Clock keyTimer;
     	float keyTimeMax;
 
+        Text debugText;
+
         Player* player;
         PlayerGUI* playerGUI;
 	    Texture texture;
@@ -41,7 +43,9 @@ class GameState : public State{
         void initTextures();
         void initPauseMenu();
         void initKeyTime();
+        void initDebugText();
         void initShaders();
+        
 	    void initPlayers();
         void initPlayerGUI();
         void initEnemySystem();
@@ -64,7 +68,8 @@ class GameState : public State{
         void updatePlayer(float& dt);
 	    void updateCombatAndEnemies(Enemy* enemy, int index, float& dt);
         void render(RenderTarget* target = NULL);
-        void updateCombat(const float & dt)
+        void updateCombat(const float & dt);
+        void updateDebugText(const float& dt);
 };
 
 #endif

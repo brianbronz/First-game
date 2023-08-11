@@ -2,7 +2,6 @@
 #define RAT_H
 
 #include "Enemy.h"
-#include "AIFollow.h"
 
 class Rat : public Enemy{
 private:
@@ -19,7 +18,7 @@ public:
 
 	//Functions
 	void updateAnimation(float & dt);
-	void update(float & dt, Vector2f& mouse_pos_view);
+	void update(float & dt, Vector2f& mouse_pos_view, sf::View& view);
 
 	void render(RenderTarget & target, Shader* shader, Vector2f light_position, bool show_hitbox);
 };

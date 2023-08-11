@@ -10,7 +10,7 @@ EnemySpawnerTile::EnemySpawnerTile(int grid_x, int grid_y, float gridSizeF,
 	this->enemySpawnTimer.restart();
 	this->enemyTimeToSpawn = enemy_time_to_spawn;
 	this->enemyMaxDistance = enemy_max_distance;
-	this->spawned = false;
+	this->firstSpawn = true;
 }
 
 EnemySpawnerTile::~EnemySpawnerTile()
@@ -20,8 +20,6 @@ EnemySpawnerTile::~EnemySpawnerTile()
 
 //Functions
 void EnemySpawnerTile::update(){
-	if (this->canSpawn())
-		this->spawned = false;
 }
 
 int & EnemySpawnerTile::getEnemyAmount(){
@@ -50,32 +48,33 @@ string EnemySpawnerTile::getAsString() {
 	return ss.str();
 }
 
-bool & EnemySpawnerTile::getSpawned() {
-	return this->spawned;
-}
-
-void EnemySpawnerTile::setSpawned(bool spawned){
-	this->spawned = spawned;
-	this->enemySpawnTimer.restart();
-}
-
-bool EnemySpawnerTile::canSpawn(){
-	(this->enemySpawnTimer.getElapsedTime().asSeconds() >= this->enemyTimeToSpawn)? 
-		return true:
+bool EnemySpawnerTile::getSpawnTimer(){
+	if(this->enemySpawnTimer.getElapsedTime().asSeconds() >= this->enemyTimeToSpawn || this->firstSpawn){
+		this->enemySpawnTimer.restart();
+		this->firstSpawn = false;
+		return true;
+	} else {
 		return false;
+	}
+}
+
+int& EnemySpawnerTile::getEnemyType()
+{
+	return this->enemyType;
+}
+
+float& EnemySpawnerTile::getEnemyMaxDistance()
+{
+	return this->enemyMaxDistance;
 }
 
 void EnemySpawnerTile::increaseEnemyCounter(){
-	if (this->enemyCounter > this->enemyAmount)
-		this->enemyCounter = this->enemyAmount;
-	else
+	if (this->enemyCounter < this->enemyAmount)
 		++this->enemyCounter;
 }
 
 void EnemySpawnerTile::decreaseEnemyCounter(){
-	if (this->enemyCounter < 0)
-		this->enemyCounter = 0;
-	else
+	if (this->enemyCounter > 0)
 		--this->enemyCounter;
 }
 
