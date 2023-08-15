@@ -43,12 +43,12 @@ class Entity{
         virtual SkillComponent* getSkillComponent();
 
         virtual const Vector2f& getPosition();
-        virtual sf::Vector2f& getSpritePosition();
-        virtual Vector2f getCenter();
-        virtual sf::Vector2f getSpriteCenter();
+        virtual const Vector2f& getSpritePosition();
+        virtual Vector2f getCenter() const;
+        virtual Vector2f getSpriteCenter() const;
         virtual Vector2i getGridPosition(int gridSizeI);
         virtual FloatRect getGlobalBounds();
-        virtual FloatRect getNextPositionBounds(float& dt);
+        virtual FloatRect getNextPositionBounds(const float& dt);
         virtual void setPosition(float x, float y);
 	    virtual void move(float x, float y, float & dt);
         virtual void stopVelocity();
@@ -56,7 +56,7 @@ class Entity{
         virtual void stopVelocityY();
         virtual float getDistance(const Entity& entity);
         virtual float getSpriteDistance(const Entity& entity);
-        virtual void update(float& dt, sf::Vector2f& mouse_pos_view, sf::View& view) = 0;
+        virtual void update(float& dt, Vector2f& mouse_pos_view, View& view) = 0;
 	    virtual void render(RenderTarget& target, Shader* shader, Vector2f lightPosition, bool show_hitbox) = 0;
 };
 #endif

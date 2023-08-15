@@ -69,11 +69,6 @@ void GameState::initPauseMenu(){
     VideoMode& vm = this->stateData->gfxSettings->resolution;
 	this->pMenu = new PauseMenu(this->stateData->gfxSettings->resolution, this->font);
     this->pMenu->addButton("QUIT", gui::p2pY(74.f, vm), gui::p2pX(13.f, vm), gui::p2pY(6.f, vm), gui::calcCharSize(vm), "Quit");
-    this->activeEnemies.push_back(new Rat(200.f, 100.f, this->textures["RAT1_SHEET"]));
-	this->activeEnemies.push_back(new Rat(500.f, 200.f, this->textures["RAT1_SHEET"]));
-	this->activeEnemies.push_back(new Rat(600.f, 300.f, this->textures["RAT1_SHEET"]));
-	this->activeEnemies.push_back(new Rat(400.f, 500.f, this->textures["RAT1_SHEET"]));
-	this->activeEnemies.push_back(new Rat(200.f, 400.f, this->textures["RAT1_SHEET"]));
 }
 
 void GameState::initShaders(){
@@ -229,6 +224,31 @@ void GameState::updateTileMap(float & dt){
 	this->map->updateTiles(this->player, dt, *this->enemySystem);
 }
 
+void GameState::updateCombatAndEnemies(const float & dt){
+	if (Mouse::isButtonPressed(Mouse::Left) && this->player->getWeapon()->getAttackTimer())
+		this->player->setInitAttack(true);
+	unsigned index = 0;
+	for (Enemy *enemy : this->activeEnemies){
+		enemy->update(dt, this->mousePosView, this->view);
+		this->map->updateWorldBoundsCollision(enemy, dt);
+		this->map->updateTileCollision(enemy, dt);
+		this->updateCombat(enemy, index, dt);
+		//DANGEROUS!!!
+		if (enemy->isDead())
+		{
+			this->player->gainEXP(enemy->getGainExp());
+			this->tts->addTextTag(EXPERIENCE_TAG, this->player->getPosition().x - 40.f, this->player->getPosition().y - 30.f, static_cast<int>(enemy->getGainExp()), "+", "EXP");
+			this->enemySystem->removeEnemy(index);
+			continue;
+		} else if (enemy->getDespawnTimerDone()){
+			this->enemySystem->removeEnemy(index);
+			continue;
+		}
+		++index;
+	}
+	this->player->setInitAttack(false);
+}
+
 void GameState::update(float& dt){
     this->updateMousePositions(&this->view);
     this->updateKeytime(dt);
@@ -254,31 +274,6 @@ void GameState::update(float& dt){
 
 void GameState::updatePlayer(float & dt){
 	this->player->update(dt, this->mousePosView, this->view);
-}
-
-void GameState::updateCombatAndEnemies(float & dt){
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->player->getWeapon()->getAttackTimer())
-		this->player->setInitAttack(true);
-	unsigned index = 0;
-	for (auto *enemy : this->activeEnemies){
-		enemy->update(dt, this->mousePosView, this->view);
-		this->tileMap->updateWorldBoundsCollision(enemy, dt);
-		this->tileMap->updateTileCollision(enemy, dt);
-		this->updateCombat(enemy, index, dt);
-		//DANGEROUS!!!
-		if (enemy->isDead())
-		{
-			this->player->gainEXP(enemy->getGainExp());
-			this->tts->addTextTag(EXPERIENCE_TAG, this->player->getPosition().x - 40.f, this->player->getPosition().y - 30.f, static_cast<int>(enemy->getGainExp()), "+", "EXP");
-			this->enemySystem->removeEnemy(index);
-			continue;
-		} else if (enemy->getDespawnTimerDone()){
-			this->enemySystem->removeEnemy(index);
-			continue;
-		}
-		++index;
-	}
-	this->player->setInitAttack(false);
 }
 
 void GameState::render(RenderTarget* target){

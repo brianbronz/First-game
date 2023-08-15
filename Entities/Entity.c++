@@ -81,20 +81,19 @@ void Entity::createAIComponent()
 
 }
 
-sf::Vector2f& Entity::getSpritePosition(){
+const Vector2f& Entity::getSpritePosition(){
 	return this->sprite.getPosition();
 }
 
-Vector2f Entity::getCenter(){
+Vector2f Entity::getCenter() const{
 	if (this->hitboxComponent)
 		return this->hitboxComponent->getPosition() + Vector2f(this->hitboxComponent->getGlobalBounds().width / 2.f, this->hitboxComponent->getGlobalBounds().height / 2.f);
 	return this->sprite.getPosition() + Vector2f(this->sprite.getGlobalBounds().width / 2.f, this->sprite.getGlobalBounds().height / 2.f);
 }
 
-sf::Vector2f Entity::getSpriteCenter()
-{
+Vector2f Entity::getSpriteCenter() const{
 	return this->sprite.getPosition() +
-		sf::Vector2f
+		Vector2f
 		(
 			this->sprite.getGlobalBounds().width / 2.f,
 			this->sprite.getGlobalBounds().height / 2.f
@@ -122,7 +121,7 @@ FloatRect Entity::getGlobalBounds(){
 }
 
 
-FloatRect Entity::getNextPositionBounds(float& dt){
+FloatRect Entity::getNextPositionBounds(const float& dt){
 	if (this->hitboxComponent && this->movementComponent){
 		Vector2f velocity = this->movementComponent->getVelocity() * dt;
 		return this->hitboxComponent->getNextPosition(velocity);

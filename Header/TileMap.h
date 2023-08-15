@@ -43,10 +43,10 @@ public:
 	void removeTile(int x, int y, int z, int type);
 	void loadFromFile(string file_name);
 	const bool checkType(const int x, const int y, const int z, const int type) const;
-	void updateWorldBoundsCollision(Entity* entity, float& dt);
-	void updateTileCollision(Entity* entity, float& dt);
+	void updateWorldBoundsCollision(Entity* entity, const float& dt);
+	void updateTileCollision(Entity* entity, const float& dt);
 	void updateTiles(Entity* entity, float& dt, EnemySystem& enemySystem);
-	void update(Entity* entity, float& dt);
+	void update(Entity* entity, const float& dt);
 	void render(RenderTarget& target, Vector2i& gridPosition, Shader* shader = NULL, Vector2f playerPosition = Vector2f(), bool show_collision = false);
 	void renderDeferred(RenderTarget& target, Shader* shader = NULL, Vector2f playerPosition = Vector2f());
 };

@@ -3,7 +3,7 @@
 MeleeWeapon::MeleeWeapon(unsigned level, unsigned damageMin, unsigned damageMax, unsigned range,
 	unsigned value, string texture_file): Weapon(level, damageMin, damageMax, range, value, texture_file)
 {
-	this->type = ItemTypes::IT_MELEEWEAPON;
+	this->type = IT_MELEEWEAPON;
 }
 
 MeleeWeapon::~MeleeWeapon(){

@@ -20,9 +20,9 @@ class Item {
         virtual ~Item();
 
         //Accessors
-        short unsigned& getType() { return this->type;}
-        unsigned& getLevel() { return this->level;}
-        unsigned& getValue() { return this->value;}
+        short unsigned getType() const{return this->type;}
+        unsigned getLevel() const{return this->level;}
+        unsigned getValue() const{return this->value;}
 
         virtual Item* Clone() = 0;
 };

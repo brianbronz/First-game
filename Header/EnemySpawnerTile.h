@@ -10,7 +10,6 @@ private:
 	int enemyType;
 	int enemyAmount;
 	int enemyCounter;
-	int enemyTimeToSpawn;
 	Clock enemySpawnTimer;
 	Int32 enemyTimeToSpawn;
 	float enemyMaxDistance;

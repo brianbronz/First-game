@@ -24,10 +24,10 @@ public:
 	virtual ~Weapon();
 
 	//Accessors
-	unsigned getDamage();
-	unsigned& getDamageMin();
-	unsigned& getDamageMax();
-	unsigned& getRange();
+	unsigned getDamage() const;
+	unsigned& getDamageMin() const;
+	unsigned& getDamageMax() const;
+	unsigned& getRange() const;
 	bool getAttackTimer();
 	//Function
 	virtual Item* clone() = 0;

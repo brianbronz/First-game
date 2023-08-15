@@ -66,9 +66,9 @@ class GameState : public State{
         void updateTileMap(float& dt);
         void update( float& dt);
         void updatePlayer(float& dt);
-	    void updateCombatAndEnemies(Enemy* enemy, int index, float& dt);
+	    void updateCombatAndEnemies(const float& dt);
         void render(RenderTarget* target = NULL);
-        void updateCombat(const float & dt);
+        void updateCombat(Enemy* enemy, const int index, const float& dt);
         void updateDebugText(const float& dt);
 };
 

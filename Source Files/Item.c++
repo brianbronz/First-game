@@ -10,7 +10,7 @@ Item::Item(unsigned level, unsigned value){
 
 	this->level = level;
 	this->value = value;
-	this->type = ItemTypes::IT_DEFAULT;
+	this->type = IT_DEFAULT;
 }
 
 Item::~Item(){

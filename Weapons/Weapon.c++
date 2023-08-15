@@ -44,19 +44,19 @@ Weapon::~Weapon()
 }
 
 //Accessors
-unsigned & Weapon::getRange(){
+unsigned & Weapon::getRange() const{
 	return this->range;
 }
 
-unsigned Weapon::getDamage(){
+unsigned Weapon::getDamage() const{
 	return rand() % (this->damageMax - this->damageMin + 1) + (this->damageMin);
 }
 
-unsigned & Weapon::getDamageMin(){
+unsigned & Weapon::getDamageMin() const{
 	return this->damageMin;
 }
 
-unsigned & Weapon::getDamageMax(){
+unsigned & Weapon::getDamageMax() const{
 	return this->damageMax;
 }
 

@@ -77,15 +77,16 @@ void PlayerGUI::initPlayerTabs(sf::VideoMode &vm, sf::Font &font, Player &player
 
 void PlayerGUI::initCharacterTab()
 {
+	this->playerTabs = new PlayerGUITabs(vm, font, player);
 	//Background
-	this->CharacterTabBack.setFillColor(sf::Color(50, 50, 50, 180));
+	/* this->CharacterTabBack.setFillColor(sf::Color(50, 50, 50, 180));
 	this->CharacterTabBack.setSize(sf::Vector2f(gui::p2pX(30.f, this->vm), static_cast<float>(this->vm.height)));
 
 	//Text
 	this->CharacterInfoText.setFont(this->font);
 	this->CharacterInfoText.setCharacterSize(gui::calcCharSize(this->vm, 50));
 	this->CharacterInfoText.setFillColor(sf::Color::White);
-	this->CharacterInfoText.setPosition(this->CharacterTabBack.getPosition().x + 20.f, this->CharacterTabBack.getPosition().y + 20.f);
+	this->CharacterInfoText.setPosition(this->CharacterTabBack.getPosition().x + 20.f, this->CharacterTabBack.getPosition().y + 20.f); */
 }
 
 PlayerGUI::PlayerGUI(Player* player, VideoMode& vm): vm(vm){
@@ -112,7 +113,7 @@ bool PlayerGUI::getTabsOpen(){
 
 void PlayerGUI::toggleCharacterTab()
 {
-	this->playerTabs->toggleTab(PLAYER_TABS::CHARACTER_TAB);
+	this->playerTabs->toggleTab(CHARACTER_TAB);
 }
 
 //Functions

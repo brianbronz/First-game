@@ -185,7 +185,7 @@ void Player::render(RenderTarget & target, Shader* shader, Vector2f lightPositio
 		this->weapon->render(target, shader);
 	} else { 
 		target.draw(this->sprite);
-		this->sword->render(target, shader);
+		this->weapon->render(target, shader);
 	}
 	if(show_hitbox){
 		this->hitboxComponent->render(target);

@@ -102,9 +102,9 @@ Vector2f & TileMap::getMaxSizeF(){
 
 void TileMap::addTile(int x, int y, int z, IntRect & texture_rect, bool collision, short & type){
 	if (x < this->maxSizeWorldGrid.x && x >= 0 && y < this->maxSizeWorldGrid.y && y >= 0 && z < this->layers && z >= 0){
-		if(type == TileTypes::DEFAULT)
+		if(type == DEFAULT)
 			this->map[x][y][z].push_back(new RegularTile(type, x, y, this->gridSizeF, this->tileSheet, texture_rect, collision));
-		else if(type == TileTypes::ENEMYSPAWNER)
+		else if(type == ENEMYSPAWNER)
 			this->map[x][y][z].push_back(new EnemySpawnerTile(x, y, this->gridSizeF, this->tileSheet, texture_rect, 0, 0, 0, 0));
 
 
@@ -172,7 +172,7 @@ void TileMap::render(RenderTarget & target, Vector2i& gridPosition, Shader* shad
 						target.draw(this->collisionBox);
 					}
 				}
-				if (this->map[x][y][this->layer][k]->getType() == TileTypes::ENEMYSPAWNER){
+				if (this->map[x][y][this->layer][k]->getType() == ENEMYSPAWNER){
 					this->collisionBox.setPosition(this->map[x][y][this->layer][k]->getPosition());
 					target.draw(this->collisionBox);
 				}
@@ -233,7 +233,7 @@ void TileMap::loadFromFile(string file_name){
 			cout << "ERROR::TILEMAP::FAILED TO LOAD TILETEXTURESHEET::FILENAME: " << texture_file << "\n";
 		//Load all tiles
 		while (in_file >> x >> y >> z >> type){
-			if (type == TileTypes::ENEMYSPAWNER)
+			if (type == ENEMYSPAWNER)
 			{
 				//amount, time, max dist
 				int enemy_type = 0;
@@ -328,9 +328,9 @@ void TileMap::updateTileCollision(Entity * entity, const float & dt)
 		{
 			for (size_t k = 0; k < this->map[x][y][this->layer].size(); k++)
 			{
-				sf::FloatRect playerBounds = entity->getGlobalBounds();
-				sf::FloatRect wallBounds = this->map[x][y][this->layer][k]->getGlobalBounds();
-				sf::FloatRect nextPositionBounds = entity->getNextPositionBounds(dt);
+				FloatRect playerBounds = entity->getGlobalBounds();
+				FloatRect wallBounds = this->map[x][y][this->layer][k]->getGlobalBounds();
+				FloatRect nextPositionBounds = entity->getNextPositionBounds(dt);
 
 				if (this->map[x][y][this->layer][k]->getCollision() &&
 					this->map[x][y][this->layer][k]->intersects(nextPositionBounds)
@@ -423,7 +423,7 @@ void TileMap::updateTiles(Entity * entity, float & dt, EnemySystem& enemySystem)
 				this->map[x][y][this->layer][k]->update();
 
 				//Update tile types (specific)
-				if (this->map[x][y][this->layer][k]->getType() == TileTypes::ENEMYSPAWNER)
+				if (this->map[x][y][this->layer][k]->getType() == ENEMYSPAWNER)
 				{
 					EnemySpawnerTile* es = dynamic_cast<EnemySpawnerTile*>(this->map[x][y][this->layer][k]);
 					if (es){
