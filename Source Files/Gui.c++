@@ -300,14 +300,13 @@ void gui::TextureSelector::render(RenderTarget& target){
 
 //Progessbar
 //=======================Progessbar=========================
-gui::ProgressBar::ProgressBar(float _x, float _y, float _width, float _height, int max_value, Color innerColor, unsigned characterSize, VideoMode& vm, Font* font){
+gui::ProgressBar::ProgressBar(float _x, float _y, float _width, float _height, Color innerColor, unsigned characterSize, VideoMode& vm, Font* font){
     float width = gui::p2pX(_width, vm);
     float height = gui::p2pY(_height, vm);
     float x = gui::p2pX(_x, vm);
     float y = gui::p2pY(_y, vm);
 
     this->maxWidth = width;
-    this->maxValue = max_value;
     this->back.setSize(Vector2f(width, height));
     this->back.setFillColor(Color::Red);
     this->back.setPosition(x, y);
@@ -327,10 +326,10 @@ gui::ProgressBar::~ProgressBar(){
 }
 
 //Functions
-void gui::ProgressBar::update(int current_value){
-    float percent = float (current_value) / float (this->maxValue);
+void gui::ProgressBar::update(int current_value, int max_value){
+    float percent = float (current_value) / float (max_value);
     this->inner.setSize(Vector2f(float(floor(this->maxWidth * percent)), this->inner.getSize().y));
-    this->barString = to_string(current_value) + " / " + to_string(maxValue);
+    this->barString = to_string(current_value) + " / " + to_string(max_value);
     this->text.setString(this->barString);
 }
 

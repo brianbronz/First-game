@@ -24,7 +24,7 @@ class Item {
         unsigned getLevel() const{return this->level;}
         unsigned getValue() const{return this->value;}
 
-        virtual Item* Clone() = 0;
+        virtual Item* clone() = 0;
 };
 
 #endif 

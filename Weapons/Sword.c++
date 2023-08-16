@@ -10,11 +10,11 @@ Sword::~Sword(){
     
 }
 
-Sword * Sword::Clone(){
+Sword * Sword::clone(){
 	return new Sword(*this);
 }
 
-void Sword::update(Vector2f & mousePosView, Vector2f center){
+void Sword::update(const Vector2f & mousePosView, const Vector2f center){
     //Update visual weapon
 	this->weaponSprite.setPosition(center);
 	float dX = mousePosView.x - this->weaponSprite.getPosition().x;

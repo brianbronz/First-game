@@ -14,8 +14,8 @@ class Enemy : public Entity{
         Clock despawnTimer;
 	    Int32 despawnTimerMax;
         //initializer functions
-        virtual void initVariables() = 0;
-        virtual void initAnimations() = 0;
+        void initVariables();
+        void initAnimations();
 
     public:
         Enemy(EnemySpawnerTile& enemy_spawner_tile);
@@ -36,7 +36,7 @@ class Enemy : public Entity{
 
         virtual AttributeComponent* getAttributeComp();
         virtual void updateAnimation(float & dt) = 0;
-        virtual void update(float & dt, Vector2f& mouse_pos_view, View& view) = 0;
+        virtual void update(const float & dt, Vector2f& mouse_pos_view, View& view) = 0;
         virtual void render(RenderTarget & target, Shader* shader = NULL, Vector2f light_position = Vector2f(), bool show_hitbox = false) = 0;
 }; 
 #endif

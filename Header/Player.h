@@ -47,7 +47,7 @@ public:
 	void gainEXP(int exp);
 
 	void updateAnimation( float& dt);
-	void update(float& dt, Vector2f& mouse_pos_view, sf::View& view);
+	void update(float& dt, Vector2f& mouse_pos_view, View& view);
 
 	void render(RenderTarget& target, Shader* shader = NULL, Vector2f lightPosition = Vector2f(), bool show_hitbox = false);
 };

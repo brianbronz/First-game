@@ -228,7 +228,8 @@ void GameState::updateCombatAndEnemies(const float & dt){
 	if (Mouse::isButtonPressed(Mouse::Left) && this->player->getWeapon()->getAttackTimer())
 		this->player->setInitAttack(true);
 	unsigned index = 0;
-	for (Enemy *enemy : this->activeEnemies){
+	for (size_t i = 0; i < this->activeEnemies.size(); ++i) {
+    	Enemy *enemy = this->activeEnemies[i];
 		enemy->update(dt, this->mousePosView, this->view);
 		this->map->updateWorldBoundsCollision(enemy, dt);
 		this->map->updateTileCollision(enemy, dt);
@@ -262,7 +263,7 @@ void GameState::update(float& dt){
         this->updateView(dt);
         this->updatePlayerInput(dt);
         this->updateTileMap(dt);
-        this->player->update(dt, this->mousePosView);
+        this->player->update(dt, this->mousePosView, this->view);
         this->playerGUI->update(dt);
         this->updateCombatAndEnemies(dt);
 

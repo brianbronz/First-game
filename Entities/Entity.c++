@@ -4,7 +4,7 @@
 #include "AttributeComponent.c++"
 #include "SkillComponent.c++"
 
-void Entity:: initVariables(){
+void Entity::initVariables(){
 	this->hitboxComponent = NULL;
     this->movementComponent = NULL;
 	this->animationComponent = NULL;

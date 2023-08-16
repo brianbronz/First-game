@@ -39,6 +39,7 @@ public:
 	Vector2i& getMaxSizeGrid();
 	Vector2f& getMaxSizeF();
 	//Functions
+	void addTile(int x, int y, int z, IntRect& texture_rect, bool collision, short& type);
 	void addTile(int x, int y, int z, IntRect & texture_rect, int enemy_type, int enemy_amount, int enemy_tts, int enemy_md);
 	void removeTile(int x, int y, int z, int type);
 	void loadFromFile(string file_name);

@@ -101,18 +101,17 @@ namespace gui{
             string barString;
             Text text;
             float maxWidth;
-            int maxValue;
             RectangleShape back;
             RectangleShape inner;
         
         public:
 
-            ProgressBar(float x, float y, float width, float height, int max_value,
+            ProgressBar(float x, float y, float width, float height,
             Color innerColor, unsigned characterSize, VideoMode& vm, Font * font = NULL);
             ~ProgressBar();
 
             //Functions
-            void update(int current_value);
+            void update(int current_value, int max_value);
             void render(RenderTarget & target);
     };
 }
