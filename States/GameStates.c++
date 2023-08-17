@@ -73,7 +73,7 @@ void GameState::initPauseMenu(){
 
 void GameState::initShaders(){
 	if (!this->core_shader.loadFromFile("../States/vertex_shader.vert", "../States/fragment_shader.frag")){
-		std::cout << "ERROR::GAMESTATE::COULD NOT LOAD SHADER." << "\n";
+		cout << "ERROR::GAMESTATE::COULD NOT LOAD SHADER." << "\n";
 	}
 }
 
@@ -326,7 +326,7 @@ void GameState::updateCombat(Enemy* enemy, int index, const float & dt)
 
 void GameState::updateDebugText(const float& dt)
 {
-	std::stringstream ss;
+	stringstream ss;
 
 	ss << "Mouse Pos View: " << this->mousePosView.x << " " << this->mousePosView.y << "\n"
 	<< "Active Enemies: " << this->activeEnemies.size() << "\n";

@@ -18,7 +18,7 @@ public:
 	virtual ~RegularTile();
 
 	//Functions
-	virtual const std::string getAsString() const;
+	virtual string getAsString();
 
 	virtual void update();
 	virtual void render(RenderTarget& target, Shader* shader = NULL, const Vector2f player_position = Vector2f());

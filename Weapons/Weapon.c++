@@ -12,13 +12,13 @@ Weapon::Weapon(unsigned level, unsigned value, string texture_file)
 	this->initVariables();
 
 	if (!this->weapon_texture.loadFromFile(texture_file))
-		std::cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE::"<< texture_file << "\n";
+		cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE::"<< texture_file << "\n";
 
 	this->weapon_sprite.setTexture(this->weapon_texture);
 }
 
 
-Weapon::Weapon(unsigned level, unsigned damageMin, unsigned damageMax, unsigned range, unsigned value, std::string texture_file)
+Weapon::Weapon(unsigned level, unsigned damageMin, unsigned damageMax, unsigned range, unsigned value, string texture_file)
 	: Item(level, value), damageMin(damageMin), damageMax(damageMax), range(range) {
 	this->initVariables();
 

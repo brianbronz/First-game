@@ -1,14 +1,11 @@
-#include "stdafx.h"
-#include "Tab.h"
+#include "../Header/Tab.h"
 
 Tab::Tab(VideoMode& vm, Font& font, Player& player,  bool hidden)
-	: vm(vm), font(font), player(player), hidden(hidden)
-{
+	: vm(vm), font(font), player(player), hidden(hidden){
 
 }
 
-Tab::~Tab()
-{
+Tab::~Tab(){
 
 }
 
@@ -17,9 +14,8 @@ bool& Tab::getHidden()
 	return this->hidden;
 }
 
-bool& Tab::getOpen()
-{
-	return (this->hidden == false);
+bool Tab::getOpen() const{	
+	return !this->hidden;
 }
 
 

@@ -23,11 +23,11 @@ private:
 	Font font;
 	PauseMenu* pmenu;
 
-	std::map<std::string, gui::Button*> buttons;
+	std::map<string, gui::Button*> buttons;
 
 	TileMap* tileMap;
 
-	std::vector<EditorMode*> modes;
+	vector<EditorMode*> modes;
 	unsigned activeMode;
 
 	//Functions

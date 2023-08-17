@@ -3,8 +3,8 @@
 #include "TypeEnemies/Bird1.c++"
 #include "TypeEnemies/Rat.c++"
 
-EnemySystem::EnemySystem(std::vector<Enemy*>& activeEnemies,
-	std::map<std::string, Texture>& textures, Entity& player)
+EnemySystem::EnemySystem(vector<Enemy*>& activeEnemies,
+	map<string, Texture>& textures, Entity& player)
 	: textures(textures), activeEnemies(activeEnemies), player(player){
 
 }

@@ -33,7 +33,7 @@ public:
 	const bool add(Item* item);
 	const bool remove(const unsigned index);
 
-	const bool saveToFile(const std::string fileName);
-	const bool loadFromFile(const std::string fileName);
+	const bool saveToFile(const string fileName);
+	const bool loadFromFile(const string fileName);
 };
 #endif

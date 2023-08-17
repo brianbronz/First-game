@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "EditorState.h"
 
 //Initializer functions
@@ -45,12 +44,12 @@ void EditorState::initFonts()
 
 void EditorState::initKeybinds()
 {
-	std::ifstream ifs("Config/editorstate_keybinds.ini");
+	ifstream ifs("Config/editorstate_keybinds.ini");
 
 	if (ifs.is_open())
 	{
-		std::string key = "";
-		std::string key2 = "";
+		string key = "";
+		string key2 = "";
 
 		while (ifs >> key >> key2)
 		{
@@ -167,7 +166,7 @@ void EditorState::updateEditorInput(float& dt)
 		}
 		else
 		{
-			std::cout << "ERROR::EDITORSTATE::CANNOT CHANGE MODE UP!" << "\n";
+			cout << "ERROR::EDITORSTATE::CANNOT CHANGE MODE UP!" << "\n";
 		}
 	}
 	else if (Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("MODE_DOWN"))))
@@ -178,7 +177,7 @@ void EditorState::updateEditorInput(float& dt)
 		}
 		else
 		{
-			std::cout << "ERROR::EDITORSTATE::CANNOT CHANGE MODE DOWN!" << "\n";
+			cout << "ERROR::EDITORSTATE::CANNOT CHANGE MODE DOWN!" << "\n";
 		}
 	}
 }

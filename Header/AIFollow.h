@@ -10,5 +10,5 @@ public:
     AIFollow(Entity& self, Entity& entity);
     ~AIFollow();
 
-    void update(const float& dt);
+    void update(float& dt);
 };

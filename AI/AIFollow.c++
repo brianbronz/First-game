@@ -1,5 +1,6 @@
-#include "stdafx.h"
-#include "AIFollow.h"
+#ifndef AIF_H
+#define AIF_H
+#include "../Header/AIFollow.h"
 
 AIFollow::AIFollow(Entity& self, Entity& entity)
 	: AIOption(self, entity)
@@ -12,7 +13,7 @@ AIFollow::~AIFollow()
 
 }
 
-void AIFollow::update(const float& dt)
+void AIFollow::update(float& dt)
 {
 	Vector2f moveVec;
 	moveVec.x = entity.getPosition().x - self.getPosition().x;
@@ -23,3 +24,4 @@ void AIFollow::update(const float& dt)
 	if ((self.getPosition().x != entity.getPosition().x) && std::abs(vecLength) < 500.f)
 		self.move(moveVec.x, moveVec.y, dt);
 }
+#endif

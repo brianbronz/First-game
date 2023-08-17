@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TAB_H
+#define TAB_H
 
 #include "Player.h"
 #include "Gui.h"
@@ -17,7 +18,7 @@ public:
 
     //Accessor
 	bool& getHidden();
-    bool& getOpen();
+    bool getOpen() const;
 	void toggle();
 	//Functions
 	void hide();
@@ -26,3 +27,4 @@ public:
 	virtual void update() = 0;
 	virtual void render(RenderTarget& target) = 0;
 };
+#endif

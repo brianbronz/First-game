@@ -1,6 +1,7 @@
 #include "../Header/AllReference.h"
 #include "../Header/PlayerGUITabs.h"
 #include "../Entities/CharacterTab.c++"
+#include "../Entities/Tab.c++"
 
 void PlayerGUITabs::initTabs()
 {

@@ -96,10 +96,10 @@ const bool Inventory::remove(const unsigned index){
 	return false;
 }
 
-const bool Inventory::saveToFile(const std::string fileName){
+const bool Inventory::saveToFile(const string fileName){
 	return false;
 }
 
-const bool Inventory::loadFromFile(const std::string fileName){
+const bool Inventory::loadFromFile(const string fileName){
 	return false;
 }

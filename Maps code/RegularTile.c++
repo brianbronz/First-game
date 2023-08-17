@@ -15,13 +15,13 @@ RegularTile::~RegularTile()
 }
 
 //Functions
-const std::string RegularTile::getAsString() const
+string RegularTile::getAsString()
 {
-	std::stringstream ss;
+	stringstream ss;
 
 	ss << this->type << " " << this->shape.getTextureRect().left << " " << this->shape.getTextureRect().top << " " << this->collision;
 
-	std::cout << ss.str() << "\n";
+	cout << ss.str() << "\n";
 
 	return ss.str();
 }

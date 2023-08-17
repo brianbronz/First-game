@@ -1,5 +1,6 @@
 #include "../../Header/AllReference.h"
 #include "../../Header/Bird1.h"
+#include "../../AI/AIFollow.c++"
 
 //Initializer functions
 void Bird1::initVariables()
@@ -31,8 +32,7 @@ void Bird1::initGUI()
 
 //Constructors / Destructors
 Bird1::Bird1(float x, float y, Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile, Entity& player)
-	: Enemy(enemy_spawner_tile)
-{
+	: Enemy(enemy_spawner_tile){
 	this->initVariables();
 	this->initGUI();
 
@@ -50,8 +50,7 @@ Bird1::Bird1(float x, float y, Texture& texture_sheet, EnemySpawnerTile& enemy_s
 }
 
 
-Bird1::~Bird1()
-{
+Bird1::~Bird1(){
 	delete this->follow;
 }
 

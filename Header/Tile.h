@@ -20,7 +20,7 @@ class Tile{
         virtual const Vector2f& getPosition();
         virtual FloatRect getGlobalBounds();
         virtual bool intersects(FloatRect bounds);
-        virtual std::string getAsString();
+        virtual string getAsString() = 0;
         virtual short & getType();
         virtual void update() = 0;
 	    virtual void render(RenderTarget& target, Shader* shader = NULL, Vector2f playerPosition = Vector2f()) = 0;

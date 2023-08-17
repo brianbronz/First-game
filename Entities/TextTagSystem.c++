@@ -5,9 +5,9 @@
 void TextTagSystem::initVariables(){
 }
 
-void TextTagSystem::initFonts(std::string font_file){
+void TextTagSystem::initFonts(string font_file){
 	if (!this->font.loadFromFile(font_file))
-		std::cout << "ERROR::TEXTTAGSYSTEM::CONSTRUCTOR::Failed to load font " << font_file << "\n";
+		cout << "ERROR::TEXTTAGSYSTEM::CONSTRUCTOR::Failed to load font " << font_file << "\n";
 }
 
 void TextTagSystem::initTagTemplates(){
@@ -26,34 +26,32 @@ TextTagSystem::TextTagSystem(string font_file){
 
 TextTagSystem::~TextTagSystem(){
     //Clean up tags
-	for (auto *tag : this->tags)
-	{
-		delete tag;
+	for (int i = 0; i < this->tags.size(); i++){
+		delete this->tags[i];
 	}
 
 	//Clean up templates
-	for (auto &tag : this->tagTemplates)
-	{
-		delete tag.second;
+	for (map<unsigned int, TextTagSystem::TextTag *>::iterator it = this->tagTemplates.begin(); it != this->tagTemplates.end(); ++it){
+		delete it->second;
 	}
 }
 
 //Functions
-void TextTagSystem::addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const std::string str, const std::string prefix = "", const std::string postfix = ""){
-    std::stringstream ss;
+void TextTagSystem::addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const string str, const string prefix = "", const string postfix = ""){
+    stringstream ss;
 	ss << prefix << " " << str << " " << postfix;
 	this->tags.push_back(new TextTag(this->tagTemplates[tag_type], pos_x, pos_y, ss.str()));
 }
 
 
 
-void TextTagSystem::addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const int i, const std::string prefix = "", const std::string postfix = ""){
+void TextTagSystem::addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const int i, const string prefix = "", const string postfix = ""){
 	stringstream ss;
 	ss << prefix << " " << i << " " << postfix;
 	this->tags.push_back(new TextTag(this->tagTemplates[tag_type], pos_x, pos_y, ss.str()));
 }
 
-void TextTagSystem::addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const float f, const std::string prefix = "", const std::string postfix = ""){
+void TextTagSystem::addTextTag(const unsigned tag_type, const float pos_x, const float pos_y, const float f, const string prefix = "", const string postfix = ""){
 	stringstream ss;
 	ss << prefix << " " << f << " " << postfix;
 	this->tags.push_back(new TextTag(this->tagTemplates[tag_type], pos_x, pos_y, ss.str()));
@@ -72,8 +70,12 @@ void TextTagSystem::update(const float & dt)
 
 void TextTagSystem::render(RenderTarget & target)
 {
-	for (auto&tag : this->tags)
+
+	for (int i = 0; i < this->tags.size(); i++){
+		this->tags[i]->render(target);
+	}
+/* 	for (auto&tag : this->tags)
 	{
 		tag->render(target);
-	}
+	} */
 }

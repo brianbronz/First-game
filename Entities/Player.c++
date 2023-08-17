@@ -3,6 +3,7 @@
 #include "../Animation code/AnimationComponent.c++"
 #include "../Weapons/Sword.c++"
 #include "../Weapons/Weapon.c++"
+#include "../Source Files/Inventory.c++"
 //Initializer functions
 void Player::initVariables(){
 	this->initAttack = false;
@@ -60,8 +61,8 @@ Weapon * Player::getWeapon(){
 }
 
 string Player::toStringCharacterTab(){
-	std::stringstream ss;
-		const AttributeComponent* ac = this->attributeComponent;
+	stringstream ss;
+	const AttributeComponent* ac = this->attributeComponent;
 	const Weapon* w = this->weapon;
 
 	ss << "Level: " << ac->level << "\n"

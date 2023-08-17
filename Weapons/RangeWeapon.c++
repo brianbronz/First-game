@@ -1,6 +1,6 @@
 #include "../Header/RangeWeapon.h"
 
-RangedWeapon::RangedWeapon(unsigned level, unsigned value, std::string texture_file) : Weapon(level, value, texture_file){
+RangedWeapon::RangedWeapon(unsigned level, unsigned value, string texture_file) : Weapon(level, value, texture_file){
     this->type = ItemTypes::IT_RANGEDWEAPON;
 }
 

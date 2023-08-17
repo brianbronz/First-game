@@ -133,7 +133,7 @@ void DefaultEditorMode::updateGui(float & dt)
 
 	this->cursorText.setPosition(this->editorStateData->mousePosView->x + 100.f, this->editorStateData->mousePosView->y - 50.f);
 	
-	std::stringstream ss;
+	stringstream ss;
 	ss << this->editorStateData->mousePosView->x << " " << this->editorStateData->mousePosView->y <<
 		"\n" << this->editorStateData->mousePosGrid->x << " " << this->editorStateData->mousePosGrid->y <<
 		"\n" << this->textureRect.left << " " << this->textureRect.top <<
