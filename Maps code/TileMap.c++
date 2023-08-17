@@ -1,6 +1,8 @@
 #include "../Header/TileMap.h"
 #include "Tile.c++"
+#include "RegularTile.c++"
 #include "../Entities/EnemySpawnerTile.c++"
+#include "../Entities/EnemySytem.c++"
 
 void TileMap::clear(){
 	if(!this->map.empty()){

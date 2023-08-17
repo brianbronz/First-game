@@ -1,4 +1,5 @@
 #include "../Header/PlayerGUI.h"
+#include "PlayerGUITabs.c++"
 
 void PlayerGUI::initFont()
 {
@@ -70,7 +71,7 @@ void PlayerGUI::initHPBar(){
 	); */
 }
 
-void PlayerGUI::initPlayerTabs(sf::VideoMode &vm, sf::Font &font, Player &player)
+void PlayerGUI::initPlayerTabs(VideoMode &vm, Font &font, Player &player)
 {
 	this->playerTabs = new PlayerGUITabs(vm, font, player);
 }
@@ -79,13 +80,13 @@ void PlayerGUI::initCharacterTab()
 {
 	this->playerTabs = new PlayerGUITabs(vm, font, player);
 	//Background
-	 this->CharacterTabBack.setFillColor(sf::Color(50, 50, 50, 180));
-	this->CharacterTabBack.setSize(sf::Vector2f(gui::p2pX(30.f, this->vm), static_cast<float>(this->vm.height)));
+	 this->CharacterTabBack.setFillColor(Color(50, 50, 50, 180));
+	this->CharacterTabBack.setSize(Vector2f(gui::p2pX(30.f, this->vm), static_cast<float>(this->vm.height)));
 
 	//Text
 	this->CharacterInfoText.setFont(this->font);
 	this->CharacterInfoText.setCharacterSize(gui::calcCharSize(this->vm, 50));
-	this->CharacterInfoText.setFillColor(sf::Color::White);
+	this->CharacterInfoText.setFillColor(Color::White);
 	this->CharacterInfoText.setPosition(this->CharacterTabBack.getPosition().x + 20.f, this->CharacterTabBack.getPosition().y + 20.f);
 } */
 
@@ -184,7 +185,7 @@ void PlayerGUI::renderHPBar(RenderTarget & target)
 }
 
 //Tabs
-void PlayerGUI::renderPlayerTabs(sf::RenderTarget& target)
+void PlayerGUI::renderPlayerTabs(RenderTarget& target)
 {
 	this->playerTabs->render(target);
 }

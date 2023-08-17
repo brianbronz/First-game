@@ -1,6 +1,6 @@
 #include "../Header/GameState.h"
 #include "../Entities/Enemy.c++"
-#include "../Entities/TypeEnemies/Rat.c++"
+#include "../Entities/TextTagSystem.c++"
 #include "../Entities/Player.c++"
 #include "../Entities/PlayerGUI.c++"
 #include "../Source Files/PauseMenu.c++"
@@ -86,7 +86,7 @@ void GameState::initKeyTime()
 void GameState::initDebugText()
 {
 	this->debugText.setFont(this->font);
-	this->debugText.setFillColor(sf::Color::White);
+	this->debugText.setFillColor(Color::White);
 	this->debugText.setCharacterSize(16);
 	this->debugText.setPosition(15.f, this->window->getSize().y / 2.f);
 }
@@ -206,7 +206,7 @@ void GameState::updatePlayerInput(float& dt){
 
 void GameState::updatePlayerGUI(float & dt){
 	this->playerGUI->update(dt);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("TOGGLE_PLAYER_TAB_CHARACTER"))) && this->getKeyTime())
+	if (Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("TOGGLE_PLAYER_TAB_CHARACTER"))) && this->getKeyTime())
 	{
 		this->playerGUI->toggleCharacterTab();
 	}
@@ -224,7 +224,7 @@ void GameState::updateTileMap(float & dt){
 	this->map->updateTiles(this->player, dt, *this->enemySystem);
 }
 
-void GameState::updateCombatAndEnemies(const float & dt){
+void GameState::updateCombatAndEnemies(float & dt){
 	if (Mouse::isButtonPressed(Mouse::Left) && this->player->getWeapon()->getAttackTimer())
 		this->player->setInitAttack(true);
 	unsigned index = 0;

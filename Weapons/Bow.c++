@@ -12,12 +12,12 @@ Bow * Bow::Clone(){
     return new Bow(*this);
 }
 
-void Bow::update(const sf::Vector2f & mouse_pos_view, const sf::Vector2f center)
+void Bow::update(const Vector2f & mouse_pos_view, const Vector2f center)
 {
 
 }
 
-void Bow::render(sf::RenderTarget & target, sf::Shader * shader)
+void Bow::render(RenderTarget & target, Shader * shader)
 {
 
 }

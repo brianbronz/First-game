@@ -37,7 +37,7 @@ private:
     void initLevelBar();
 	void initEXPBar();
 	void initHPBar();
-	void initPlayerTabs(sf::VideoMode &vm, sf::Font &font, Player &player);
+	void initPlayerTabs(VideoMode &vm, Font &font, Player &player);
 
 public:
 	PlayerGUI(Player* player, VideoMode& vm);
@@ -56,7 +56,7 @@ public:
     void renderLevelBar(RenderTarget & target);
 	void renderEXPBar(RenderTarget & target);
 	void renderHPBar(RenderTarget & target);
-	void renderPlayerTabs(sf::RenderTarget& target);
+	void renderPlayerTabs(RenderTarget& target);
 	void render(RenderTarget& target);
 };
 #endif

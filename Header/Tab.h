@@ -6,13 +6,13 @@
 class Tab
 {
 protected:
-	sf::VideoMode& vm;
-	sf::Font& font;
+	VideoMode& vm;
+	Font& font;
 	Player& player;
     bool hidden;
 
 public:
-	Tab(sf::VideoMode& vm, sf::Font& font, Player& player, bool hidden);
+	Tab(VideoMode& vm, Font& font, Player& player, bool hidden);
 	virtual ~Tab();
 
     //Accessor
@@ -24,5 +24,5 @@ public:
 	void show();
 
 	virtual void update() = 0;
-	virtual void render(sf::RenderTarget& target) = 0;
+	virtual void render(RenderTarget& target) = 0;
 };

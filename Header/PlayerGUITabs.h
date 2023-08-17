@@ -9,8 +9,8 @@ class PlayerGUITabs
 private:    
     vector<Tab*> tabs;
 	//Core
-	sf::VideoMode& vm;
-	sf::Font& font;
+	VideoMode& vm;
+	Font& font;
 	Player& player;
 
     Clock keyTimer;
@@ -20,7 +20,7 @@ private:
 	void initTabs();
     void initKeyTime();
 public:
-	PlayerGUITabs(sf::VideoMode& vm, sf::Font& font, Player& player);
+	PlayerGUITabs(VideoMode& vm, Font& font, Player& player);
 	virtual ~PlayerGUITabs();
 
     bool getKeyTime();
@@ -29,5 +29,5 @@ public:
 
 	//Functions
 	void update();
-	void render(sf::RenderTarget& target);
+	void render(RenderTarget& target);
 };

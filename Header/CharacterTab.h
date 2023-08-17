@@ -5,15 +5,15 @@
 class CharacterTab : public Tab
 {
 private:
-	sf::RectangleShape back;
-	sf::Text infoText;
+	RectangleShape back;
+	Text infoText;
 
     void initText();
 public:
-	CharacterTab(sf::VideoMode& vm, sf::Font& font, Player& player);
+	CharacterTab(VideoMode& vm, Font& font, Player& player);
 	~CharacterTab();
 
 	void update();
-	void render(sf::RenderTarget& target);
+	void render(RenderTarget& target);
 };
 

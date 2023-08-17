@@ -11,8 +11,8 @@ class Bow : public RangeWeapon{
         Bow(unsigned level, unsigned value, string texture_file);
 	    virtual ~Bow();
         virtual Bow* Clone();
-        virtual void update(const sf::Vector2f& mouse_pos_view, const sf::Vector2f center);
-	    virtual void render(sf::RenderTarget& target, sf::Shader* shader = nullptr);
+        virtual void update(const Vector2f& mouse_pos_view, const Vector2f center);
+	    virtual void render(RenderTarget& target, Shader* shader = nullptr);
 };
 
 #endif

@@ -1,6 +1,7 @@
 #include "../../Header/AllReference.h"
 #include "../../Header/Rat.h"
 
+
 //Initializer functions
 void Rat::initVariables(){
 
@@ -16,20 +17,18 @@ void Rat::initAnimations(){
 }
 
 
-void Rat::initAI()
-{
+void Rat::initAI(){
 
 }
 
-void Rat::initGUI()
-{
-	this->hpBar.setFillColor(sf::Color::Red);
-	this->hpBar.setSize(sf::Vector2f(60.f, 10.f));
+void Rat::initGUI(){
+	this->hpBar.setFillColor(Color::Red);
+	this->hpBar.setSize(Vector2f(60.f, 10.f));
 	this->hpBar.setPosition(this->sprite.getPosition());
 }
 
 //ructors / Destructors
-Rat::Rat(float x, float y, Texture& texture_sheet,  EnemySpawnerTile& enemy_spawner_tile, Entity& player)
+Rat::Rat(const float x, const float y, Texture& texture_sheet,  EnemySpawnerTile& enemy_spawner_tile, Entity& player)
 	: Enemy(enemy_spawner_tile){
 	this->initVariables();
 	this->initGUI();
@@ -63,20 +62,19 @@ void Rat::updateAnimation(float & dt){
 	} else if (this->movementComponent->getState(MOVING_DOWN)){
 		this->animationComponent->play("WALK_DOWN", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
 	}
-	if (this->damageTimer.getElapsedTime().asMilliseconds() <= this->damageTimerMax)
-	{
-		this->sprite.setColor(sf::Color::Red);
+	if (this->damageTimer.getElapsedTime().asMilliseconds() <= this->damageTimerMax){
+		this->sprite.setColor(Color::Red);
+	}else{
+		this->sprite.setColor(Color::White);
 	}
-	else
-		this->sprite.setColor(sf::Color::White);
 }
 
-void Rat::update(float & dt, Vector2f& mouse_pos_view, sf::View& view){
+void Rat::update(float & dt, Vector2f& mouse_pos_view, View& view){
 	Enemy::update(dt, mouse_pos_view, view);
 	this->movementComponent->update(dt);
 
 	//Update GUI REMOVE THIS!!!!
-	this->hpBar.setSize(sf::Vector2f(60.f * (static_cast<float>(this->attributeComponent->hp) / this->attributeComponent->hpMax), 10.f));
+	this->hpBar.setSize(Vector2f(60.f * (static_cast<float>(this->attributeComponent->hp) / this->attributeComponent->hpMax), 10.f));
 	this->hpBar.setPosition(this->sprite.getPosition());
 
 	this->updateAnimation(dt);

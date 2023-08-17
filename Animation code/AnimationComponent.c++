@@ -37,7 +37,7 @@ void AnimationComponent::resetAnimation(string animation){
 
 }
 
-bool& AnimationComponent::play(string key,  float& dt, bool priority){
+bool& AnimationComponent::play(string key, float& dt, bool priority){
     if (this->priorityAnimation){
         if(this->priorityAnimation == this->animations[key]){
             if(this->lastAnimation != this->animations[key] ){

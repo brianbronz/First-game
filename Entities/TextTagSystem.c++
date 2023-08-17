@@ -1,5 +1,4 @@
-#include "stdafx.h"
-#include "TextTagSystem.h"
+#include "../Header/TextTagSystem.h"
 
 
 //Private functions
@@ -12,13 +11,13 @@ void TextTagSystem::initFonts(std::string font_file){
 }
 
 void TextTagSystem::initTagTemplates(){
-	this->tagTemplates[DEFAULT_TAG] = new TextTag(this->font, "", 100.f, 100.f, 0.f, -1.f, sf::Color::White, 25, 100.f, true, 200.f, 200.f, 2);
-	this->tagTemplates[NEGATIVE_TAG] = new TextTag(this->font, "", 100.f, 100.f, 0.f, 1.f, sf::Color::Red, 25, 100.f, true, 200.f, 200.f, 1);
-	this->tagTemplates[EXPERIENCE_TAG] = new TextTag(this->font, "", 100.f, 100.f, 0.f, -1.f, sf::Color::Cyan, 30, 200.f, true, 200.f, 200.f, 2);
+	this->tagTemplates[DEFAULT_TAG] = new TextTag(this->font, "", 100.f, 100.f, 0.f, -1.f, Color::White, 25, 100.f, true, 200.f, 200.f, 2);
+	this->tagTemplates[NEGATIVE_TAG] = new TextTag(this->font, "", 100.f, 100.f, 0.f, 1.f, Color::Red, 25, 100.f, true, 200.f, 200.f, 1);
+	this->tagTemplates[EXPERIENCE_TAG] = new TextTag(this->font, "", 100.f, 100.f, 0.f, -1.f, Color::Cyan, 30, 200.f, true, 200.f, 200.f, 2);
 }
 
 //Constructor / Destructor
-TextTagSystem::TextTagSystem(){
+TextTagSystem::TextTagSystem(string font_file){
     this->initFonts(font_file);
 	this->initVariables();
 	this->initTagTemplates();
@@ -71,7 +70,7 @@ void TextTagSystem::update(const float & dt)
     }
 }
 
-void TextTagSystem::render(sf::RenderTarget & target)
+void TextTagSystem::render(RenderTarget & target)
 {
 	for (auto&tag : this->tags)
 	{

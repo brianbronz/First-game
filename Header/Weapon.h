@@ -11,7 +11,7 @@ protected:
 	Texture weapon_texture;
 	Sprite weapon_sprite;
 
-	unsigned damageMin;
+	const unsigned damageMin;
 	unsigned damageMax;
 	unsigned range;
 
@@ -25,9 +25,9 @@ public:
 
 	//Accessors
 	unsigned getDamage() const;
-	unsigned& getDamageMin() const;
-	unsigned& getDamageMax() const;
-	unsigned& getRange() const;
+	const unsigned& getDamageMin() const;
+	const unsigned& getDamageMax() const;
+	const unsigned& getRange() const;
 	bool getAttackTimer();
 	//Function
 	virtual Item* clone() = 0;

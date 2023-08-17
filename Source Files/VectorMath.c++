@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "VectorMath.h"
+#include "../Header/AllReference.h"
+#include "../Header/VectorMath.h"
 
 const float vectorDistance(const float x1, const float y1, const float x2, const float y2)
 {
@@ -9,9 +9,9 @@ const float vectorDistance(const float x1, const float y1, const float x2, const
   return sqrt(pow(dx, 2) + pow(dy, 2));
 }
 
-const float vectorDistance(sf::Vector2f vec1, sf::Vector2f vec2)
+const float vectorDistance(Vector2f vec1, Vector2f vec2)
 {
-  const sf::Vector2f dVec = vec2 - vec1;
+  const Vector2f dVec = vec2 - vec1;
 
   return sqrt(pow(dVec.x, 2) + pow(dVec.y, 2));
 }

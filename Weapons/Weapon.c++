@@ -1,20 +1,14 @@
 #include "../Header/AllReference.h"
 #include "../Header/Weapon.h"
 
-void Weapon::initVariables()
-{
-	this->range = 50;
-	this->damageMin = 1;
-	this->damageMax = 2;
-
+void Weapon::initVariables(){
 	//Timer
 	this->attackTimer.restart();
 	this->attackTimerMax = 500;
 }
 
 Weapon::Weapon(unsigned level, unsigned value, string texture_file)
-	: Item(level, value)
-{
+	: Item(level, value), range(50), damageMin(1), damageMax(2){
 	this->initVariables();
 
 	if (!this->weapon_texture.loadFromFile(texture_file))
@@ -25,15 +19,11 @@ Weapon::Weapon(unsigned level, unsigned value, string texture_file)
 
 
 Weapon::Weapon(unsigned level, unsigned damageMin, unsigned damageMax, unsigned range, unsigned value, std::string texture_file)
-	: Item(level, value) {
+	: Item(level, value), damageMin(damageMin), damageMax(damageMax), range(range) {
 	this->initVariables();
 
-	this->damageMin = damageMin;
-	this->damageMax = damageMax;
-	this->range = range;
-
 	if (!this->weapon_texture.loadFromFile(texture_file))
-		std::cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE::" << texture_file << "\n";
+		cout << "ERROR::PLAYER::COULD NOT LOAD WEAPON TEXTURE::" << texture_file << "\n";
 
 	this->weapon_sprite.setTexture(this->weapon_texture);
 }
@@ -44,7 +34,7 @@ Weapon::~Weapon()
 }
 
 //Accessors
-unsigned & Weapon::getRange() const{
+const unsigned & Weapon::getRange() const{
 	return this->range;
 }
 
@@ -52,11 +42,11 @@ unsigned Weapon::getDamage() const{
 	return rand() % (this->damageMax - this->damageMin + 1) + (this->damageMin);
 }
 
-unsigned & Weapon::getDamageMin() const{
+const unsigned & Weapon::getDamageMin() const{
 	return this->damageMin;
 }
 
-unsigned & Weapon::getDamageMax() const{
+const unsigned & Weapon::getDamageMax() const{
 	return this->damageMax;
 }
 

@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "Bird1.h"
+#include "../../Header/AllReference.h"
+#include "../../Header/Bird1.h"
 
 //Initializer functions
 void Bird1::initVariables()
@@ -24,13 +24,13 @@ void Bird1::initAI()
 
 void Bird1::initGUI()
 {
-	this->hpBar.setFillColor(sf::Color::Red);
-	this->hpBar.setSize(sf::Vector2f(60.f, 10.f));
+	this->hpBar.setFillColor(Color::Red);
+	this->hpBar.setSize(Vector2f(60.f, 10.f));
 	this->hpBar.setPosition(this->sprite.getPosition());
 }
 
 //Constructors / Destructors
-Bird1::Bird1(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile, Entity& player)
+Bird1::Bird1(float x, float y, Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile, Entity& player)
 	: Enemy(enemy_spawner_tile)
 {
 	this->initVariables();
@@ -55,10 +55,8 @@ Bird1::~Bird1()
 	delete this->follow;
 }
 
-void Bird1::updateAnimation(const float& dt)
-{
-	if (this->movementComponent->getState(IDLE))
-	{
+void Bird1::updateAnimation(float& dt){
+	if (this->movementComponent->getState(IDLE)){
 		this->animationComponent->play("IDLE", dt);
 	}
 	else if (this->movementComponent->getState(MOVING_LEFT))
@@ -80,20 +78,17 @@ void Bird1::updateAnimation(const float& dt)
 
 	if (this->damageTimer.getElapsedTime().asMilliseconds() <= this->damageTimerMax)
 	{
-		this->sprite.setColor(sf::Color::Red);
+		this->sprite.setColor(Color::Red);
 	}
 	else
-		this->sprite.setColor(sf::Color::White);
+		this->sprite.setColor(Color::White);
 }
 
-void Bird1::update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::View& view)
-{
+void Bird1::update(float& dt, Vector2f& mouse_pos_view, View& view){
 	Enemy::update(dt, mouse_pos_view, view);
-
 	this->movementComponent->update(dt);
-
 	//Update GUI REMOVE THIS!!!!
-	this->hpBar.setSize(sf::Vector2f(60.f * (static_cast<float>(this->attributeComponent->hp) / this->attributeComponent->hpMax), 10.f));
+	this->hpBar.setSize(Vector2f(60.f * (static_cast<float>(this->attributeComponent->hp) / this->attributeComponent->hpMax), 10.f));
 	this->hpBar.setPosition(this->sprite.getPosition());
 
 	//this->updateAttack();
@@ -105,7 +100,7 @@ void Bird1::update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::View
 	this->follow->update(dt);
 }
 
-void Bird1::render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox)
+void Bird1::render(RenderTarget& target, Shader* shader, const Vector2f light_position, const bool show_hitbox)
 {
 	if (shader)
 	{

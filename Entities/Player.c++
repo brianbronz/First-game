@@ -2,6 +2,7 @@
 #include "../Entities/Entity.c++"
 #include "../Animation code/AnimationComponent.c++"
 #include "../Weapons/Sword.c++"
+#include "../Weapons/Weapon.c++"
 //Initializer functions
 void Player::initVariables(){
 	this->initAttack = false;
@@ -168,11 +169,11 @@ void Player::updateAnimation(float& dt){
 	}
 }
 
-void Player::update(float& dt, Vector2f& mouse_pos_view, sf::View& view){
+void Player::update(float& dt, Vector2f& mouse_pos_view, View& view){
 	this->movementComponent->update(dt);
 	this->updateAnimation(dt);
 	this->hitboxComponent->update();
-	this->weapon->update(mouse_pos_view, sf::Vector2f(this->getSpriteCenter().x, this->getSpriteCenter().y + 5.f));
+	this->weapon->update(mouse_pos_view, Vector2f(this->getSpriteCenter().x, this->getSpriteCenter().y + 5.f));
 }
 
 void Player::render(RenderTarget & target, Shader* shader, Vector2f lightPosition, bool show_hitbox){

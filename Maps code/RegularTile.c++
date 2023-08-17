@@ -2,7 +2,7 @@
 #include "../Header/RegularTile.h"
 
 RegularTile::RegularTile(short type, int grid_x, int grid_y, float gridSizeF,
-	const sf::Texture& texture, const sf::IntRect& texture_rect,
+	Texture& texture, IntRect& texture_rect,
 	bool collision)
 	: Tile(type, grid_x, grid_y, gridSizeF, texture, texture_rect, collision)
 {
@@ -31,7 +31,7 @@ void RegularTile::update()
 
 }
 
-void RegularTile::render(sf::RenderTarget & target, sf::Shader * shader, const sf::Vector2f player_position)
+void RegularTile::render(RenderTarget & target, Shader * shader, const Vector2f player_position)
 {
 	if (shader)
 	{

@@ -61,9 +61,9 @@ void EnemyEditorMode::updateInput(float & dt){
 	}
 
 	//Toggle collision
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->editorStateData->keybinds->at("TYPE_UP"))) && this->getKeytime())
+	if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("TYPE_UP"))) && this->getKeytime())
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+		if (Keyboard::isKeyPressed(Keyboard::LShift))
 		{
 			if (this->type > 0)
 				this->type--;
@@ -73,9 +73,9 @@ void EnemyEditorMode::updateInput(float & dt){
 		else
 			this->type = 0;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->editorStateData->keybinds->at("AMOUNT_UP"))) && this->getKeytime())
+	else if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("AMOUNT_UP"))) && this->getKeytime())
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+		if (Keyboard::isKeyPressed(Keyboard::LShift))
 		{
 			if (this->amount > 0)
 				this->amount--;
@@ -85,9 +85,9 @@ void EnemyEditorMode::updateInput(float & dt){
 		else
 			this->amount = 0;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->editorStateData->keybinds->at("TTS_UP"))) && this->getKeytime())
+	else if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("TTS_UP"))) && this->getKeytime())
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+		if (Keyboard::isKeyPressed(Keyboard::LShift))
 		{
 			if (this->timeToSpawn > 0)
 				this->timeToSpawn--;
@@ -97,9 +97,9 @@ void EnemyEditorMode::updateInput(float & dt){
 		else
 			this->timeToSpawn = 0;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->editorStateData->keybinds->at("MD_UP"))) && this->getKeytime())
+	else if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("MD_UP"))) && this->getKeytime())
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+		if (Keyboard::isKeyPressed(Keyboard::LShift))
 		{
 			if (this->maxDistance > 0)
 				this->maxDistance--;

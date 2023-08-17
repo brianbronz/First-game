@@ -1,4 +1,5 @@
 #include "../Header/Enemy.h"
+#include "../Source Files/VectorMath.c++"
 
 void Enemy::initVariables(){
     this->gainExp =10;
@@ -69,7 +70,7 @@ AttributeComponent * Enemy::getAttributeComp() {
 	}
 }
 
-void Enemy::update(const float& dt, sf::Vector2f& mouse_pos_view, sf::View& view){
+void Enemy::update(float& dt, Vector2f& mouse_pos_view, View& view){
 	if(vectorDistance(this->getPosition(), view.getCenter()) < 1500.f)
 		this->despawnTimer.restart();
 }

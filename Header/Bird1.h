@@ -11,17 +11,17 @@ private:
 	void initAI();
 	void initGUI();
 
-	sf::RectangleShape hpBar;
+	RectangleShape hpBar;
 
 	AIFollow* follow;
 
 public:
-	Bird1(float x, float y, sf::Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile, Entity& player);
+	Bird1(float x, float y, Texture& texture_sheet, EnemySpawnerTile& enemy_spawner_tile, Entity& player);
 	virtual ~Bird1();
 
 	//Functions
-	void updateAnimation(const float& dt);
-	void update(const float& dt, sf::Vector2f& mouse_pos_view, const sf::View& view);
+	void updateAnimation(float& dt);
+	void update(float& dt, Vector2f& mouse_pos_view, View& view);
 
-	void render(sf::RenderTarget& target, sf::Shader* shader, const sf::Vector2f light_position, const bool show_hitbox);
+	void render(RenderTarget& target, Shader* shader, const Vector2f light_position, const bool show_hitbox);
 };
