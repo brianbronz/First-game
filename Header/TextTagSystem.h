@@ -128,7 +128,7 @@ private:
 	};
 
     Font font;
-	map<unsigned, TextTag*> tagTemplates;
+	std::map<unsigned, TextTag*> tagTemplates;
 	vector<TextTag*> tags;
 
 	//Private functions

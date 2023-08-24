@@ -27,12 +27,12 @@ PauseMenu::PauseMenu(VideoMode& vm, Font& font): font(font){
 }
 
 PauseMenu::~PauseMenu(){
-    for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
+    for (std::map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
         delete it->second;
     }
 }
 
-map<string, gui::Button*>& PauseMenu::getButtons(){
+std::map<string, gui::Button*>& PauseMenu::getButtons(){
     return this->buttons;
 }
 
@@ -48,7 +48,7 @@ void PauseMenu::addButton(string key, float y, float width, float height, unsign
 }
 
 void PauseMenu::update(Vector2i& mousePosWindow){
-    for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
+    for (std::map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
         it->second->update(mousePosWindow);    
     }
 }
@@ -56,7 +56,7 @@ void PauseMenu::update(Vector2i& mousePosWindow){
 void PauseMenu::render(RenderTarget& target){
     target.draw(this->background);
     target.draw(this->container);
-    for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
+    for (std::map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
         it->second->render(target);
     }
     target.draw(this->menuText);

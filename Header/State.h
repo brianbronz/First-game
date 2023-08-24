@@ -14,7 +14,7 @@ public:
 	float gridSize;
 	RenderWindow* window;
 	GraphicsSettings* gfxSettings;
-	::map<string, int>* supportedKeys;
+	std::map<string, int>* supportedKeys;
 	stack<State*>* states;
 };
 
@@ -23,8 +23,8 @@ class State{
         StateData* stateData;
         stack<State*>* states;
         RenderWindow* window;
-        map<string, int>* supportedKeys;
-        map<string, int> keybinds;
+        std::map<string, int>* supportedKeys;
+        std::map<string, int> keybinds;
         bool quit;
         bool paused;
         float keytime;
@@ -36,7 +36,7 @@ class State{
         Vector2f mousePosView;
         Vector2i mousePosGrid;
         //resources
-        map<string, Texture> textures;
+        std::map<string, Texture> textures;
 
         //function
         virtual void initKeybinds() = 0;

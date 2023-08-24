@@ -7,8 +7,8 @@ class SettingsState: public State{
         Texture backgroundTexture;
         RectangleShape background;
         Font font;
-        map<string, gui::Button*> buttons;
-        map<string, gui::DropDownList*> ddl;
+        std::map<string, gui::Button*> buttons;
+        std::map<string, gui::DropDownList*> ddl;
         Text optionsText;
         vector<VideoMode> modes;
         //functions

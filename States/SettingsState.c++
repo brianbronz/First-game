@@ -70,13 +70,13 @@ void SettingsState::resetGui(){
 	 *
 	 * @return void
 	 */
-    for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
+    for (std::map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
         delete it->second;
     }
 
 	this->buttons.clear();
 
-    for (map<string, gui::DropDownList*>::iterator it = this->ddl.begin(); it != this->ddl.end(); ++it){
+    for (std::map<string, gui::DropDownList*>::iterator it = this->ddl.begin(); it != this->ddl.end(); ++it){
         delete it->second;
     }
 
@@ -92,11 +92,11 @@ SettingsState::SettingsState(StateData* state_data): State(state_data) {
 }
 
 SettingsState::~SettingsState(){
-    for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
+    for (std::map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
         delete it->second;
     }
     
-    for (map<string, gui::DropDownList*>::iterator it = this->ddl.begin(); it != this->ddl.end(); ++it){
+    for (std::map<string, gui::DropDownList*>::iterator it = this->ddl.begin(); it != this->ddl.end(); ++it){
         delete it->second;
     }
 }
@@ -106,7 +106,7 @@ void SettingsState::updateInput( float & dt){
 }
 
 void SettingsState::updateButtons( float& dt){
-    for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
+    for (std::map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
         it->second->update(this->mousePosWindow);
     }
     //Quit the game
@@ -120,7 +120,7 @@ void SettingsState::updateButtons( float& dt){
         this->resetGui();
 	}
 
-    for(map<string, gui::DropDownList*>::iterator it= this->ddl.begin(); it != this->ddl.end(); ++it){
+    for(std::map<string, gui::DropDownList*>::iterator it= this->ddl.begin(); it != this->ddl.end(); ++it){
         it->second->update(this->mousePosWindow, dt);
     }
 }
@@ -132,11 +132,11 @@ void SettingsState::update( float& dt){
 }
 
 void SettingsState::renderButtons(RenderTarget& target){
-    for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
+    for (std::map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
         it->second->render(target);
     }
 
-    for (map<string, gui::DropDownList*>::iterator it = this->ddl.begin(); it != this->ddl.end(); ++it){
+    for (std::map<string, gui::DropDownList*>::iterator it = this->ddl.begin(); it != this->ddl.end(); ++it){
         it->second->render(target);
     }
 }

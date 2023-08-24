@@ -12,7 +12,7 @@ class MainMenuState:public State{
         Font font;
 
         RectangleShape btnBackground;
-        map<string, gui::Button*> buttons;
+        std::map<string, gui::Button*> buttons;
 
         //functions
         void initVariables();

@@ -11,13 +11,13 @@ enum EnemyTypes {RAT = 0, BIRD1};
 class EnemySystem
 {
 private:
-	map<string, Texture>& textures;
+	std::map<string, Texture>& textures;
 	vector<Enemy*>& activeEnemies;
 	Entity& player;
 
 public:
 	EnemySystem(vector<Enemy*>& activeEnemies, 
-	map<string, Texture>& textures, Entity& player);
+	std::map<string, Texture>& textures, Entity& player);
 	virtual ~EnemySystem();
 
 	//Accessors

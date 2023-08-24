@@ -9,14 +9,14 @@ class PauseMenu{
         Text menuText;
         RectangleShape background;
         RectangleShape container;
-        map<string, gui::Button*> buttons;
+        std::map<string, gui::Button*> buttons;
 
     public:
         PauseMenu(VideoMode& vm, Font& font);
         virtual ~PauseMenu();
 
         //Accessors
-        map<string, gui::Button*>& getButtons();
+        std::map<string, gui::Button*>& getButtons();
         //Functions
         bool isButtonPressed(string key);
         void addButton(string key, float y, float width, float height, unsigned char_size, string text);

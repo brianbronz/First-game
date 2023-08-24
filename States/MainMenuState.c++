@@ -73,7 +73,7 @@ void MainMenuState::resetGui()
 	/*
 	 * Clears the GUI elements and re-initialises the GUI.
 	 */
-	for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
+	for (std::map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
 		delete it->second;
 	}
 	this->buttons.clear();
@@ -90,7 +90,7 @@ MainMenuState::MainMenuState(StateData* state_data): State(state_data){
 }
 
 MainMenuState::~MainMenuState(){
-    for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
+    for (std::map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it){
         delete it->second;
     }
 }
@@ -102,7 +102,7 @@ void MainMenuState::updateInput( float & dt){
 
 void MainMenuState::updateButtons(){
     //Update all the buttons in the state and handles their functionality
-    for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it) {
+    for (std::map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it) {
         it->second->update(this->mousePosWindow);
     }
 
@@ -128,7 +128,7 @@ void MainMenuState::update(float& dt){
 }
 
 void MainMenuState::renderButtons(RenderTarget& target){
-    for (map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it) {
+    for (std::map<string, gui::Button*>::iterator it = this->buttons.begin(); it != this->buttons.end(); ++it) {
         it->second->render(target);
     }
 }

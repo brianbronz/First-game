@@ -19,7 +19,7 @@ public:
 	float* keytime;
 	float* keytimeMax;
 
-	std::map<std::string, int>* keybinds;
+	std::map<string, int>* keybinds;
 
 	Vector2i* mousePosScreen;
 	Vector2i* mousePosWindow;

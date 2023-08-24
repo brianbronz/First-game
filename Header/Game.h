@@ -15,7 +15,7 @@ class Game{
         float dt;
 
         stack<State*> states;//State* because it is an abstract class
-        map<string, int> supportedKeys;
+        std::map<string, int> supportedKeys;
         float gridSize;
         //initialization
         void initVariables();

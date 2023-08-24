@@ -86,7 +86,7 @@ class AnimationComponent{
         };
         Sprite& sprite;
         Texture& textureSheet;
-        map<string, Animation*> animations;
+        std::map<string, Animation*> animations;
         Animation* lastAnimation;
         Animation* priorityAnimation;
 

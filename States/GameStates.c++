@@ -112,7 +112,7 @@ void GameState::initEnemySystem(){
 
 void GameState::initSystems()
 {
-	this->tts = new TextTagSystem("../Fonts/PixellettersFull.ttf");
+	this->tts = new TextTagSystem("../Fonts/Dosis-Light.ttf");
 }
 //ructors / Destructors
 GameState::GameState(StateData* state_data): State(state_data){
