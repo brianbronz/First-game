@@ -1,8 +1,7 @@
 #include "../Header/AllReference.h"
 #include "../Header/DefaultEditorMode.h"
 
-void DefaultEditorMode::initVariables()
-{
+void DefaultEditorMode::initVariables(){
 	this->textureRect = IntRect(0, 0, static_cast<int>(this->stateData->gridSize), static_cast<int>(this->stateData->gridSize));
 	this->collision = false;
 	this->type = TileTypes::DEFAULT;
@@ -10,8 +9,7 @@ void DefaultEditorMode::initVariables()
 	this->tileAddLock = false;
 }
 
-void DefaultEditorMode::initGui()
-{
+void DefaultEditorMode::initGui(){
 	//Text
 	this->cursorText.setFont(*this->editorStateData->font);
 	this->cursorText.setFillColor(Color::White);
@@ -43,8 +41,7 @@ void DefaultEditorMode::initGui()
 }
 
 DefaultEditorMode::DefaultEditorMode(StateData* state_data, TileMap* tile_map, EditorStateData* editor_state_data)
-	: EditorMode(state_data, tile_map, editor_state_data)
-{
+	: EditorMode(state_data, tile_map, editor_state_data){
 	this->initVariables();
 	this->initGui();
 }
@@ -55,65 +52,47 @@ DefaultEditorMode::~DefaultEditorMode()
 }
 
 //Functions
-void DefaultEditorMode::updateInput(float & dt)
-{
+void DefaultEditorMode::updateInput(float & dt){
 	//Add a tile to the tilemap
-	if (Mouse::isButtonPressed(Mouse::Left) && this->getKeytime())
-	{
-		if (!this->sidebar.getGlobalBounds().contains(Vector2f(*this->editorStateData->mousePosWindow)))
-		{
-			if (!this->textureSelector->getActive())
-			{
-				if (this->tileAddLock)
-				{
-					if (this->tileMap->tileEmpty(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0))
-					{
+	if (Mouse::isButtonPressed(Mouse::Left) && this->getKeytime()){
+		if (!this->sidebar.getGlobalBounds().contains(Vector2f(*this->editorStateData->mousePosWindow))){
+			if (!this->textureSelector->getActive()){
+				if (this->tileAddLock){
+					if (this->tileMap->tileEmpty(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0)){
 						this->tileMap->addTile(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0, this->textureRect, this->collision, this->type);
 					}
-				}
-				else
-				{
+				} else {
 					this->tileMap->addTile(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0, this->textureRect, this->collision, this->type);
 				}
-			}
-			else
-			{
+			} else {
 				this->textureRect = this->textureSelector->getTextureRect();
 			}
 		}
 	}
 	//Remove a tile from the tilemap
-	else if (Mouse::isButtonPressed(Mouse::Right) && this->getKeytime())
-	{
-		if (!this->sidebar.getGlobalBounds().contains(Vector2f(*this->editorStateData->mousePosWindow)))
-		{
+	else if (Mouse::isButtonPressed(Mouse::Right) && this->getKeytime()) {
+		if (!this->sidebar.getGlobalBounds().contains(Vector2f(*this->editorStateData->mousePosWindow))){
 			if (!this->textureSelector->getActive())
 				this->tileMap->removeTile(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0);
 		}
 	}
 
 	//Toggle collision
-	if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("TOGGLE_COLLISION"))) && this->getKeytime())
-	{
+	if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("TOGGLE_COLLISION"))) && this->getKeytime()){
 		if (this->collision)
 			this->collision = false;
 		else
 			this->collision = true;
-	}
-	else if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("INCREASE_TYPE"))) && this->getKeytime())
-	{
+	} else if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("INCREASE_TYPE"))) && this->getKeytime()){
 		//CHANGE TO LIMIT TO MAX TYPE!!!!
 		++this->type;
-	}
-	else if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("DECREASE_TYPE"))) && this->getKeytime())
-	{
+	} else if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("DECREASE_TYPE"))) && this->getKeytime()){
 		if (this->type > 0)
 			--this->type;
 	}
 
 	//Set lock on / off
-	if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("TOGGLE_TILE_LOCK"))) && this->getKeytime())
-	{
+	if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("TOGGLE_TILE_LOCK"))) && this->getKeytime()){
 		if (this->tileAddLock)
 			this->tileAddLock = false;
 		else
@@ -121,12 +100,10 @@ void DefaultEditorMode::updateInput(float & dt)
 	}
 }
 
-void DefaultEditorMode::updateGui(float & dt)
-{
+void DefaultEditorMode::updateGui(float & dt){
 	this->textureSelector->update(*this->editorStateData->mousePosWindow, dt);
 
-	if (!this->textureSelector->getActive())
-	{
+	if (!this->textureSelector->getActive()){
 		this->selectorRect.setTextureRect(this->textureRect);
 		this->selectorRect.setPosition(this->editorStateData->mousePosGrid->x * this->stateData->gridSize, this->editorStateData->mousePosGrid->y * this->stateData->gridSize);
 	}
@@ -145,16 +122,13 @@ void DefaultEditorMode::updateGui(float & dt)
 	this->cursorText.setString(ss.str());
 }
 
-void DefaultEditorMode::update(float & dt)
-{
+void DefaultEditorMode::update(float & dt){
 	this->updateInput(dt);
 	this->updateGui(dt);
 }
 
-void DefaultEditorMode::renderGui(RenderTarget & target)
-{
-	if (!this->textureSelector->getActive())
-	{
+void DefaultEditorMode::renderGui(RenderTarget & target){
+	if (!this->textureSelector->getActive()){
 		target.setView(*this->editorStateData->view);
 		target.draw(this->selectorRect);
 	}
@@ -167,7 +141,6 @@ void DefaultEditorMode::renderGui(RenderTarget & target)
 	target.draw(this->cursorText);
 }
 
-void DefaultEditorMode::render(RenderTarget& target)
-{
+void DefaultEditorMode::render(RenderTarget& target){
 	this->renderGui(target);
 }

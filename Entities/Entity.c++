@@ -49,23 +49,19 @@ void Entity::createSkillComponent(){
 
 //Functions
 
-MovementComponent* Entity::getMovementComponent()
-{
+MovementComponent* Entity::getMovementComponent(){
 	return this->movementComponent;
 }
 
-AnimationComponent* Entity::getAnimationComponent()
-{
+AnimationComponent* Entity::getAnimationComponent(){
 	return this->animationComponent;
 }
 
-AttributeComponent* Entity::getAttributeComponent()
-{
+AttributeComponent* Entity::getAttributeComponent(){
 	return this->attributeComponent;
 }
 
-SkillComponent* Entity::getSkillComponent()
-{
+SkillComponent* Entity::getSkillComponent(){
 	return this->skillComponent;
 }
 
@@ -74,11 +70,6 @@ const Vector2f & Entity::getPosition(){
 		return this->hitboxComponent->getPosition();
 	}
 	return this->sprite.getPosition();
-}
-
-void Entity::createAIComponent()
-{
-
 }
 
 const Vector2f& Entity::getSpritePosition(){

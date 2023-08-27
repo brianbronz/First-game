@@ -21,19 +21,19 @@ public:
 	virtual ~Inventory();
 
 	//Accessors
-	const unsigned& size() const;
-	const unsigned& maxSize() const;
+	unsigned& size();
+	unsigned& maxSize();
 
 	//Modifiers
 
 	//Functions
 	void clear();
-	const bool empty() const;
+	bool empty();
 
-	const bool add(Item* item);
-	const bool remove(const unsigned index);
+	bool add(Item* item);
+	bool remove(const unsigned index);
 
-	const bool saveToFile(const string fileName);
-	const bool loadFromFile(const string fileName);
+	bool saveToFile(const string fileName);
+	bool loadFromFile(const string fileName);
 };
 #endif

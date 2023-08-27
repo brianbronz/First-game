@@ -1,7 +1,6 @@
 #include "../Header/GraphicsSettings.h"
 
-GraphicsSettings::GraphicsSettings()
-{
+GraphicsSettings::GraphicsSettings(){
 	this->title = "DEFAULT";
 	this->resolution = VideoMode::getDesktopMode();
 	this->fullscreen = false;
@@ -11,12 +10,10 @@ GraphicsSettings::GraphicsSettings()
 	this->videoModes = VideoMode::getFullscreenModes();
 }
 
-void GraphicsSettings::saveToFile( string path)
-{
+void GraphicsSettings::saveToFile(string path){
 	ofstream ofs(path);
 
-	if (ofs.is_open())
-	{
+	if (ofs.is_open()){
 		ofs << this->title;
 		ofs << this->resolution.width << " " << this->resolution.height;
 		ofs << this->fullscreen;
@@ -28,12 +25,10 @@ void GraphicsSettings::saveToFile( string path)
 	ofs.close();
 }
 
-void GraphicsSettings::loadFromFile( string path)
-{
+void GraphicsSettings::loadFromFile( string path){
 	ifstream ifs(path);
 
-	if (ifs.is_open())
-	{
+	if (ifs.is_open()){
 		getline(ifs, this->title);
 		ifs >> this->resolution.width >> this->resolution.height;
 		ifs >> this->fullscreen;

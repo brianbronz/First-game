@@ -29,7 +29,9 @@ Enemy::Enemy(EnemySpawnerTile& enemy_spawner_tile): enemySpawnerTile(enemy_spawn
 	this->initAnimations();
 }
 
-Enemy::~Enemy(){}
+Enemy::~Enemy(){
+
+}
 
 
 unsigned & Enemy::getGainExp(){
@@ -45,15 +47,13 @@ void Enemy::generateAttributes(const unsigned level){
 }
 
 void Enemy::loseHP(const int hp){
-	if (this->attributeComponent)
-	{
+	if (this->attributeComponent){
 		this->attributeComponent->loseHP(hp);
 	}
 }
 
 bool Enemy::isDead(){
-	if (this->attributeComponent)
-	{
+	if (this->attributeComponent){
 		return this->attributeComponent->isDead();
 	}
 
@@ -63,8 +63,7 @@ bool Enemy::isDead(){
 AttributeComponent * Enemy::getAttributeComp() {
 	if (this->attributeComponent)
 		return this->attributeComponent;
-	else
-	{
+	else{
 		cout << "ERROR::ENEMY::ATTRIBUTECOMPONENT IS NOT INITIALIZED" << "\n";
 		return nullptr;
 	}

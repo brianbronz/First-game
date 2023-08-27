@@ -2,16 +2,10 @@
 
 PauseMenu::PauseMenu(VideoMode& vm, Font& font): font(font){
     //init background
-    this->background.setSize(Vector2f(
-        static_cast<float>(vm.width), 
-		static_cast<float>(vm.height)
-    ));
+    this->background.setSize(Vector2f(static_cast<float>(vm.width), static_cast<float>(vm.height)));
     this->background.setFillColor(Color::Black);
     //Init container
-    this->container.setSize(Vector2f(
-        	static_cast<float>(vm.width) / 4.f,
-			static_cast<float>(vm.height) - gui::p2pY(9.3f, vm)
-    ));
+    this->container.setSize(Vector2f(static_cast<float>(vm.width) / 4.f,static_cast<float>(vm.height) - gui::p2pY(9.3f, vm)));
     this->container.setFillColor(Color::Blue);
     this->container.setPosition(static_cast<float>(vm.width) / 2.f - this->container.getSize().x / 2.f, 30.f);
 

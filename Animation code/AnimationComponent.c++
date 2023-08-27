@@ -25,18 +25,6 @@ void AnimationComponent::addAnimation(string key,
     frames_x, frames_y, width, height);
 }
 
-void AnimationComponent::startAnimation(string animation){
-
-}
-
-void AnimationComponent::pauseAnimation(string animation){
-
-}
-
-void AnimationComponent::resetAnimation(string animation){
-
-}
-
 bool& AnimationComponent::play(string key, float& dt, bool priority){
     if (this->priorityAnimation){
         if(this->priorityAnimation == this->animations[key]){
@@ -56,7 +44,7 @@ bool& AnimationComponent::play(string key, float& dt, bool priority){
         if (priority){
             this->priorityAnimation = this->animations[key];
         }
-        if(this->lastAnimation != this->animations[key] ){
+        if (this->lastAnimation != this->animations[key] ){
             if (this->lastAnimation != NULL){
                 this->lastAnimation->reset();
             }

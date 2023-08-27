@@ -3,8 +3,7 @@
 #include "GameStates.c++"
 #include "../States/SettingsState.c++"
 //Initializer functions
-void MainMenuState::initVariables()
-{
+void MainMenuState::initVariables(){
 
 }
 
@@ -27,14 +26,12 @@ void MainMenuState::initKeybinds(){
 }
 
 void MainMenuState::initGui(){
-    
     VideoMode& vm = this->stateData->gfxSettings->resolution;
     //Background
     this->background.setSize(
 		Vector2f(static_cast<float>(vm.width), static_cast<float>(vm.height))
 	);
-	if (!this->backgroundTexture.loadFromFile("../Source Files/Resources/Images/Backgrounds/bg2.png"))
-	{
+	if (!this->backgroundTexture.loadFromFile("../Source Files/Resources/Images/Backgrounds/bg2.png")){
 		throw "ERROR::MAIN_MENU_STATE::FAILED_TO_LOAD_BACKGROUND_TEXTURE";
 	}
 
@@ -42,10 +39,7 @@ void MainMenuState::initGui(){
 
     //Button background
 	this->btnBackground.setSize(
-		Vector2f(
-			static_cast<float>(vm.width / 5), 
-			static_cast<float>(vm.height)
-		)
+		Vector2f(static_cast<float>(vm.width / 5), static_cast<float>(vm.height))
 	);
 
 	this->btnBackground.setPosition(gui::p2pX(11.5f, vm), 0.f);

@@ -13,8 +13,7 @@ EnemySpawnerTile::EnemySpawnerTile(int grid_x, int grid_y, float gridSizeF,
 	this->firstSpawn = true;
 }
 
-EnemySpawnerTile::~EnemySpawnerTile()
-{
+EnemySpawnerTile::~EnemySpawnerTile(){
 
 }
 

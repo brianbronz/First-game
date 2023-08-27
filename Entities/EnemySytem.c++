@@ -39,7 +39,6 @@ void EnemySystem::update(const float & dt){
 
 }
 
-void EnemySystem::render(RenderTarget * target)
-{
+void EnemySystem::render(RenderTarget * target){
 
 }

@@ -74,8 +74,4 @@ void TextTagSystem::render(RenderTarget & target)
 	for (int i = 0; i < this->tags.size(); i++){
 		this->tags[i]->render(target);
 	}
-/* 	for (auto&tag : this->tags)
-	{
-		tag->render(target);
-	} */
 }

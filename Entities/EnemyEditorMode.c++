@@ -1,8 +1,7 @@
 #include "../Header/AllReference.h"
 #include "../Header/EnemyEditorMode.h"
 
-void EnemyEditorMode::initVariables()
-{
+void EnemyEditorMode::initVariables(){
 	type = 0;
 	amount = 1;
 	timeToSpawn = 60;
@@ -10,8 +9,7 @@ void EnemyEditorMode::initVariables()
 }
 
 //Initializer functions
-void EnemyEditorMode::initGui()
-{
+void EnemyEditorMode::initGui(){
 	//Text
 	this->cursorText.setFont(*this->editorStateData->font);
 	this->cursorText.setFillColor(Color::White);
@@ -52,67 +50,49 @@ void EnemyEditorMode::updateInput(float & dt){
 		}	
 	}
 	//Remove a tile from the tilemap
-	else if (Mouse::isButtonPressed(Mouse::Right) && this->getKeytime())
-	{
-		if (!this->sidebar.getGlobalBounds().contains(Vector2f(*this->editorStateData->mousePosWindow)))
-		{
+	else if (Mouse::isButtonPressed(Mouse::Right) && this->getKeytime()){
+		if (!this->sidebar.getGlobalBounds().contains(Vector2f(*this->editorStateData->mousePosWindow))){
 			this->tileMap->removeTile(this->editorStateData->mousePosGrid->x, this->editorStateData->mousePosGrid->y, 0, TileTypes::ENEMYSPAWNER);
 		}
 	}
 
 	//Toggle collision
-	if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("TYPE_UP"))) && this->getKeytime())
-	{
-		if (Keyboard::isKeyPressed(Keyboard::LShift))
-		{
+	if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("TYPE_UP"))) && this->getKeytime()){
+		if (Keyboard::isKeyPressed(Keyboard::LShift)){
 			if (this->type > 0)
 				this->type--;
-		}
-		else if (this->type < 1000)
+		} else if (this->type < 1000)
 			this->type++;
 		else
 			this->type = 0;
-	}
-	else if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("AMOUNT_UP"))) && this->getKeytime())
-	{
-		if (Keyboard::isKeyPressed(Keyboard::LShift))
-		{
+	} else if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("AMOUNT_UP"))) && this->getKeytime()){
+		if (Keyboard::isKeyPressed(Keyboard::LShift)){
 			if (this->amount > 0)
 				this->amount--;
-		}
-		else if (this->amount < 1000)
+		} else if (this->amount < 1000)
 			this->amount++;
 		else
 			this->amount = 0;
-	}
-	else if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("TTS_UP"))) && this->getKeytime())
-	{
-		if (Keyboard::isKeyPressed(Keyboard::LShift))
-		{
+	} else if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("TTS_UP"))) && this->getKeytime()){
+		if (Keyboard::isKeyPressed(Keyboard::LShift)){
 			if (this->timeToSpawn > 0)
 				this->timeToSpawn--;
-		}
-		else if (this->timeToSpawn < 1000)
+		} else if (this->timeToSpawn < 1000)
 			this->timeToSpawn++;
 		else
 			this->timeToSpawn = 0;
-	}
-	else if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("MD_UP"))) && this->getKeytime())
-	{
-		if (Keyboard::isKeyPressed(Keyboard::LShift))
-		{
+	} else if (Keyboard::isKeyPressed(Keyboard::Key(this->editorStateData->keybinds->at("MD_UP"))) && this->getKeytime()) {
+		if (Keyboard::isKeyPressed(Keyboard::LShift)) {
 			if (this->maxDistance > 0)
 				this->maxDistance--;
-		}
-		else if (this->maxDistance < 1000)
+		} else if (this->maxDistance < 1000)
 			this->maxDistance++;
 		else
 			this->maxDistance = 0;
 	}
 }
 
-void EnemyEditorMode::updateGui(float & dt)
-{
+void EnemyEditorMode::updateGui(float & dt) {
 	this->selectorRect.setPosition(this->editorStateData->mousePosGrid->x * this->stateData->gridSize, this->editorStateData->mousePosGrid->y * this->stateData->gridSize);
 
 	this->cursorText.setPosition(this->editorStateData->mousePosView->x + 100.f, this->editorStateData->mousePosView->y - 50.f);
@@ -127,14 +107,12 @@ void EnemyEditorMode::updateGui(float & dt)
 	this->cursorText.setString(ss.str());
 }
 
-void EnemyEditorMode::update(float & dt)
-{
+void EnemyEditorMode::update(float & dt) {
 	this->updateInput(dt);
 	this->updateGui(dt);
 }
 
-void EnemyEditorMode::renderGui(RenderTarget & target)
-{
+void EnemyEditorMode::renderGui(RenderTarget & target) {
 	target.setView(*this->editorStateData->view);
 	target.draw(this->selectorRect);
 	target.draw(this->cursorText);
@@ -143,7 +121,6 @@ void EnemyEditorMode::renderGui(RenderTarget & target)
 	target.draw(this->sidebar);
 }
 
-void EnemyEditorMode::render(RenderTarget & target)
-{
+void EnemyEditorMode::render(RenderTarget & target) {
 	this->renderGui(target);
 }

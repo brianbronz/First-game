@@ -65,7 +65,6 @@ void GameState::initTextures(){
 }
 
 void GameState::initPauseMenu(){
-    
     VideoMode& vm = this->stateData->gfxSettings->resolution;
 	this->pMenu = new PauseMenu(this->stateData->gfxSettings->resolution, this->font);
     this->pMenu->addButton("QUIT", gui::p2pY(74.f, vm), gui::p2pX(13.f, vm), gui::p2pY(6.f, vm), gui::calcCharSize(vm), "Quit");
@@ -77,14 +76,12 @@ void GameState::initShaders(){
 	}
 }
 
-void GameState::initKeyTime()
-{
+void GameState::initKeyTime(){
 	this->keyTimeMax = 0.3f;
 	this->keyTimer.restart();
 }
 
-void GameState::initDebugText()
-{
+void GameState::initDebugText(){
 	this->debugText.setFont(this->font);
 	this->debugText.setFillColor(Color::White);
 	this->debugText.setCharacterSize(16);
@@ -145,10 +142,8 @@ GameState::~GameState(){
 	}
 }
 
-bool GameState::getKeyTime()
-{	
-	if (this->keyTimer.getElapsedTime().asSeconds() >= this->keyTimeMax)
-	{
+bool GameState::getKeyTime(){	
+	if (this->keyTimer.getElapsedTime().asSeconds() >= this->keyTimeMax){
 		this->keyTimer.restart();
 		return true;
 	}
@@ -206,8 +201,7 @@ void GameState::updatePlayerInput(float& dt){
 
 void GameState::updatePlayerGUI(float & dt){
 	this->playerGUI->update(dt);
-	if (Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("TOGGLE_PLAYER_TAB_CHARACTER"))) && this->getKeyTime())
-	{
+	if (Keyboard::isKeyPressed(Keyboard::Key(this->keybinds.at("TOGGLE_PLAYER_TAB_CHARACTER"))) && this->getKeyTime()){
 		this->playerGUI->toggleCharacterTab();
 	}
 }
@@ -235,8 +229,7 @@ void GameState::updateCombatAndEnemies(float & dt){
 		this->map->updateTileCollision(enemy, dt);
 		this->updateCombat(enemy, index, dt);
 		//DANGEROUS!!!
-		if (enemy->isDead())
-		{
+		if (enemy->isDead()) {
 			this->player->gainEXP(enemy->getGainExp());
 			this->tts->addTextTag(EXPERIENCE_TAG, this->player->getPosition().x - 40.f, this->player->getPosition().y - 30.f, static_cast<int>(enemy->getGainExp()), "+", "EXP");
 			this->enemySystem->removeEnemy(index);

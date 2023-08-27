@@ -1,7 +1,6 @@
 #include "../Header/Item.h"
 
-void Item::initVariables()
-{
+void Item::initVariables(){
 
 }
 

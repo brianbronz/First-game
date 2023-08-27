@@ -3,13 +3,11 @@
 #include "../../AI/AIFollow.c++"
 
 //Initializer functions
-void Bird1::initVariables()
-{
+void Bird1::initVariables(){
 
 }
 
-void Bird1::initAnimations()
-{
+void Bird1::initAnimations(){
 	this->animationComponent->addAnimation("IDLE", 25.f, 0, 0, 2, 0, 61, 57);
 	this->animationComponent->addAnimation("WALK_DOWN", 11.f, 0, 0, 2, 0, 61, 57);
 	this->animationComponent->addAnimation("WALK_LEFT", 11.f, 0, 1, 2, 1, 61, 57);
@@ -18,13 +16,11 @@ void Bird1::initAnimations()
 	//this->animationComponent->addAnimation("ATTACK", 5.f, 0, 2, 1, 2, 61, 57);
 }
 
-void Bird1::initAI()
-{
+void Bird1::initAI(){
 
 }
 
-void Bird1::initGUI()
-{
+void Bird1::initGUI(){
 	this->hpBar.setFillColor(Color::Red);
 	this->hpBar.setSize(Vector2f(60.f, 10.f));
 	this->hpBar.setPosition(this->sprite.getPosition());
@@ -57,26 +53,17 @@ Bird1::~Bird1(){
 void Bird1::updateAnimation(float& dt){
 	if (this->movementComponent->getState(IDLE)){
 		this->animationComponent->play("IDLE", dt);
-	}
-	else if (this->movementComponent->getState(MOVING_LEFT))
-	{
+	} else if (this->movementComponent->getState(MOVING_LEFT)){
 		this->animationComponent->play("WALK_LEFT", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
-	}
-	else if (this->movementComponent->getState(MOVING_RIGHT))
-	{
+	} else if (this->movementComponent->getState(MOVING_RIGHT)){
 		this->animationComponent->play("WALK_RIGHT", dt, this->movementComponent->getVelocity().x, this->movementComponent->getMaxVelocity());
-	}
-	else if (this->movementComponent->getState(MOVING_UP))
-	{
+	} else if (this->movementComponent->getState(MOVING_UP)){
 		this->animationComponent->play("WALK_UP", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
-	}
-	else if (this->movementComponent->getState(MOVING_DOWN))
-	{
+	} else if (this->movementComponent->getState(MOVING_DOWN)){
 		this->animationComponent->play("WALK_DOWN", dt, this->movementComponent->getVelocity().y, this->movementComponent->getMaxVelocity());
 	}
 
-	if (this->damageTimer.getElapsedTime().asMilliseconds() <= this->damageTimerMax)
-	{
+	if (this->damageTimer.getElapsedTime().asMilliseconds() <= this->damageTimerMax){
 		this->sprite.setColor(Color::Red);
 	}
 	else

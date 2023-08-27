@@ -13,6 +13,7 @@ void Game::initVariables(){
 void Game::initGraphicsSettings(){
     this->gfxSettings.loadFromFile("../Config/Graphics.ini");
 }
+
 void Game::initWindow(){
     //initialize the window from the window configuration
     if(this->gfxSettings.fullscreen){
@@ -113,8 +114,6 @@ void Game::update(){
         this->window->close();
     }
 }
-
-
 
 void Game::render(){
     this->window->clear();

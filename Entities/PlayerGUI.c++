@@ -1,8 +1,7 @@
 #include "../Header/PlayerGUI.h"
 #include "PlayerGUITabs.c++"
 
-void PlayerGUI::initFont()
-{
+void PlayerGUI::initFont(){
 	this->font.loadFromFile("../Fonts/Dosis-Light.ttf");
 }
 
@@ -112,14 +111,12 @@ bool PlayerGUI::getTabsOpen(){
 	return this->playerTabs->tabsOpen();
 }
 
-void PlayerGUI::toggleCharacterTab()
-{
+void PlayerGUI::toggleCharacterTab(){
 	this->playerTabs->toggleTab(CHARACTER_TAB);
 }
 
 //Functions
-void PlayerGUI::updateLevelBar()
-{
+void PlayerGUI::updateLevelBar(){
 	this->levelBarString = to_string(this->player->getAttributeComponent()->level);
 	this->levelBarText.setString(this->levelBarString);
 }
