@@ -6,9 +6,9 @@
 #include "../Source Files/Inventory.c++"
 //Initializer functions
 void Player::initVariables(){
-	this->initAttack = false;
+	this->initAttack = true;
 	this->attacking = false;
-	this->weapon = new Sword(1, 2, 5, 100, 20,  "../Source Files/Resources/Images/Sprites/Player/sword.png");
+	this->weapon = new Sword(1, 2, 5, 100, 20,  "Resources/Images/Sprites/Player/sword.png");
 	this->weapon->generate(1, 3);
 	this->damageTimerMax = 500;
 }
@@ -181,14 +181,11 @@ void Player::render(RenderTarget & target, Shader* shader, Vector2f lightPositio
 	if (shader){
 		shader->setUniform("hasTexture", true);
 		shader->setUniform("lightPos", lightPosition);
-		target.draw(this->sprite, shader);
 		shader->setUniform("hasTexture", true);
 		shader->setUniform("lightPos", lightPosition);
-		this->weapon->render(target, shader);
-	} else { 
-		target.draw(this->sprite);
-		this->weapon->render(target, shader);
 	}
+	target.draw(this->sprite);
+	this->weapon->render(target, shader);
 	if(show_hitbox){
 		this->hitboxComponent->render(target);
 	}

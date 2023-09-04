@@ -1,3 +1,5 @@
+#ifndef WEAPON_C
+#define WEAPON_C
 #include "../Header/AllReference.h"
 #include "../Header/Weapon.h"
 
@@ -57,3 +59,4 @@ bool Weapon::getAttackTimer(){
 	}
 	return false;
 }
+#endif

@@ -11,7 +11,7 @@ protected:
 	Texture weapon_texture;
 	Sprite weapon_sprite;
 
-	const unsigned damageMin;
+	unsigned damageMin;
 	unsigned damageMax;
 	unsigned range;
 

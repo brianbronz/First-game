@@ -312,7 +312,7 @@ void GameState::updateCombat(Enemy* enemy, int index, const float & dt)
 	if (enemy->getGlobalBounds().intersects(this->player->getGlobalBounds()) && this->player->getDamageTimer()){
 		int dmg = enemy->getAttributeComp()->damageMax;
 		this->player->loseHP(dmg);
-		this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x - 50.f, enemy->getPosition().y, dmg, "-", "HP");
+		this->tts->addTextTag(NEGATIVE_TAG, enemy->getPosition().x - 30.f, enemy->getPosition().y, dmg, "-", "HP");
 	}
 	
 }

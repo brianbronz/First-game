@@ -1,5 +1,6 @@
 #include "../Header/MeleeWeapon.h"
 #include "../Source Files/Item.c++"
+#include "Weapon.c++"
 MeleeWeapon::MeleeWeapon(unsigned level, unsigned damageMin, unsigned damageMax, unsigned range,
 	unsigned value, string texture_file): Weapon(level, damageMin, damageMax, range, value, texture_file)
 {
